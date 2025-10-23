@@ -1,0 +1,422 @@
+<!-- SOQL Configuration Mode with SLDS 2.0 -->
+<div class="slds-p-around_large">
+    <!-- Page Header -->
+    <div class="slds-page-header slds-m-bottom_medium">
+        <div class="slds-page-header__row">
+            <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-code-playground">
+                            <svg class="slds-icon slds-page-header__icon">
+                                <use xlink:href="/shared/assets/slds/icons/standard-sprite/svg/symbols.svg#code_playground"></use>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h1 class="slds-page-header__title slds-truncate">SOQL Configuration</h1>
+                        <p class="slds-text-body_regular">Define your comparison using SOQL queries</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Query Mode Selection using Radio Button Group -->
+    <div class="slds-card slds-m-bottom_medium">
+        <div class="slds-card__header">
+            <h2 class="slds-card__header-title">Query Mode</h2>
+        </div>
+        <div class="slds-card__body slds-card__body_inner">
+            <fieldset class="slds-form-element">
+                <legend class="slds-form-element__label slds-text-title_caps">Select Query Mode</legend>
+                <div class="slds-form-element__control">
+                    <div class="slds-radio_button-group">
+                        <span class="slds-button slds-radio_button">
+                            <input type="radio" name="queryMode" id="shared-query" value="shared" checked />
+                            <label class="slds-radio_button__label" for="shared-query">
+                                <span class="slds-radio_faux">Shared Query</span>
+                            </label>
+                        </span>
+                        <span class="slds-button slds-radio_button">
+                            <input type="radio" name="queryMode" id="separate-query" value="separate" />
+                            <label class="slds-radio_button__label" for="separate-query">
+                                <span class="slds-radio_faux">Separate Queries</span>
+                            </label>
+                        </span>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <!-- Main Configuration Area -->
+    <div class="slds-grid slds-gutters">
+        <!-- Left Panel - Configuration -->
+        <div class="slds-col slds-size_1-of-2">
+            <!-- Object and Foreign Key Selection -->
+            <div class="slds-card slds-m-bottom_medium">
+                <div class="slds-card__body slds-card__body_inner">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="object-select">
+                                    <abbr class="slds-required" title="required">*</abbr>Object
+                                </label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-combobox_container">
+                                        <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click">
+                                            <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right">
+                                                <input type="text" class="slds-input slds-combobox__input" 
+                                                       id="object-select" placeholder="Select an object..." />
+                                                <span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
+                                                    <svg class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default">
+                                                        <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#down"></use>
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="foreign-key">
+                                    <abbr class="slds-required" title="required">*</abbr>Foreign Key
+                                </label>
+                                <div class="slds-form-element__control">
+                                    <input type="text" class="slds-input" id="foreign-key" placeholder="Enter foreign key field..." />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SOQL Query Builder Nested Cards -->
+            <div id="shared-query-section">
+                <!-- SELECT Card -->
+                <article class="slds-card slds-m-bottom_small">
+                    <div class="slds-card__header">
+                        <h3 class="slds-card__header-title">SELECT</h3>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <textarea class="slds-textarea" id="select-fields" rows="3" 
+                                          placeholder="Enter fields to select (e.g., Id, Name, Amount__c)"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- FROM Card -->
+                <article class="slds-card slds-m-bottom_small">
+                    <div class="slds-card__header">
+                        <h3 class="slds-card__header-title">FROM <span id="from-object" class="slds-text-color_weak"></span></h3>
+                    </div>
+                </article>
+
+                <!-- WHERE Card -->
+                <article class="slds-card">
+                    <div class="slds-card__header">
+                        <h3 class="slds-card__header-title">WHERE</h3>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <input type="text" class="slds-input" id="where-clause" 
+                                       placeholder="Enter WHERE conditions (optional)" />
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Separate Query Section (Hidden by default) -->
+            <div id="separate-query-section" class="slds-hide">
+                <div id="org-specific-queries">
+                    <!-- Org-specific query cards will be added dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel - Preview and Validation -->
+        <div class="slds-col slds-size_1-of-2">
+            <!-- Query Preview Card -->
+            <div class="slds-card slds-m-bottom_medium">
+                <div class="slds-card__header">
+                    <h3 class="slds-card__header-title">Query Preview</h3>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    <div class="slds-box slds-theme_shade">
+                        <pre id="query-preview" class="slds-text-body_small">SELECT Id FROM Account</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Validation Results -->
+            <div class="slds-card">
+                <div class="slds-card__header">
+                    <h3 class="slds-card__header-title">Validation</h3>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    <div id="validation-results">
+                        <div class="slds-text-color_weak slds-text-body_small">
+                            Click "Validate Query" to check your SOQL syntax
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="slds-m-top_large">
+        <div class="slds-grid slds-grid_align-center">
+            <div class="slds-button-group" role="group">
+                <button class="slds-button slds-button_neutral" id="validate-btn">
+                    <svg class="slds-button__icon slds-button__icon_left">
+                        <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#check"></use>
+                    </svg>
+                    Validate Query
+                </button>
+                <button class="slds-button slds-button_brand" id="download-btn" disabled>
+                    <svg class="slds-button__icon slds-button__icon_left">
+                        <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#download"></use>
+                    </svg>
+                    Download Config
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container for Notifications -->
+    <div id="toast-container" style="position: fixed; top: 1rem; right: 1rem; z-index: 10000;"></div>
+</div>
+
+<script>
+// Initialize SOQL Configuration
+(function() {
+    const selectedOrgs = JSON.parse(sessionStorage.getItem('selectedOrganizations') || '[]');
+    const queryModeRadios = document.querySelectorAll('input[name="queryMode"]');
+    const sharedSection = document.getElementById('shared-query-section');
+    const separateSection = document.getElementById('separate-query-section');
+    const objectSelect = document.getElementById('object-select');
+    const fromObject = document.getElementById('from-object');
+    const selectFields = document.getElementById('select-fields');
+    const whereClause = document.getElementById('where-clause');
+    const foreignKey = document.getElementById('foreign-key');
+    const queryPreview = document.getElementById('query-preview');
+    const validateBtn = document.getElementById('validate-btn');
+    const downloadBtn = document.getElementById('download-btn');
+
+    // Handle query mode change
+    queryModeRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            if (e.target.value === 'shared') {
+                sharedSection.classList.remove('slds-hide');
+                separateSection.classList.add('slds-hide');
+            } else {
+                sharedSection.classList.add('slds-hide');
+                separateSection.classList.remove('slds-hide');
+                buildSeparateQueryCards();
+            }
+            updateQueryPreview();
+        });
+    });
+
+    // Build separate query cards for each org
+    function buildSeparateQueryCards() {
+        const container = document.getElementById('org-specific-queries');
+        container.innerHTML = '';
+        
+        selectedOrgs.forEach(org => {
+            const card = document.createElement('article');
+            card.className = 'slds-card slds-m-bottom_medium';
+            card.innerHTML = `
+                <div class="slds-card__header">
+                    <h3 class="slds-card__header-title">${org.username}</h3>
+                </div>
+                <div class="slds-card__body slds-card__body_inner">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">WHERE</label>
+                        <div class="slds-form-element__control">
+                            <input type="text" class="slds-input org-where-clause" 
+                                   data-org="${org.username}"
+                                   placeholder="Enter WHERE conditions for ${org.alias || org.username}" />
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    // Update query preview
+    function updateQueryPreview() {
+        const object = objectSelect.value || 'Account';
+        const fields = selectFields.value || 'Id';
+        const where = whereClause.value;
+        
+        fromObject.textContent = object;
+        
+        let query = `SELECT ${fields}\nFROM ${object}`;
+        if (where) {
+            query += `\nWHERE ${where}`;
+        }
+        
+        queryPreview.textContent = query;
+    }
+
+    // Input listeners
+    objectSelect.addEventListener('input', updateQueryPreview);
+    selectFields.addEventListener('input', updateQueryPreview);
+    whereClause.addEventListener('input', updateQueryPreview);
+
+    // Validation with backend
+    validateBtn.addEventListener('click', () => {
+        const object = objectSelect.value;
+        const query = queryPreview.textContent;
+        
+        if (!object) {
+            showToast('error', 'Please select an object');
+            return;
+        }
+        
+        if (!selectFields.value) {
+            showToast('error', 'Please enter fields to select');
+            return;
+        }
+        
+        // Call backend validation
+        fetch('/data-comparison/api/soql/validate-soql', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                query: query,
+                selectedObject: object,
+                mode: document.querySelector('input[name="queryMode"]:checked').value
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showToast('success', `Query validated! ${data.data.fieldCount} fields detected.`);
+                
+                // Auto-set foreign key if detected
+                if (data.data.foreignKey && !foreignKey.value) {
+                    foreignKey.value = data.data.foreignKey;
+                    showToast('info', `Foreign key auto-detected: ${data.data.foreignKey}`);
+                }
+                
+                // Update preview with cleaned query
+                queryPreview.textContent = data.data.cleanedQuery;
+                
+                downloadBtn.disabled = false;
+            } else {
+                showToast('error', data.error || 'Validation failed');
+                downloadBtn.disabled = true;
+            }
+        })
+        .catch(error => {
+            showToast('error', 'Failed to validate query');
+            console.error('Validation error:', error);
+        });
+    });
+
+    // Download configuration using backend
+    downloadBtn.addEventListener('click', () => {
+        const mode = document.querySelector('input[name="queryMode"]:checked').value;
+        let queries;
+        
+        if (mode === 'shared') {
+            queries = queryPreview.textContent;
+        } else {
+            // Collect separate queries for each org
+            queries = selectedOrgs.map(org => {
+                const whereInput = document.querySelector(`input[data-org="${org.username}"]`);
+                const where = whereInput ? whereInput.value : '';
+                let query = `SELECT ${selectFields.value || 'Id'}\nFROM ${objectSelect.value || 'Account'}`;
+                if (where) {
+                    query += `\nWHERE ${where}`;
+                }
+                return { org: org.username, query: query };
+            });
+        }
+        
+        // Generate config via backend
+        fetch('/data-comparison/api/soql/generate-soql-config', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                queries: queries,
+                mode: mode,
+                organizations: selectedOrgs,
+                foreignKey: foreignKey.value
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Download the generated config
+                const blob = new Blob([JSON.stringify(data.config, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${data.configId}.json`;
+                a.click();
+                
+                showToast('success', 'Configuration generated and downloaded successfully');
+                
+                // Optionally redirect to comparison
+                setTimeout(() => {
+                    if (confirm('Configuration saved. Start comparison now?')) {
+                        window.location.href = `/data-comparison/comparison-status?configId=${data.configId}`;
+                    }
+                }, 1500);
+            } else {
+                showToast('error', data.error || 'Failed to generate configuration');
+            }
+        })
+        .catch(error => {
+            showToast('error', 'Failed to generate configuration');
+            console.error('Generation error:', error);
+        });
+    });
+
+    // Toast notification helper
+    function showToast(type, message) {
+        const toastContainer = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = `slds-notify_container slds-is-relative`;
+        
+        const theme = type === 'success' ? 'slds-theme_success' : 
+                     type === 'error' ? 'slds-theme_error' : 
+                     type === 'warning' ? 'slds-theme_warning' : '';
+        
+        toast.innerHTML = `
+            <div class="slds-notify slds-notify_toast ${theme}" role="status">
+                <span class="slds-assistive-text">${type}</span>
+                <span class="slds-icon_container slds-icon-utility-${type} slds-m-right_small slds-no-flex slds-align-top">
+                    <svg class="slds-icon slds-icon_small">
+                        <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#${type}"></use>
+                    </svg>
+                </span>
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small">${message}</h2>
+                </div>
+            </div>
+        `;
+        
+        toastContainer.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.remove();
+        }, 5000);
+    }
+
+    // Initialize
+    updateQueryPreview();
+})();
+</script>

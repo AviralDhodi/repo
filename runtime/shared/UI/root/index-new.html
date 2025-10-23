@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salesforce Comparison Toolset</title>
+    <link rel="stylesheet" href="/shared/assets/slds/styles/salesforce-lightning-design-system.min.css">
+    <link rel="stylesheet" href="/shared/assets/css/slds-2.0-enhanced.css">
+    <style>
+        body {
+            background-color: #f3f3f3;
+        }
+        .app-launcher-trigger {
+            cursor: pointer;
+            position: relative;
+        }
+        .app-launcher-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            z-index: 9000;
+            min-width: 320px;
+            display: none;
+        }
+        .app-launcher-menu.slds-is-open {
+            display: block;
+        }
+        .illustration-container {
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .app-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .app-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .slds-illustration__svg {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="slds-scope">
+        <!-- Global Header with App Launcher -->
+        <header class="slds-global-header_container">
+            <div class="slds-global-header slds-grid slds-grid_align-spread">
+                <div class="slds-global-header__item">
+                    <div class="slds-global-header__logo">
+                        <span class="slds-icon_container slds-icon-standard-lightning-component">
+                            <svg class="slds-icon slds-icon_large">
+                                <use xlink:href="/shared/assets/slds/icons/standard-sprite/svg/symbols.svg#lightning_component"></use>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="slds-global-header__item slds-global-header__item_search">
+                    <div class="slds-text-heading_medium">
+                        Salesforce Comparison Toolset
+                    </div>
+                </div>
+                <div class="slds-global-header__item">
+                    <!-- App Launcher Waffle Icon -->
+                    <div class="app-launcher-trigger" id="appLauncherTrigger">
+                        <button class="slds-button slds-button_icon slds-button_icon-container slds-button_icon-small slds-global-header__button_icon" title="App Launcher">
+                            <svg class="slds-button__icon slds-global-header__icon" aria-hidden="true">
+                                <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#apps"></use>
+                            </svg>
+                            <span class="slds-assistive-text">App Launcher</span>
+                        </button>
+                        
+                        <!-- App Launcher Dropdown Menu -->
+                        <div class="app-launcher-menu" id="appLauncherMenu">
+                            <section class="slds-dropdown slds-dropdown_right slds-dropdown_large">
+                                <div class="slds-dropdown__header">
+                                    <span class="slds-text-heading_small">App Launcher</span>
+                                </div>
+                                <ul class="slds-dropdown__list" role="menu">
+                                    <li class="slds-dropdown__item" role="presentation">
+                                        <a href="/data-comparison" role="menuitem" tabindex="0">
+                                            <span class="slds-truncate">
+                                                <span class="slds-icon_container slds-icon-standard-data-mapping slds-m-right_x-small">
+                                                    <svg class="slds-icon slds-icon_x-small">
+                                                        <use xlink:href="/shared/assets/slds/icons/standard-sprite/svg/symbols.svg#data_mapping"></use>
+                                                    </svg>
+                                                </span>
+                                                Data Comparison
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="slds-dropdown__item" role="presentation">
+                                        <a href="/permissions-analyser" role="menuitem" tabindex="-1">
+                                            <span class="slds-truncate">
+                                                <span class="slds-icon_container slds-icon-standard-user-role slds-m-right_x-small">
+                                                    <svg class="slds-icon slds-icon_x-small">
+                                                        <use xlink:href="/shared/assets/slds/icons/standard-sprite/svg/symbols.svg#user_role"></use>
+                                                    </svg>
+                                                </span>
+                                                Permissions Analyser
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="slds-container_fluid slds-p-around_large" role="main">
+            
+            <!-- Illustration Section -->
+            <div class="illustration-container slds-m-bottom_xx-large">
+                <div class="slds-illustration slds-illustration_large">
+                    <svg class="slds-illustration__svg" viewBox="0 0 468 229" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g transform="translate(-67.000000, -86.000000)">
+                                <g>
+                                    <g transform="translate(67.000000, 86.000000)">
+                                        <g transform="translate(135.000000, 77.000000)">
+                                            <polyline vector-effect="non-scaling-stroke" stroke="#5876A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="15 137 15 18 194 18"></polyline>
+                                            <polyline vector-effect="non-scaling-stroke" stroke="#5876A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="15 107 99 107 109 117"></polyline>
+                                            <polyline vector-effect="non-scaling-stroke" stroke="#5876A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="15 77 85 77 95 87"></polyline>
+                                            <polyline vector-effect="non-scaling-stroke" stroke="#5876A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="15 47 71 47 81 57"></polyline>
+                                            <circle vector-effect="non-scaling-stroke" stroke="#5876A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" cx="5" cy="137" r="5"></circle>
+                                            <circle vector-effect="non-scaling-stroke" stroke="#5876A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" cx="5" cy="107" r="5"></circle>
+                                            <circle vector-effect="non-scaling-stroke" stroke="#5876A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" cx="5" cy="77" r="5"></circle>
+                                            <circle vector-effect="non-scaling-stroke" stroke="#5876A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" cx="5" cy="47" r="5"></circle>
+                                            <circle vector-effect="non-scaling-stroke" stroke="#5876A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" cx="5" cy="17" r="5"></circle>
+                                        </g>
+                                        <g transform="translate(279.000000, 83.000000)" fill="#FFFFFF">
+                                            <path vector-effect="non-scaling-stroke" d="M111,36 L111,90.0391011 C111,92.2482541 109.209139,94.0391011 107,94.0391011 L4,94.0391011 C1.790861,94.0391011 2.705415e-16,92.2482541 0,90.0391011 L0,4 C-2.705415e-16,1.790861 1.790861,4.05812251e-16 4,0 L75,0 L111,36 Z" stroke="#5876A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path vector-effect="non-scaling-stroke" d="M75,0 L75,32 C75,34.209139 76.790861,36 79,36 L111,36 L75,0 Z" stroke="#5876A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        </g>
+                                        <g transform="translate(105.000000, 169.000000)" fill="#FFFFFF">
+                                            <path vector-effect="non-scaling-stroke" d="M111,36 L111,56 C111,58.209139 109.209139,60 107,60 L4,60 C1.790861,60 2.705415e-16,58.209139 0,56 L0,4 C-2.705415e-16,1.790861 1.790861,4.05812251e-16 4,0 L75,0 L111,36 Z" stroke="#5876A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path vector-effect="non-scaling-stroke" d="M75,0 L75,32 C75,34.209139 76.790861,36 79,36 L111,36 L75,0 Z" stroke="#5876A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        </g>
+                                        <g transform="translate(205.000000, 139.000000)" fill="#FFFFFF">
+                                            <path vector-effect="non-scaling-stroke" d="M111,36 L111,56 C111,58.209139 109.209139,60 107,60 L4,60 C1.790861,60 2.705415e-16,58.209139 0,56 L0,4 C-2.705415e-16,1.790861 1.790861,4.05812251e-16 4,0 L75,0 L111,36 Z" stroke="#5876A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path vector-effect="non-scaling-stroke" d="M75,0 L75,32 C75,34.209139 76.790861,36 79,36 L111,36 L75,0 Z" stroke="#5876A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        </g>
+                                        <g transform="translate(305.000000, 109.000000)" fill="#FFFFFF">
+                                            <path vector-effect="non-scaling-stroke" d="M111,36 L111,56 C111,58.209139 109.209139,60 107,60 L4,60 C1.790861,60 2.705415e-16,58.209139 0,56 L0,4 C-2.705415e-16,1.790861 1.790861,4.05812251e-16 4,0 L75,0 L111,36 Z" stroke="#5876A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path vector-effect="non-scaling-stroke" d="M75,0 L75,32 C75,34.209139 76.790861,36 79,36 L111,36 L75,0 Z" stroke="#5876A3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        </g>
+                                        <g>
+                                            <path vector-effect="non-scaling-stroke" d="M234.5,229 L234.5,200 C234.5,196.134007 237.634007,193 241.5,193 C245.365993,193 248.5,196.134007 248.5,200 L248.5,229" stroke="#5876A3" stroke-width="2" fill="#E8F4F8"></path>
+                                            <path vector-effect="non-scaling-stroke" d="M219.5,229 L219.5,207 C219.5,203.134007 222.634007,200 226.5,200 C230.365993,200 233.5,203.134007 233.5,207 L233.5,229" stroke="#5876A3" stroke-width="2" fill="#CAEEF9"></path>
+                                            <path vector-effect="non-scaling-stroke" d="M204.5,229 L204.5,191 C204.5,187.134007 207.634007,184 211.5,184 C215.365993,184 218.5,187.134007 218.5,191 L218.5,229" stroke="#5876A3" stroke-width="2" fill="#A8E0F0"></path>
+                                            <path vector-effect="non-scaling-stroke" d="M189.5,229 L189.5,197 C189.5,193.134007 192.634007,190 196.5,190 C200.365993,190 203.5,193.134007 203.5,197 L203.5,229" stroke="#5876A3" stroke-width="2" fill="#77D0E8"></path>
+                                            <path vector-effect="non-scaling-stroke" d="M249.5,229 L249.5,205 C249.5,201.134007 252.634007,198 256.5,198 C260.365993,198 263.5,201.134007 263.5,205 L263.5,229" stroke="#5876A3" stroke-width="2" fill="#E8F4F8"></path>
+                                            <path vector-effect="non-scaling-stroke" d="M264.5,229 L264.5,213 C264.5,209.134007 267.634007,206 271.5,206 C275.365993,206 278.5,209.134007 278.5,213 L278.5,229" stroke="#5876A3" stroke-width="2" fill="#CAEEF9"></path>
+                                        </g>
+                                        <path vector-effect="non-scaling-stroke" d="M0,229 L468,229" stroke="#5876A3" stroke-width="2"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                    <div class="slds-text-heading_large slds-m-top_x-large">Choose An App</div>
+                    <div class="slds-text-body_regular slds-text-color_weak slds-m-top_x-small">Built for Salesforce</div>
+                </div>
+            </div>
+
+            <!-- Application Cards -->
+            <div class="slds-container_x-large slds-container_center">
+                <div class="slds-grid slds-gutters slds-wrap">
+                    <!-- Data Comparison App Card -->
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                        <article class="slds-card app-card" onclick="window.location.href='/data-comparison'">
+                            <div class="slds-card__header slds-grid">
+                                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                    <div class="slds-media__figure">
+                                        <span class="slds-icon_container slds-icon-standard-data-mapping">
+                                            <svg class="slds-icon">
+                                                <use xlink:href="/shared/assets/slds/icons/standard-sprite/svg/symbols.svg#data_mapping"></use>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <h2 class="slds-card__header-title">
+                                            <span class="slds-text-heading_medium">Data Comparison</span>
+                                        </h2>
+                                    </div>
+                                </header>
+                            </div>
+                            <div class="slds-card__body slds-card__body_inner">
+                                <p class="slds-text-body_regular slds-m-bottom_medium">
+                                    Compare Salesforce CPQ data across multiple orgs with advanced filtering and analysis.
+                                </p>
+                                <div class="slds-badge-set">
+                                    <span class="slds-badge">Multi-Org</span>
+                                    <span class="slds-badge">CPQ</span>
+                                    <span class="slds-badge">Real-time</span>
+                                </div>
+                            </div>
+                            <footer class="slds-card__footer">
+                                <span class="slds-text-color_weak">Click to launch</span>
+                            </footer>
+                        </article>
+                    </div>
+
+                    <!-- Permissions Analyser App Card -->
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+                        <article class="slds-card app-card" onclick="window.location.href='/permissions-analyser'">
+                            <div class="slds-card__header slds-grid">
+                                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                    <div class="slds-media__figure">
+                                        <span class="slds-icon_container slds-icon-standard-user-role">
+                                            <svg class="slds-icon">
+                                                <use xlink:href="/shared/assets/slds/icons/standard-sprite/svg/symbols.svg#user_role"></use>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <h2 class="slds-card__header-title">
+                                            <span class="slds-text-heading_medium">Permissions Analyser</span>
+                                        </h2>
+                                    </div>
+                                </header>
+                            </div>
+                            <div class="slds-card__body slds-card__body_inner">
+                                <p class="slds-text-body_regular slds-m-bottom_medium">
+                                    Analyze and compare permission sets, profiles, and security configurations.
+                                </p>
+                                <div class="slds-badge-set">
+                                    <span class="slds-badge">Security</span>
+                                    <span class="slds-badge">Profiles</span>
+                                    <span class="slds-badge">Compliance</span>
+                                </div>
+                            </div>
+                            <footer class="slds-card__footer">
+                                <span class="slds-text-color_weak">Click to launch</span>
+                            </footer>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // App Launcher Toggle
+        document.getElementById('appLauncherTrigger').addEventListener('click', function(e) {
+            e.stopPropagation();
+            const menu = document.getElementById('appLauncherMenu');
+            menu.classList.toggle('slds-is-open');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function() {
+            const menu = document.getElementById('appLauncherMenu');
+            if (menu.classList.contains('slds-is-open')) {
+                menu.classList.remove('slds-is-open');
+            }
+        });
+
+        // Prevent menu clicks from closing the menu
+        document.getElementById('appLauncherMenu').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    </script>
+</body>
+</html>

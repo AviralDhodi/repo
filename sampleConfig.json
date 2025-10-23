@@ -1,0 +1,826 @@
+{
+  "version": "2.0.0",
+  "createdAt": "2025-08-11T17:14:40.679Z",
+  "orgs": [
+    "aviral.dhodi@spglobal.com.mibokatan",
+    "aviral.dhodi@spglobal.com.miomega"
+  ],
+  "objects": {
+    "blng__RevenueDistributionMethod__c": {
+      "fields": [
+        "Name",
+        "SR_ExternalID__c",
+        "blng__Active__c",
+        "blng__DistributionMethod__c",
+        "blng__FullRecognitionDate__c",
+        "blng__MonthlyRecognitionProration__c",
+        "blng__RevenueScheduleTermEndDate__c",
+        "blng__RevenueScheduleTermStartDate__c",
+        "blng__RevenueTransactionCreationProcess__c",
+        "blng__Type__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "blng__Active__c = TRUE AND SR_ExternalID__c IN ('aBw8N0000008PUASA2', 'aBw8N0000008PR1SAM', 'aBw8N0000008PRGSA2')"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "blng__Active__c = TRUE AND SR_ExternalID__c IN ('aBw8N0000008PUASA2', 'aBw8N0000008PR1SAM', 'aBw8N0000008PRGSA2')"
+        }
+      }
+    },
+    "blng__InvoicePlan__c": {
+      "fields": [
+        "Name",
+        "blng__Active__c",
+        "blng__BillingScheduleCreation__c",
+        "SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SR_ExternalID__c IN ('aBY8N00000008MDWAY')"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SR_ExternalID__c IN ('aBY8N00000008MDWAY')"
+        }
+      }
+    },
+    "blng__InvoicePlanLine__c": {
+      "fields": [
+        "Name",
+        "blng__CommencementDate__c",
+        "blng__CommencementDateOffset__c",
+        "blng__CommencementDateOffsetUnits__c",
+        "blng__Percentage__c",
+        "blng__ProcessingOrder__c",
+        "blng__ServicePeriodEnd__c",
+        "blng__ServicePeriodStart__c",
+        "blng__Type__c",
+        "SR_ExternalID__c",
+        "blng__InvoicePlan__c.SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SR_ExternalID__c IN ('aBX8N00000001YwWAI')"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SR_ExternalID__c IN ('aBX8N00000001YwWAI')"
+        }
+      }
+    },
+    "blng__BillingRule__c": {
+      "fields": [
+        "Name",
+        "blng__Active__c",
+        "blng__AmendmentBillCycleDateAlignment__c",
+        "blng__GenerateInvoices__c",
+        "blng__InitialBillingTrigger__c",
+        "SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SR_ExternalID__c IN ('aBD8N0000008SkJWAU')"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SR_ExternalID__c IN ('aBD8N0000008SkJWAU')"
+        }
+      }
+    },
+    "blng__BillingTreatment__c": {
+      "fields": [
+        "Name",
+        "blng__Active__c",
+        "blng__CancellationRule__c",
+        "SR_ExternalID__c",
+        "blng__BillingFinanceBook__c.SR_ExternalID__c",
+        "blng__BillingLegalEntity__c.SR_ExternalID__c",
+        "blng__BillingRule__c.SR_ExternalID__c",
+        "blng__InvoicePlan__c.SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "blng__Active__c = TRUE"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "blng__Active__c = TRUE"
+        }
+      }
+    },
+    "blng__GLRule__c": {
+      "fields": [
+        "blng__Active__c",
+        "Name",
+        "SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "blng__Active__c = TRUE AND SR_ExternalID__c IN ('aBT8N00000008WHWAY', 'aBT8N00000008YlWAI', 'aBT8N00000008YmWAI', 'aBT8N00000008YnWAI', 'aBT8N00000008YoWAI', 'aBT8N00000008YpWAI', 'aBT8N00000008YqWAI', 'aBT8N00000008YrWAI', 'aBT8N00000008YsWAI', 'aBT8N00000008YtWAI', 'aBT8N00000008YuWAI', 'aBT8N00000008YvWAI', 'aBT8N00000008YwWAI', 'aBT8N00000008YxWAI', 'aBT8N00000008YyWAI', 'aBT8N00000008YzWAI', 'aBT8N00000008Z0WAI', 'aBT8N00000008Z1WAI', 'aBT8N00000008Z2WAI', 'aBT8N00000008Z3WAI', 'aBT8N00000008Z4WAI', 'aBT8N00000008Z5WAI', 'aBT8N00000008Z6WAI', 'aBT8N00000008Z7WAI', 'aBT8N00000008Z8WAI', 'aBT8N00000008Z9WAI', 'aBT8N00000008ZAWAY', 'aBT8N00000008ZBWAY', 'aBT8N00000008ZCWAY', 'aBT8N00000008ZDWAY', 'aBT8N00000008ZEWAY', 'aBT8N00000008ZFWAY', 'aBT8N00000008ZGWAY', 'aBT8N00000008ZHWAY', 'aBT8N00000008ZIWAY', 'aBT8N00000008ZJWAY', 'aBT8N00000008ZKWAY', 'aBT8N00000008ZLWAY', 'aBT8N00000008YcWAI', 'aBT8N00000008YhWAI', 'aBT8N00000008YiWAI', 'aBT8N00000008YjWAI', 'aBT8N00000008YkWAI')"
+        },
+        "aviral.dhodi@spglobal.com.miomega": {
+          "customFilter": "blng__Active__c = TRUE AND SR_ExternalID__c IN ('aBT8N00000008WHWAY', 'aBT8N00000008YlWAI', 'aBT8N00000008YmWAI', 'aBT8N00000008YnWAI', 'aBT8N00000008YoWAI', 'aBT8N00000008YpWAI', 'aBT8N00000008YqWAI', 'aBT8N00000008YrWAI', 'aBT8N00000008YsWAI', 'aBT8N00000008YtWAI', 'aBT8N00000008YuWAI', 'aBT8N00000008YvWAI', 'aBT8N00000008YwWAI', 'aBT8N00000008YxWAI', 'aBT8N00000008YyWAI', 'aBT8N00000008YzWAI', 'aBT8N00000008Z0WAI', 'aBT8N00000008Z1WAI', 'aBT8N00000008Z2WAI', 'aBT8N00000008Z3WAI', 'aBT8N00000008Z4WAI', 'aBT8N00000008Z5WAI', 'aBT8N00000008Z6WAI', 'aBT8N00000008Z7WAI', 'aBT8N00000008Z8WAI', 'aBT8N00000008Z9WAI', 'aBT8N00000008ZAWAY', 'aBT8N00000008ZBWAY', 'aBT8N00000008ZCWAY', 'aBT8N00000008ZDWAY', 'aBT8N00000008ZEWAY', 'aBT8N00000008ZFWAY', 'aBT8N00000008ZGWAY', 'aBT8N00000008ZHWAY', 'aBT8N00000008ZIWAY', 'aBT8N00000008ZJWAY', 'aBT8N00000008ZKWAY', 'aBT8N00000008ZLWAY', 'aBT8N00000008YcWAI', 'aBT8N00000008YhWAI', 'aBT8N00000008YiWAI', 'aBT8N00000008YjWAI', 'aBT8N00000008YkWAI')"
+        }
+      }
+    },
+    "blng__GLTreatment__c": {
+      "fields": [
+        "Name",
+        "blng__Active__c",
+        "SR_Currency__c",
+        "SR_EventActions__c",
+        "SR_ExternalID__c",
+        "SR_Financial_Transaction_Event_Type__c",
+        "blng__GLLegalEntity__c.SR_ExternalID__c",
+        "blng__GLRule__c.SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "WHERE blng__Active__c = TRUE AND (blng__GLRule__r.SR_ExternalID__c IN ('aBT8N00000008WHWAY', 'aBT8N00000008YlWAI', 'aBT8N00000008YmWAI', 'aBT8N00000008YnWAI', 'aBT8N00000008YoWAI', 'aBT8N00000008YpWAI', 'aBT8N00000008YqWAI', 'aBT8N00000008YrWAI', 'aBT8N00000008YsWAI', 'aBT8N00000008YtWAI', 'aBT8N00000008YuWAI', 'aBT8N00000008YvWAI', 'aBT8N00000008YwWAI', 'aBT8N00000008YxWAI', 'aBT8N00000008YyWAI', 'aBT8N00000008YzWAI', 'aBT8N00000008Z0WAI', 'aBT8N00000008Z1WAI', 'aBT8N00000008Z2WAI', 'aBT8N00000008Z3WAI', 'aBT8N00000008Z4WAI', 'aBT8N00000008Z5WAI', 'aBT8N00000008Z6WAI', 'aBT8N00000008Z7WAI', 'aBT8N00000008Z8WAI', 'aBT8N00000008Z9WAI', 'aBT8N00000008ZAWAY', 'aBT8N00000008ZBWAY', 'aBT8N00000008ZCWAY', 'aBT8N00000008ZDWAY', 'aBT8N00000008ZEWAY', 'aBT8N00000008ZFWAY', 'aBT8N00000008ZGWAY', 'aBT8N00000008ZHWAY', 'aBT8N00000008ZIWAY', 'aBT8N00000008ZJWAY', 'aBT8N00000008ZKWAY', 'aBT8N00000008ZLWAY', 'aBT8N00000008YcWAI', 'aBT8N00000008YhWAI', 'aBT8N00000008YiWAI', 'aBT8N00000008YjWAI', 'aBT8N00000008YkWAI') OR (blng__GLLegalEntity__r.SR_ExternalID__c IN ('aBc6f000000CansCAC', 'aBc6f000000CanxCAC', 'aBc6f000000CanzCAC', 'aBc6f000000Cao3CAC', 'aBc6f000000CanwCAC', 'aBc6f000000Cao1CAC', 'aBc6f000000CanmCAC', 'aBc6f000000CannCAC', 'aBc6f000000CanqCAC', 'aBc6f000000Cao2CAC', 'aBc6f000000CanuCAC', 'aBc6f000000CanyCAC', 'aBc6f000000CanoCAC', 'aBc6f000000CanpCAC') AND CurrencyISOCode IN ('DKK', 'COP', 'CZK', 'IDR', 'KWD', 'PHP', 'PKR', 'QAR', 'VEF', 'RUB', 'THB', 'AED', 'OMR', 'SAR')))"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "WHERE blng__Active__c = TRUE AND (blng__GLRule__r.SR_ExternalID__c IN ('aBT8N00000008WHWAY', 'aBT8N00000008YlWAI', 'aBT8N00000008YmWAI', 'aBT8N00000008YnWAI', 'aBT8N00000008YoWAI', 'aBT8N00000008YpWAI', 'aBT8N00000008YqWAI', 'aBT8N00000008YrWAI', 'aBT8N00000008YsWAI', 'aBT8N00000008YtWAI', 'aBT8N00000008YuWAI', 'aBT8N00000008YvWAI', 'aBT8N00000008YwWAI', 'aBT8N00000008YxWAI', 'aBT8N00000008YyWAI', 'aBT8N00000008YzWAI', 'aBT8N00000008Z0WAI', 'aBT8N00000008Z1WAI', 'aBT8N00000008Z2WAI', 'aBT8N00000008Z3WAI', 'aBT8N00000008Z4WAI', 'aBT8N00000008Z5WAI', 'aBT8N00000008Z6WAI', 'aBT8N00000008Z7WAI', 'aBT8N00000008Z8WAI', 'aBT8N00000008Z9WAI', 'aBT8N00000008ZAWAY', 'aBT8N00000008ZBWAY', 'aBT8N00000008ZCWAY', 'aBT8N00000008ZDWAY', 'aBT8N00000008ZEWAY', 'aBT8N00000008ZFWAY', 'aBT8N00000008ZGWAY', 'aBT8N00000008ZHWAY', 'aBT8N00000008ZIWAY', 'aBT8N00000008ZJWAY', 'aBT8N00000008ZKWAY', 'aBT8N00000008ZLWAY', 'aBT8N00000008YcWAI', 'aBT8N00000008YhWAI', 'aBT8N00000008YiWAI', 'aBT8N00000008YjWAI', 'aBT8N00000008YkWAI') OR (blng__GLLegalEntity__r.SR_ExternalID__c IN ('aBc6f000000CansCAC', 'aBc6f000000CanxCAC', 'aBc6f000000CanzCAC', 'aBc6f000000Cao3CAC', 'aBc6f000000CanwCAC', 'aBc6f000000Cao1CAC', 'aBc6f000000CanmCAC', 'aBc6f000000CannCAC', 'aBc6f000000CanqCAC', 'aBc6f000000Cao2CAC', 'aBc6f000000CanuCAC', 'aBc6f000000CanyCAC', 'aBc6f000000CanoCAC', 'aBc6f000000CanpCAC') AND CurrencyISOCode IN ('DKK', 'COP', 'CZK', 'IDR', 'KWD', 'PHP', 'PKR', 'QAR', 'VEF', 'RUB', 'THB', 'AED', 'OMR', 'SAR')))"
+        }
+      }
+    },
+    "blng__RevenueRecognitionTreatment__c": {
+      "fields": [
+        "Name",
+        "blng__Active__c",
+        "blng__FlatAmount__c",
+        "blng__Percentage__c",
+        "blng__ProcessingOrder__c",
+        "blng__RevenueAgreementAssociation__c",
+        "blng__RevenueScheduleAmount__c",
+        "blng__RevenueScheduleCreationAction__c",
+        "blng__Type__c",
+        "blng__ValidateResult__c",
+        "SR_ExternalID__c",
+        "blng__RevenueDistributionMethod__c.Name",
+        "blng__RevenueFinanceBook__c.SR_ExternalID__c",
+        "blng__RevenueGLRule__c.SR_ExternalID__c",
+        "blng__RevenueLegalEntity__c.SR_ExternalID__c",
+        "blng__RevenueRecognitionRule__c.SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "((blng__Active__c = TRUE AND blng__RevenueLegalEntity__r.SR_ExternalID__c NOT IN ('aBc6f000000CansCAC', 'aBc6f000000CanxCAC', 'aBc6f000000CanzCAC', 'aBc6f000000Cao3CAC', 'aBc6f000000CanwCAC', 'aBc6f000000Cao1CAC', 'aBc6f000000CantCAC', 'aBc6f000000CanmCAC', 'aBc6f000000CannCAC', 'aBc6f000000CanqCAC', 'aBc6f000000Cao2CAC', 'aBc6f000000CanuCAC', 'aBc6f000000CanyCAC', 'aBc6f000000CanoCAC', 'aBc6f000000CanpCAC', 'aBcKh000000oLmLKAU') AND blng__RevenueRecognitionRule__r.SR_ExternalID__c IN ('aBx6f000000DFWYCA4', 'aBx6f000000DFWZCA4', 'aBx6f000000DFWaCAO', 'aBx6f000000DFWbCAO', 'aBx6f000000DFWdCAO', 'aBx6f000000DFWeCAO', 'aBx6f000000DFWfCAO')) OR (blng__RevenueRecognitionRule__r.SR_ExternalID__c IN ('aBx8N000000GnkKSAS', 'aBx8N000000GoPcSAK', 'aBx8N000000Gp3wSAC', 'aBx8N000000Gp4zSAC') AND blng__Active__c = TRUE)) AND blng__RevenueLegalEntity__c != NULL"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "((blng__Active__c = TRUE AND blng__RevenueLegalEntity__r.SR_ExternalID__c NOT IN ('aBc6f000000CansCAC', 'aBc6f000000CanxCAC', 'aBc6f000000CanzCAC', 'aBc6f000000Cao3CAC', 'aBc6f000000CanwCAC', 'aBc6f000000Cao1CAC', 'aBc6f000000CantCAC', 'aBc6f000000CanmCAC', 'aBc6f000000CannCAC', 'aBc6f000000CanqCAC', 'aBc6f000000Cao2CAC', 'aBc6f000000CanuCAC', 'aBc6f000000CanyCAC', 'aBc6f000000CanoCAC', 'aBc6f000000CanpCAC', 'aBcKh000000oLmLKAU') AND blng__RevenueRecognitionRule__r.SR_ExternalID__c IN ('aBx6f000000DFWYCA4', 'aBx6f000000DFWZCA4', 'aBx6f000000DFWaCAO', 'aBx6f000000DFWbCAO', 'aBx6f000000DFWdCAO', 'aBx6f000000DFWeCAO', 'aBx6f000000DFWfCAO')) OR (blng__RevenueRecognitionRule__r.SR_ExternalID__c IN ('aBx8N000000GnkKSAS', 'aBx8N000000GoPcSAK', 'aBx8N000000Gp3wSAC', 'aBx8N000000Gp4zSAC') AND blng__Active__c = TRUE)) AND blng__RevenueLegalEntity__c != NULL"
+        }
+      }
+    },
+    "SR_JournalRules__c": {
+      "fields": [
+        "Name",
+        "CurrencyIsoCode",
+        "SR_Amount_Field__c",
+        "SR_CR_Account_Field__c",
+        "SR_CreditLookupObject__c",
+        "SR_CreditQueryTarget__c",
+        "SR_DebitAccountField__c",
+        "SR_DebitLookupObject__c",
+        "SR_DebitQueryTarget__c",
+        "SR_Description__c",
+        "SR_Event_Action__c",
+        "SR_TransactionClass__c",
+        "SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "LX_Is_Lynx_Record__c = TRUE"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "LX_Is_Lynx_Record__c = TRUE"
+        }
+      }
+    },
+    "SR_AR_Accounts__c": {
+      "fields": [
+        "Name",
+        "CurrencyIsoCode",
+        "LX_AR_Credit_Adjustment__c",
+        "LX_Commission_Expense__c",
+        "LX_Other_Clearing_Adjustments__c",
+        "LX_Prepaid_Discount__c",
+        "LX_Royalties_Payables__c",
+        "SR_Account__c",
+        "SR_AR_unbilled_clearing_account__c",
+        "SR_BadDebtWriteOff__c",
+        "SR_Bank_Fee_Adjustments__c",
+        "SR_CommissionAdjustments__c",
+        "SR_Department__c",
+        "SR_Division__c",
+        "SR_FXAdjustments__c",
+        "SR_Goodwill__c",
+        "SR_IC_Clearing__c",
+        "SR_IC_Distribution_Fee__c",
+        "SR_IC_Payables__c",
+        "SR_IC_Receivable__c",
+        "SR_Intercomp_AR_BLNG_Transfers_Account__c",
+        "SR_LegalEntity__c",
+        "SR_Location__c",
+        "SR_Movement__c",
+        "SR_Other_Receipt_Adjustments_Account__c",
+        "SR_OtherAdjustments__c",
+        "SR_Receipt_Transfer_Account__c",
+        "SR_Receivable_Account__c",
+        "SR_Revenue_Account__c",
+        "SR_Revenue_Clearing__c",
+        "SR_SmallBalance__c",
+        "SR_TaxAdjReversals__c",
+        "SR_TaxWriteOff__c",
+        "SR_TransactionClass__c",
+        "SR_Unbilled_Receivable_Account__c",
+        "SR_Unearned_Revenue__c",
+        "SR_UnitCode__c",
+        "SR_WHTAdjustments__c",
+        "SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SR_ExternalID__c != NULL AND LX_Is_Lynx_Record__c = TRUE"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SR_ExternalID__c != NULL AND LX_Is_Lynx_Record__c = TRUE"
+        }
+      }
+    },
+    "LX_ReceiptMethodName__c": {
+      "fields": [
+        "Name",
+        "CurrencyIsoCode",
+        "LX_Bank_Account__c",
+        "LX_Bank_Account_Currency__c",
+        "LX_BankAccountType__c",
+        "LX_BankName__c",
+        "LX_CardType__c",
+        "LX_LE_Numeric_Value__c",
+        "LX_Legal_Entity_Id__c",
+        "LX_PaymentType__c",
+        "LX_ReceiptMethodName__c",
+        "LX_SAP_Company_Code__c",
+        "LX_ExternalID__c"
+      ],
+      "foreignKey": "LX_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": ""
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": ""
+        }
+      }
+    },
+    "SR_CashReceiptsAccounts__c": {
+      "fields": [
+        "Name",
+        "CurrencyIsoCode",
+        "SR_Business_Unit__c",
+        "SR_Department__c",
+        "SR_Divsion__c",
+        "SR_ExternalID__c",
+        "SR_LegalEntity__c",
+        "SR_Location__c",
+        "SR_PaymentType__c",
+        "SR_Printed_Name__c",
+        "SR_Receipt_Method_Name__c",
+        "SR_TransactionClass__c",
+        "SR_UnitCode__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SR_ExternalID__c != NULL AND LX_Is_Lynx_Record__c = TRUE"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SR_ExternalID__c != NULL AND LX_Is_Lynx_Record__c = TRUE"
+        }
+      }
+    },
+    "SR_TaxAccounts__c": {
+      "fields": [
+        "Name",
+        "CurrencyIsoCode",
+        "SR_Department__c",
+        "SR_Division__c",
+        "SR_ExternalID__c",
+        "SR_GroupingId__c",
+        "SR_LegalEntity__c",
+        "SR_Location__c",
+        "SR_Movement__c",
+        "SR_TaxableCity__c",
+        "SR_TaxableCountry__c",
+        "SR_TaxableStateProvince__c",
+        "SR_TaxLiability__c",
+        "SR_TransactionClass__c",
+        "SR_UnitCode__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SR_ExternalID__c != null"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SR_ExternalID__c != null"
+        }
+      }
+    },
+    "LX_Remittance_Information__c": {
+      "fields": [
+        "Name",
+        "LX_Bank__c",
+        "LX_Check__c",
+        "LX_Provenance__c",
+        "LX_ProvenanceID__c",
+        "LX_Registration_No__c",
+        "LX_Sold_to_Country__c",
+        "LX_Type__c",
+        "SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": ""
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": ""
+        }
+      }
+    },
+    "SBQQ__PriceRule__c": {
+      "fields": [
+        "SBQQ__Active__c",
+        "SBQQ__AdvancedCondition__c",
+        "SBQQ__EvaluationEvent__c",
+        "SBQQ__ConditionsMet__c",
+        "SBQQ__ConfiguratorEvaluationEvent__c",
+        "SR_Description__c",
+        "SBQQ__EvaluationOrder__c",
+        "SBQQ__TargetObject__c",
+        "SR_ExternalID__c",
+        "SBQQ__LookupObject__c",
+        "Name",
+        "SBQQ__Product__c.SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SBQQ__Active__c = TRUE"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SBQQ__Active__c = TRUE"
+        }
+      }
+    },
+    "SBQQ__PriceCondition__c": {
+      "fields": [
+        "SR_ExternalID__c",
+        "SBQQ__Field__c",
+        "SBQQ__FilterFormula__c",
+        "SBQQ__FilterType__c",
+        "SBQQ__Value__c",
+        "SBQQ__Index__c",
+        "SBQQ__Object__c",
+        "SBQQ__Operator__c",
+        "SBQQ__ParentRuleIsActive__c",
+        "SBQQ__RuleTargetsCalculator__c",
+        "SBQQ__TestedFormula__c",
+        "SBQQ__FilterVariable__c.SR_ExternalID__c",
+        "SBQQ__Rule__c.SR_ExternalID__c",
+        "SBQQ__TestedVariable__c.SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SBQQ__ParentRuleIsActive__c = TRUE"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SBQQ__ParentRuleIsActive__c = TRUE"
+        }
+      }
+    },
+    "SBQQ__PriceAction__c": {
+      "fields": [
+        "SBQQ__Value__c",
+        "SBQQ__TargetObject__c",
+        "SBQQ__Field__c",
+        "SBQQ__SourceLookupField__c",
+        "SBQQ__ValueField__c",
+        "SBQQ__RuleTargetsCalculator__c",
+        "SBQQ__RuleLookupObject__c",
+        "SBQQ__ParentRuleIsActive__c",
+        "SBQQ__Order__c",
+        "SBQQ__Formula__c",
+        "SR_ExternalID__c",
+        "SBQQ__Rule__c.SR_ExternalID__c",
+        "SBQQ__SourceVariable__c.SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SBQQ__ParentRuleIsActive__c = TRUE"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SBQQ__ParentRuleIsActive__c = TRUE"
+        }
+      }
+    },
+    "SBQQ__ProductRule__c": {
+      "fields": [
+        "SBQQ__Active__c",
+        "SBQQ__AdvancedCondition__c",
+        "SBQQ__ConditionsMet__c",
+        "SR_Deployment_Status__c",
+        "SBQQ__EvaluationEvent__c",
+        "SBQQ__EvaluationOrder__c",
+        "SR_ExternalID__c",
+        "SBQQ__LookupMessageField__c",
+        "SBQQ__LookupObject__c",
+        "SBQQ__LookupProductField__c",
+        "SR_Lookup_Query_Tested_Field__c",
+        "SBQQ__LookupRequiredField__c",
+        "SBQQ__LookupTypeField__c",
+        "SBQQ__ErrorMessage__c",
+        "SBQQ__Scope__c",
+        "SBQQ__Type__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SBQQ__Active__c = TRUE"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SBQQ__Active__c = TRUE"
+        }
+      }
+    },
+    "SBQQ__ErrorCondition__c": {
+      "fields": [
+        "SR_ExternalID__c",
+        "SBQQ__FilterType__c",
+        "SBQQ__FilterValue__c",
+        "SBQQ__Index__c",
+        "SBQQ__Operator__c",
+        "SBQQ__ParentRuleIsActive__c",
+        "SBQQ__RuleTargetsQuote__c",
+        "SBQQ__TestedField__c",
+        "SBQQ__TestedObject__c",
+        "SBQQ__FilterVariable__c.SR_ExternalID__c",
+        "SBQQ__Rule__c.SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SBQQ__ParentRuleIsActive__c = TRUE"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SBQQ__ParentRuleIsActive__c = TRUE"
+        }
+      }
+    },
+    "SBQQ__ProductAction__c": {
+      "fields": [
+        "SBQQ__Type__c",
+        "SBQQ__ValueField__c",
+        "SBQQ__ValueObject__c",
+        "SBQQ__Required__c",
+        "SBQQ__Operator__c",
+        "SBQQ__FilterField__c",
+        "SR_ExternalID__c",
+        "SBQQ__ParentRuleIsActive__c",
+        "SBQQ__Product__c.SR_ExternalID__c",
+        "SBQQ__Rule__c.SR_ExternalID__c",
+        "SBQQ__ValueAttribute__c.SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SBQQ__ParentRuleIsActive__c = TRUE"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SBQQ__ParentRuleIsActive__c = TRUE"
+        }
+      }
+    },
+    "SBQQ__LookupQuery__c": {
+      "fields": [
+        "SR_ExternalID__c",
+        "SBQQ__LookupField__c",
+        "SBQQ__MatchType__c",
+        "SBQQ__Operator__c",
+        "SBQQ__RuleLookupObject__c",
+        "SBQQ__ParentRuleIsActive__c",
+        "SBQQ__RuleTargetsCalculator__c",
+        "SBQQ__TestedField__c",
+        "SBQQ__TestedObject__c",
+        "SBQQ__TestedValue__c",
+        "SBQQ__PriceRule2__c.SR_ExternalID__c",
+        "SBQQ__TestedConfigurationAttribute__c.SR_ExternalID__c",
+        "SBQQ__ProductRule__c.SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SBQQ__ParentRuleIsActive__c = TRUE"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SBQQ__ParentRuleIsActive__c = TRUE"
+        }
+      }
+    },
+    "blng__LegalEntity__c": {
+      "fields": [
+        "Name",
+        "blng__LegalEntityNumber__c",
+        "SR_Location__c",
+        "SR_Numeric_Identifier__c",
+        "SR_OldEntityName__c",
+        "LX_Selected_Default_Country__c",
+        "blng__State__c",
+        "blng__Street1__c",
+        "blng__Street2__c",
+        "blng__ZipPostalCode__c",
+        "SR_ExternalID__c",
+        "LX_Default__c",
+        "blng__County__c",
+        "blng__Country__c",
+        "blng__City__c",
+        "LX_Availability_Quote_Types__c",
+        "LX_Approved_Legal_Entity__c",
+        "LX_Approved_Countries__c",
+        "blng__Active__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SR_ExternalID__c IN ('aBc8N00000002n4SAA', 'aBc8N00000003UaSAI', 'aBc8N00000003UcSAI', 'aBc8N00000003UqSAI', 'aBc8N00000003UuSAI', 'aBc8N00000003V0SAI', 'aBc8N00000003UiSAI', 'aBc8N00000003UNSAY', 'aBc8N00000003UOSAY', 'aBc8N00000003UPSAY', 'aBc8N00000003UQSAY', 'aBc8N00000003URSAY', 'aBc8N00000003USSAY', 'aBc8N00000003UTSAY', 'aBc8N00000003UUSAY', 'aBc8N00000003UVSAY', 'aBc8N00000003UWSAY', 'aBc8N00000003UXSAY', 'aBc8N00000003UYSAY', 'aBc8N00000003UZSAY', 'aBc8N00000003UbSAI', 'aBc8N00000003UdSAI', 'aBc8N00000003UeSAI', 'aBc8N00000003UfSAI', 'aBc8N00000003UgSAI', 'aBc8N00000003UhSAI', 'aBc8N00000003UjSAI', 'aBc8N00000003UkSAI', 'aBc8N00000003UlSAI', 'aBc8N00000003UmSAI', 'aBc8N00000003UnSAI', 'aBc8N00000003UoSAI', 'aBc8N00000003UpSAI', 'aBc8N00000003UrSAI', 'aBc8N00000003UsSAI', 'aBc8N00000003UtSAI', 'aBc8N00000003UvSAI', 'aBc8N00000003UwSAI', 'aBc8N00000003UxSAI', 'aBc8N00000003UySAI', 'aBc8N00000003UzSAI', 'aBc8N00000003V1SAI', 'aBc8N00000003V2SAI', 'aBc6f000000CanxCAC', 'aBc6f000000CanzCAC', 'aBc6f000000CanmCAC', 'aBc6f000000CannCAC', 'aBc6f000000CanuCAC', 'aBc6f000000CanwCAC')"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SR_ExternalID__c IN ('aBc8N00000002n4SAA', 'aBc8N00000003UaSAI', 'aBc8N00000003UcSAI', 'aBc8N00000003UqSAI', 'aBc8N00000003UuSAI', 'aBc8N00000003V0SAI', 'aBc8N00000003UiSAI', 'aBc8N00000003UNSAY', 'aBc8N00000003UOSAY', 'aBc8N00000003UPSAY', 'aBc8N00000003UQSAY', 'aBc8N00000003URSAY', 'aBc8N00000003USSAY', 'aBc8N00000003UTSAY', 'aBc8N00000003UUSAY', 'aBc8N00000003UVSAY', 'aBc8N00000003UWSAY', 'aBc8N00000003UXSAY', 'aBc8N00000003UYSAY', 'aBc8N00000003UZSAY', 'aBc8N00000003UbSAI', 'aBc8N00000003UdSAI', 'aBc8N00000003UeSAI', 'aBc8N00000003UfSAI', 'aBc8N00000003UgSAI', 'aBc8N00000003UhSAI', 'aBc8N00000003UjSAI', 'aBc8N00000003UkSAI', 'aBc8N00000003UlSAI', 'aBc8N00000003UmSAI', 'aBc8N00000003UnSAI', 'aBc8N00000003UoSAI', 'aBc8N00000003UpSAI', 'aBc8N00000003UrSAI', 'aBc8N00000003UsSAI', 'aBc8N00000003UtSAI', 'aBc8N00000003UvSAI', 'aBc8N00000003UwSAI', 'aBc8N00000003UxSAI', 'aBc8N00000003UySAI', 'aBc8N00000003UzSAI', 'aBc8N00000003V1SAI', 'aBc8N00000003V2SAI', 'aBc6f000000CanxCAC', 'aBc6f000000CanzCAC', 'aBc6f000000CanmCAC', 'aBc6f000000CannCAC', 'aBc6f000000CanuCAC', 'aBc6f000000CanwCAC')"
+        }
+      }
+    },
+    "SBQQ__SearchFilter__c": {
+      "fields": [
+        "SBQQ__DisplayOrder__c",
+        "SR_ExternalID__c",
+        "SBQQ__FilterSourceField__c",
+        "SBQQ__FilterSourceObject__c",
+        "SBQQ__FilterValue__c",
+        "SBQQ__Hidden__c",
+        "SBQQ__HiddenSourceField__c",
+        "SBQQ__HiddenSourceObject__c",
+        "SBQQ__Operator__c",
+        "SBQQ__TargetField__c",
+        "SBQQ__TargetObject__c",
+        "SBQQ__Action__c.SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SR_ExternalID__c IN ('aAU8N000000L4PaWAK', 'aAU8N000000L4PfWAK', 'aAU8N000000L4PkWAK', 'aAU8N000000L4PlWAK', 'aAU8N000000L4PpWAK', 'aAU8N000000L4Q4WAK')"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SR_ExternalID__c IN ('aAU8N000000L4PaWAK', 'aAU8N000000L4PfWAK', 'aAU8N000000L4PkWAK', 'aAU8N000000L4PlWAK', 'aAU8N000000L4PpWAK', 'aAU8N000000L4Q4WAK')"
+        }
+      }
+    },
+    "SBQQ__CustomAction__c": {
+      "fields": [
+        "SBQQ__Action__c",
+        "SBQQ__Active__c",
+        "SBQQ__BrandButton__c",
+        "SBQQ__Class__c",
+        "SBQQ__ConditionsMet__c",
+        "SBQQ__Default__c",
+        "SBQQ__Description__c",
+        "SBQQ__DisplayOrder__c",
+        "SBQQ__EventHandlerName__c",
+        "SR_ExternalID__c",
+        "SBQQ__Icon__c",
+        "SBQQ__IconClass__c",
+        "SBQQ__Label__c",
+        "SBQQ__Location__c",
+        "Name",
+        "SBQQ__Page__c",
+        "SBQQ__PageHandlerName__c",
+        "SBQQ__ReturnURL__c",
+        "SBQQ__TargetObject__c",
+        "SBQQ__Type__c",
+        "SBQQ__URL__c",
+        "SBQQ__URLTarget__c",
+        "SBQQ__ParentCustomAction__c.SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SBQQ__Active__c = TRUE"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SBQQ__Active__c = TRUE"
+        }
+      }
+    },
+    "SR3_DefaultUplift__c": {
+      "fields": [
+        "SR3_Active__c",
+        "SR3_BU_Reporting_Level_4__c",
+        "SR3_BU_Reporting_Level_5__c",
+        "LX_Default_Uplift_Type__c",
+        "Name",
+        "SR3_EndDate__c",
+        "SR3_StartDate__c",
+        "SR3_UpliftPercentage__c"
+      ],
+      "foreignKey": "Name",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "Name = 'Default CPI/RPI Uplift'"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "Name = 'Default CPI/RPI Uplift'"
+        }
+      }
+    },
+    "sbaa__EmailTemplate__c": {
+      "fields": [
+        "Name",
+        "SR_ExternalID__c",
+        "CurrencyIsoCode"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SR_ExternalID__c IN ('aAuca0000000zjRCAQ', 'aAuca00000010u1CAA', 'aAuca00000010vdCAA', 'aAuca00000010xFCAQ')"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SR_ExternalID__c IN ('aAuca0000000zjRCAQ', 'aAuca00000010u1CAA', 'aAuca00000010vdCAA', 'aAuca00000010xFCAQ')"
+        }
+      }
+    },
+    "sbaa__ApprovalChain__c": {
+      "fields": [
+        "Name",
+        "SR_ExternalID__c",
+        "sbaa__TargetObject__c",
+        "CurrencyIsoCode"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SR_ExternalID__c IN ('aAm8N0000000358SAA', 'aAmca0000000DLRCA2', 'aAm8N00000002ovSAA')"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SR_ExternalID__c IN ('aAm8N0000000358SAA', 'aAmca0000000DLRCA2', 'aAm8N00000002ovSAA')"
+        }
+      }
+    },
+    "sbaa__Approver__c": {
+      "fields": [
+        "sbaa__DelegationEnd__c",
+        "sbaa__DelegationStart__c",
+        "SR_ExternalID__c",
+        "sbaa__Unanimous__c",
+        "sbaa__DelegatedApprover__c.SR_ExternalID__c",
+        "sbaa__NextApprover__c.SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SR_ExternalID__c IN ('aAt8N0000004G2eSAE', 'aAtca0000000YcnCAE', 'aAtca0000000XSDCA2', 'aAtca0000000XTpCAM', 'aAtca0000000XVRCA2', 'aAtca0000000XX3CAM')"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SR_ExternalID__c IN ('aAt8N0000004G2eSAE', 'aAtca0000000YcnCAE', 'aAtca0000000XSDCA2', 'aAtca0000000XTpCAM', 'aAtca0000000XVRCA2', 'aAtca0000000XX3CAM')"
+        }
+      }
+    },
+    "sbaa__ApprovalRule__c": {
+      "fields": [
+        "sbaa__Active__c",
+        "sbaa__AdvancedCondition__c",
+        "sbaa__ApprovalRecipients__c",
+        "sbaa__ApprovalStep__c",
+        "sbaa__ApproverField__c",
+        "sbaa__ConditionsMet__c",
+        "sbaa__EffectiveDateField__c",
+        "sbaa__EffectiveEndDate__c",
+        "sbaa__EffectiveStartDate__c",
+        "sbaa__ExcludedStatuses__c",
+        "SR_ExternalID__c",
+        "sbaa__OverrideField__c",
+        "sbaa__Parallel__c",
+        "sbaa__SmartApprovalIgnoresConditionsMet__c",
+        "sbaa__RejectionRecipients__c",
+        "sbaa__RequireExplicitApproval__c",
+        "Name",
+        "sbaa__TargetObject__c",
+        "sbaa__ApprovalChain__c.SR_ExternalID__c",
+        "sbaa__ApprovalTemplate__c.SR_ExternalID__c",
+        "sbaa__Approver__c.SR_ExternalID__c",
+        "sbaa__RecallTemplate__c.SR_ExternalID__c",
+        "sbaa__RejectionTemplate__c.SR_ExternalID__c",
+        "sbaa__RequestTemplate__c.SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SR_ExternalID__c IN ('aAo8N0000000LlhSAE', 'aAoca0000000Q5lCAE', 'aAoca0000000Q49CAE', 'aAoca0000000QybCAE', 'aAo8N0000000LlcSAE', 'aAoca0000000PRSCA2', 'aAoca0000000PUfCAM', 'aAoca0000000PWHCA2')"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SR_ExternalID__c IN ('aAo8N0000000LlhSAE', 'aAoca0000000Q5lCAE', 'aAoca0000000Q49CAE', 'aAoca0000000QybCAE', 'aAo8N0000000LlcSAE', 'aAoca0000000PRSCA2', 'aAoca0000000PUfCAM', 'aAoca0000000PWHCA2')"
+        }
+      }
+    },
+    "sbaa__ApprovalCondition__c": {
+      "fields": [
+        "Name",
+        "sbaa__EnableSmartApproval__c",
+        "SR_ExternalID__c",
+        "sbaa__FilterType__c",
+        "sbaa__FilterField__c",
+        "sbaa__FilterValue__c",
+        "sbaa__Index__c",
+        "sbaa__Operator__c",
+        "sbaa__TestedField__c",
+        "sbaa__ApprovalRule__c.SR_ExternalID__c",
+        "sbaa__FilterVariable__c.SR_ExternalID__c",
+        "sbaa__TestedVariable__c.SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SR_ExternalID__c IN ('aAn8N0000000VJdSAM', 'aAn8N0000000VMISA2', 'aAnca0000000PCvCAM', 'aAnca0000000PEXCA2', 'aAnca0000000PG9CAM', 'aAnca0000000PjBCAU', 'aAnca0000000Po1CAE', 'aAnca0000000QTxCAM', 'aAnca0000000QVZCA2', 'aAnca0000000Pw5CAE', 'aAnca0000000PxhCAE', 'aAnca0000000PzJCAU', 'aAnca0000000Q0vCAE', 'aAnca0000000Q2XCAU', 'aAnca0000000Q49CAE', 'aAnca0000000Q7NCAU')"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SR_ExternalID__c IN ('aAn8N0000000VJdSAM', 'aAn8N0000000VMISA2', 'aAnca0000000PCvCAM', 'aAnca0000000PEXCA2', 'aAnca0000000PG9CAM', 'aAnca0000000PjBCAU', 'aAnca0000000Po1CAE', 'aAnca0000000QTxCAM', 'aAnca0000000QVZCA2', 'aAnca0000000Pw5CAE', 'aAnca0000000PxhCAE', 'aAnca0000000PzJCAU', 'aAnca0000000Q0vCAE', 'aAnca0000000Q2XCAU', 'aAnca0000000Q49CAE', 'aAnca0000000Q7NCAU')"
+        }
+      }
+    },
+    "SBQQ__ConfigurationRule__c": {
+      "fields": [
+        "SR_ExternalID__c",
+        "SBQQ__Active__c",
+        "SBQQ__DescendingActionNesting__c",
+        "SBQQ__DescendingNestedLevel__c",
+        "SBQQ__RuleType__c",
+        "SBQQ__RuleEvaluationEvent__c",
+        "SBQQ__AscendingNestedLevel__c",
+        "SBQQ__Product__c.SR_ExternalID__c",
+        "SBQQ__ProductFeature__c.SR_ExternalID__c",
+        "SBQQ__ProductRule__c.SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SR_ExternalID__c IN ('a14cT00000BorsLQAR', 'a14cT00000BorsMQAR', 'a14cT00000BorsNQAR', 'a14cT00000BorsOQAR', 'a14cT00000Bp91JQAR', 'a14cT00000Bp91KQAR', 'a14cT00000Bp92vQAB', 'a14cT00000Bp92wQAB')"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SR_ExternalID__c IN ('a14cT00000BorsLQAR', 'a14cT00000BorsMQAR', 'a14cT00000BorsNQAR', 'a14cT00000BorsOQAR', 'a14cT00000Bp91JQAR', 'a14cT00000Bp91KQAR', 'a14cT00000Bp92vQAB', 'a14cT00000Bp92wQAB')"
+        }
+      }
+    },
+    "SBQQ__SummaryVariable__c": {
+      "fields": [
+        "SBQQ__Scope__c",
+        "SBQQ__AggregateField__c",
+        "SBQQ__AggregateFunction__c",
+        "SBQQ__CompositeOperator__c",
+        "SBQQ__ConstraintField__c",
+        "SR_ExternalID__c",
+        "SBQQ__FilterField__c",
+        "SBQQ__FilterValue__c",
+        "SBQQ__Operator__c",
+        "SBQQ__TargetObject__c",
+        "SBQQ__ValueElement__c",
+        "SBQQ__CombineWith__c.SR_ExternalID__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {
+        "aviral.dhodi@spglobal.com.mibokatan": {
+          "customFilter": "SR_ExternalID__c = 'aAcca0000000tMHCAY'"
+        },
+        "aviral.dhodi@spglobal.com.miyoda": {
+          "customFilter": "SR_ExternalID__c = 'aAcca0000000tMHCAY'"
+        }
+      }
+    }
+  },
+  "fetchMethod": "graphql",
+  "metadata": {
+    "totalOrgs": 2,
+    "totalObjects": 32,
+    "totalFields": 391,
+    "configGenerator": "enhanced",
+    "uiVersion": "v1-ux-v2-styling",
+    "fetchMethod": "graphql"
+  }
+}

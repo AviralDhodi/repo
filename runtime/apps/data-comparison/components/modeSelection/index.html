@@ -1,0 +1,320 @@
+<!-- Mode Selection with SLDS Tabs -->
+<div class="slds-p-around_large">
+    <!-- Page Header -->
+    <div class="slds-page-header slds-m-bottom_medium">
+        <div class="slds-page-header__row">
+            <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-settings">
+                            <svg class="slds-icon slds-page-header__icon">
+                                <use xlink:href="/shared/assets/slds/icons/standard-sprite/svg/symbols.svg#settings"></use>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h1 class="slds-page-header__title slds-truncate">Configuration Mode</h1>
+                        <p class="slds-text-body_regular">Select how you want to configure your comparison</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs for Mode Selection -->
+    <div class="slds-tabs_default">
+        <ul class="slds-tabs_default__nav" role="tablist">
+            <li class="slds-tabs_default__item slds-is-active" title="Manual Configuration" role="presentation">
+                <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="0" 
+                   aria-selected="true" aria-controls="tab-manual" id="tab-manual__item">
+                    <span class="slds-tabs__left-icon">
+                        <span class="slds-icon_container slds-icon-standard-custom">
+                            <svg class="slds-icon slds-icon_x-small">
+                                <use xlink:href="/shared/assets/slds/icons/standard-sprite/svg/symbols.svg#custom"></use>
+                            </svg>
+                        </span>
+                    </span>
+                    Manual Configuration
+                </a>
+            </li>
+            <li class="slds-tabs_default__item" title="SOQL Configuration" role="presentation">
+                <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="-1"
+                   aria-selected="false" aria-controls="tab-soql" id="tab-soql__item">
+                    <span class="slds-tabs__left-icon">
+                        <span class="slds-icon_container slds-icon-standard-code-playground">
+                            <svg class="slds-icon slds-icon_x-small">
+                                <use xlink:href="/shared/assets/slds/icons/standard-sprite/svg/symbols.svg#code_playground"></use>
+                            </svg>
+                        </span>
+                    </span>
+                    SOQL Configuration
+                    <span class="slds-badge slds-badge_lightest slds-m-left_x-small">Beta</span>
+                </a>
+            </li>
+        </ul>
+        
+        <!-- Manual Configuration Tab Panel -->
+        <div id="tab-manual" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="tab-manual__item">
+            <div class="slds-box slds-theme_default">
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_2-of-3">
+                        <h2 class="slds-text-heading_medium slds-m-bottom_small">Manual Configuration</h2>
+                        <p class="slds-text-body_regular slds-m-bottom_medium">
+                            Use our guided interface to select objects, fields, and configure relationships step by step.
+                        </p>
+                        
+                        <div class="slds-grid slds-wrap slds-m-bottom_medium">
+                            <div class="slds-col slds-size_1-of-2 slds-p-right_small">
+                                <div class="slds-item">
+                                    <span class="slds-icon_container slds-icon-utility-check slds-m-right_x-small">
+                                        <svg class="slds-icon slds-icon_x-small slds-icon-text-success">
+                                            <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#check"></use>
+                                        </svg>
+                                    </span>
+                                    <span>Built-in validations</span>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="slds-item">
+                                    <span class="slds-icon_container slds-icon-utility-check slds-m-right_x-small">
+                                        <svg class="slds-icon slds-icon_x-small slds-icon-text-success">
+                                            <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#check"></use>
+                                        </svg>
+                                    </span>
+                                    <span>Visual field selector</span>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-right_small slds-m-top_x-small">
+                                <div class="slds-item">
+                                    <span class="slds-icon_container slds-icon-utility-check slds-m-right_x-small">
+                                        <svg class="slds-icon slds-icon_x-small slds-icon-text-success">
+                                            <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#check"></use>
+                                        </svg>
+                                    </span>
+                                    <span>Foreign key helpers</span>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-m-top_x-small">
+                                <div class="slds-item">
+                                    <span class="slds-icon_container slds-icon-utility-check slds-m-right_x-small">
+                                        <svg class="slds-icon slds-icon_x-small slds-icon-text-success">
+                                            <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#check"></use>
+                                        </svg>
+                                    </span>
+                                    <span>Recommended for beginners</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-text-align_center">
+                        <div class="slds-illustration slds-illustration_small">
+                            <svg class="slds-illustration__svg" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="30" fill="#EEF4FF"/>
+                                <rect x="35" y="35" width="30" height="5" fill="#0070D2" rx="2"/>
+                                <rect x="35" y="45" width="25" height="5" fill="#0070D2" rx="2" opacity="0.7"/>
+                                <rect x="35" y="55" width="20" height="5" fill="#0070D2" rx="2" opacity="0.5"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-m-top_medium">
+                    <button class="slds-button slds-button_brand" onclick="startManualConfiguration()">
+                        Start Manual Configuration
+                        <svg class="slds-button__icon slds-button__icon_right">
+                            <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#forward"></use>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SOQL Configuration Tab Panel -->
+        <div id="tab-soql" class="slds-tabs_default__content slds-hide" role="tabpanel" aria-labelledby="tab-soql__item">
+            <div class="slds-box slds-theme_default">
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_2-of-3">
+                        <h2 class="slds-text-heading_medium slds-m-bottom_small">
+                            SOQL Configuration
+                            <span class="slds-badge slds-badge_lightest slds-m-left_x-small">Beta</span>
+                        </h2>
+                        <p class="slds-text-body_regular slds-m-bottom_medium">
+                            Write SOQL queries to define exactly what data you want to compare.
+                        </p>
+                        
+                        <div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light slds-theme_warning slds-m-bottom_medium">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-utility-warning">
+                                    <svg class="slds-icon slds-icon-text-warning">
+                                        <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#warning"></use>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <p>Beta feature with lighter validations. Not recommended for first-time users.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-2 slds-p-right_small">
+                                <div class="slds-item">
+                                    <span class="slds-icon_container slds-icon-utility-code slds-m-right_x-small">
+                                        <svg class="slds-icon slds-icon_x-small slds-icon-text-default">
+                                            <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#code"></use>
+                                        </svg>
+                                    </span>
+                                    <span>Developer-friendly</span>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <div class="slds-item">
+                                    <span class="slds-icon_container slds-icon-utility-database slds-m-right_x-small">
+                                        <svg class="slds-icon slds-icon_x-small slds-icon-text-default">
+                                            <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#database"></use>
+                                        </svg>
+                                    </span>
+                                    <span>Direct SOQL control</span>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-p-right_small slds-m-top_x-small">
+                                <div class="slds-item">
+                                    <span class="slds-icon_container slds-icon-utility-warning slds-m-right_x-small">
+                                        <svg class="slds-icon slds-icon_x-small slds-icon-text-warning">
+                                            <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#warning"></use>
+                                        </svg>
+                                    </span>
+                                    <span>Avoid complex lookups</span>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2 slds-m-top_x-small">
+                                <div class="slds-item">
+                                    <span class="slds-icon_container slds-icon-utility-custom_apps slds-m-right_x-small">
+                                        <svg class="slds-icon slds-icon_x-small slds-icon-text-default">
+                                            <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#custom_apps"></use>
+                                        </svg>
+                                    </span>
+                                    <span>Custom queries per org</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-text-align_center">
+                        <div class="slds-illustration slds-illustration_small">
+                            <svg class="slds-illustration__svg" viewBox="0 0 100 100">
+                                <rect x="20" y="30" width="60" height="40" fill="#EEF4FF" rx="4"/>
+                                <text x="50" y="45" text-anchor="middle" font-family="monospace" font-size="8" fill="#0070D2">SELECT</text>
+                                <text x="50" y="55" text-anchor="middle" font-family="monospace" font-size="8" fill="#0070D2">FROM</text>
+                                <text x="50" y="65" text-anchor="middle" font-family="monospace" font-size="8" fill="#0070D2">WHERE</text>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-m-top_medium">
+                    <button class="slds-button slds-button_neutral" onclick="startSOQLConfiguration()">
+                        Start SOQL Configuration
+                        <svg class="slds-button__icon slds-button__icon_right">
+                            <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#forward"></use>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Tab switching functionality
+(function() {
+    const tabItems = document.querySelectorAll('.slds-tabs_default__item');
+    const tabLinks = document.querySelectorAll('.slds-tabs_default__link');
+    const tabPanels = document.querySelectorAll('.slds-tabs_default__content');
+    
+    tabLinks.forEach((link, index) => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Update tabs
+            tabItems.forEach(item => item.classList.remove('slds-is-active'));
+            tabLinks.forEach(l => {
+                l.setAttribute('aria-selected', 'false');
+                l.setAttribute('tabindex', '-1');
+            });
+            
+            tabItems[index].classList.add('slds-is-active');
+            link.setAttribute('aria-selected', 'true');
+            link.setAttribute('tabindex', '0');
+            
+            // Update panels
+            tabPanels.forEach(panel => {
+                panel.classList.add('slds-hide');
+                panel.classList.remove('slds-show');
+            });
+            
+            const targetPanel = document.querySelector(link.getAttribute('aria-controls'));
+            if (targetPanel) {
+                targetPanel.classList.remove('slds-hide');
+                targetPanel.classList.add('slds-show');
+            }
+        });
+    });
+    
+    // Get selected orgs from sessionStorage
+    const selectedOrgs = JSON.parse(sessionStorage.getItem('selectedOrganizations') || '[]');
+    
+    if (selectedOrgs.length < 2) {
+        // Redirect back to org selection if no orgs selected
+        window.location.href = '/data-comparison/org-selection';
+    }
+})();
+
+function clearConfigByMode(mode) {
+    // Clear mode-specific session storage keys
+    if (mode === 'manual') {
+        sessionStorage.removeItem('manualModeConfig');
+        sessionStorage.removeItem('selectedObject');
+        sessionStorage.removeItem('selectedFields');
+        sessionStorage.removeItem('selectedLookups');
+        sessionStorage.removeItem('foreignKey');
+        sessionStorage.removeItem('foreignKeys');
+        sessionStorage.removeItem('cpq-object-selection-volatile');
+    } else if (mode === 'soql') {
+        sessionStorage.removeItem('soqlModeConfig');
+        sessionStorage.removeItem('soqlQuery');
+        sessionStorage.removeItem('soqlQueries');
+        sessionStorage.removeItem('soqlGeneratedConfig');
+    }
+
+    // Clear shared/common keys that might be mode-specific
+    sessionStorage.removeItem('cpq_validated_config');
+    sessionStorage.removeItem('comparisonConfig');
+}
+
+function startManualConfiguration() {
+    // Clear SOQL mode config before starting manual mode
+    clearConfigByMode('soql');
+
+    // Set current mode
+    sessionStorage.setItem('configurationMode', 'manual');
+    sessionStorage.setItem('manualModeActive', 'true');
+
+    console.log('[ModeSelection] Starting Manual Configuration Mode');
+    console.log('[ModeSelection] Cleared SOQL mode config');
+
+    // Navigate to object selection for manual configuration
+    window.location.href = '/data-comparison/object-selection';
+}
+
+function startSOQLConfiguration() {
+    // Clear Manual mode config before starting SOQL mode
+    clearConfigByMode('manual');
+
+    // Set current mode
+    sessionStorage.setItem('configurationMode', 'soql');
+    sessionStorage.setItem('soqlModeActive', 'true');
+
+    console.log('[ModeSelection] Starting SOQL Configuration Mode');
+    console.log('[ModeSelection] Cleared Manual mode config');
+
+    // Navigate to SOQL editor
+    window.location.href = '/data-comparison/soql-editor';
+}
+</script>

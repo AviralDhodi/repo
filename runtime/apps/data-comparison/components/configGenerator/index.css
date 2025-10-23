@@ -1,0 +1,192 @@
+/* CPQ Toolset v3 - Config Generator Clean SLDS Styles */
+
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Layout containers */
+.app-container {
+    min-height: 100vh;
+    background: var(--lwc-colorBackgroundAlt);
+}
+
+.app-main {
+    padding: 0;
+    width: 100%;
+}
+
+/* Let SLDS handle all component styling */
+.config-generator {
+    /* SLDS will handle spacing */
+}
+
+/* Field Item Layout */
+.field-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
+    border-bottom: 1px solid #dddbda;
+    transition: background-color 0.2s;
+}
+
+.field-item:hover {
+    background-color: #f3f2f2;
+}
+
+.field-item.selected {
+    background-color: #ecfaff;
+}
+
+.field-selection {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 80px;
+}
+
+.field-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.field-checkbox-label {
+    font-size: 0.875rem;
+    color: #706e6b;
+    cursor: pointer;
+}
+
+.field-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.field-name {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: #080707;
+    margin-bottom: 0.25rem;
+}
+
+.field-details {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.field-api-name {
+    font-size: 0.8125rem;
+    color: #706e6b;
+    font-family: 'Courier New', monospace;
+}
+
+.field-type-badge {
+    font-size: 0.75rem;
+}
+
+.field-required-badge {
+    font-size: 0.75rem;
+}
+
+.field-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* iOS-Style Toggle Switch for Foreign Key */
+.fk-toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.fk-toggle-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #706e6b;
+    min-width: 20px;
+}
+
+.fk-toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.fk-toggle-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.fk-toggle-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #c9c7c5;
+    border-radius: 24px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.fk-toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.fk-toggle-input:checked + .fk-toggle-slider {
+    background-color: #34a853;
+    box-shadow: 0 0 0 2px rgba(52, 168, 83, 0.2);
+}
+
+.fk-toggle-input:focus + .fk-toggle-slider {
+    box-shadow: 0 0 0 3px rgba(52, 168, 83, 0.3);
+}
+
+.fk-toggle-input:checked + .fk-toggle-slider:before {
+    transform: translateX(20px);
+}
+
+.fk-toggle-switch:hover .fk-toggle-slider {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Disabled state */
+.fk-toggle-input:disabled + .fk-toggle-slider {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.fk-toggle-input:disabled + .fk-toggle-slider:before {
+    background-color: #f0f0f0;
+}
+
+/* Shake animation for FK requirement highlight */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}

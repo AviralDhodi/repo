@@ -1,0 +1,282 @@
+Changes to Make as UI Revamp : Keep same bg everywhere, App launcher is everywhere on slds-page-header to switch apps in any header
+
+1. http://localhost:3030 
+
+This doesn't look SLDS2.0 Ready
+
+CPQ Toolset v3
+Salesforce CPQ Development & Analysis Platform
+
+Available Applications
+Data Comparison
+Compare Salesforce CPQ configurations across multiple orgs with advanced filtering and analysis.
+LaunchData Comparison
+Permissions Analyser
+Analyze and compare permission sets, profiles, and security configurations.
+Launch
+
+to 
+
+Salesforce Comparison Toolset
+
+Built for Salesforce
+
+Illustrations
+
+https://www.lightningdesignsystem.com/2e1ef8501/p/759a28-illustrations/b/34526a
+
+https://www.lightningdesignsystem.com/2e1ef8501/p/759a28-illustrations/b/74b610
+
+https://www.lightningdesignsystem.com/2e1ef8501/p/759a28-illustrations/b/76a7c3
+
+Choose An App UI text for Illustrations
+
+
+HAve an App Launcher like salesforce App Menu - Waffle Icon launcher
+
+Waffle Icon
+
+https://www.lightningdesignsystem.com/2e1ef8501/p/26424b-dynamic-icons/b/09e06c
+https://www.lightningdesignsystem.com/2e1ef8501/p/26424b-dynamic-icons/b/25f698
+
+On Click have 
+
+Menu below with Apps
+https://www.lightningdesignsystem.com/2e1ef8501/p/40f658-menus
+
+
+Once App is Selected you will have the Applaucnher and BReadcrumbs all Over the routes in each App
+Starting with Data Comparison App
+
+http://localhost:3030/data-comparison 
+
+Now this page as a whole does not need to exist rather have 2 tabs 
+https://www.lightningdesignsystem.com/2e1ef8501/p/1152cf-tabs
+https://www.lightningdesignsystem.com/2e1ef8501/p/1152cf-tabs/b/09e06c
+https://www.lightningdesignsystem.com/2e1ef8501/p/1152cf-tabs/b/748def
+
+Generate Configuration or Upload Configuration
+
+Tab 1 enhouses : http://localhost:3030/data-comparison/config-generator 
+
+Again Tabs to be present for Upload Configuration and the current one to Continue (Generate one)
+
+This path to be removed : Organizations
+
+Rather we will use Bread Crumbs to allow us to jump back at any time (Inital pages wont show us later bread crumbs so it wont cause issues)
+
+https://www.lightningdesignsystem.com/2e1ef8501/p/13cc12-breadcrumbs
+https://www.lightningdesignsystem.com/2e1ef8501/p/13cc12-breadcrumbs/b/09e06c
+https://www.lightningdesignsystem.com/2e1ef8501/p/13cc12-breadcrumbs/b/45704b
+
+
+So Select Organisations Cards/Tiles look fine to menus
+Now the buttons use Button Groups and have the same top and bottom of page so 
+
+	Select All Clear All to the left of the page and Debug Selection and Validate & Continue on the right (2 button groups on each top and bottom)
+	
+	Validate & Continue Button Spinner is not aligned properly make sure it's centered inside button div..
+	
+	http://localhost:3030/data-comparison/config-generator 
+	
+	Again this should change stuff, person should be able to find a Bread Crumb added for this along with the tabs mantained Idk about express routes if you want to remove go ahead if not keep it as is..
+	
+	Use single card with inner cards one over other aka nested cards.
+	https://www.lightningdesignsystem.com/2e1ef8501/p/33cd77-cards/b/39205c
+	https://www.lightningdesignsystem.com/2e1ef8501/p/33cd77-cards
+	https://www.lightningdesignsystem.com/2e1ef8501/p/33cd77-cards/b/52449b
+	
+	Change text content
+	
+	Manually select objects, fields, and configure foreign keys using the visual interface.
+	
+	Built in Validations for a safer configuration
+    Detailed Field Information
+    Recommended for first Use
+	
+	SOQL Configuration text
+	Define what to compare using familiar SOQL syntax.
+	
+	Built for Devs
+	Fast and familiar format
+	Customisable Queries for individual orgs
+	In Beta and lighter on Validations
+	Avoid using a lot of lookup fields
+	Avoid Org Specific Fields
+	Not recommended for first use
+	
+	Buttons should be on the right not below in this layout like text on left and button on right
+	
+Remove the back button user should use bread crumbs 	
+
+Manual Configuration Button clicked 
+Bread Crumb added to additional one called Manual Config
+Tabs stay same
+The three panel looks fine the path element here looks fine But it should start from Object & Fields Selection
+The search box overlaps with the icon aka hint text with Search Objects or Search Fields is overlapping with the icons 
+
+Cliking of Objects fetches fields but field options are not formatted eith no clear slds divs and fields should be ALPHABETICALLY SORTED.
+
+use checkbox buttons to left- Api Name - Check box Toggle for FK on right
+Below a smaller slds div with proper boundary telling data type and Label
+
+Changing of FK when a new one is clicked logic etc to be mantained...like uncheck other and check this one etc.
+
+https://www.lightningdesignsystem.com/2e1ef8501/p/00c862-checkbox-toggle
+https://www.lightningdesignsystem.com/2e1ef8501/p/00c862-checkbox-toggle/b/09e06c
+https://www.lightningdesignsystem.com/2e1ef8501/p/00c862-checkbox-toggle/b/246722
+
+https://www.lightningdesignsystem.com/2e1ef8501/p/70ca9d-checkbox-button
+https://www.lightningdesignsystem.com/2e1ef8501/p/70ca9d-checkbox-button/b/09e06c
+https://www.lightningdesignsystem.com/2e1ef8501/p/70ca9d-checkbox-button/b/460cb4
+https://www.lightningdesignsystem.com/2e1ef8501/p/70ca9d-checkbox-button/b/74d5d4
+
+
+	Configure Date Filters to change to Filters
+	in path and in button
+	
+	Lookups Tab to not have Select ALL Button and sorted Alphabetically
+	
+	Modal on Lookup to have Search used
+	
+	Radio Group - required variant
+	
+	https://www.lightningdesignsystem.com/2e1ef8501/p/19c76a-radio-group
+	https://www.lightningdesignsystem.com/2e1ef8501/p/19c76a-radio-group/b/09e06c
+	https://www.lightningdesignsystem.com/2e1ef8501/p/19c76a-radio-group/b/259b98
+	
+	https://www.lightningdesignsystem.com/2e1ef8501/p/01c12a-modals/b/43b01d
+	https://www.lightningdesignsystem.com/2e1ef8501/p/01c12a-modals/b/343793
+	https://www.lightningdesignsystem.com/2e1ef8501/p/01c12a-modals/b/9940b8
+	
+	Radio Group left - Field Right Api Name
+	Field Type  left - Label Name Right                   
+	
+	Remove No FK option...
+	
+	Use 2 buttons - Cancel and Save Selection at the footer level and proper buttons like Close remove these 2 from where they exist inside the modals/b/343793
+	
+	Remove the top right cross icon...
+	
+	Progress on Path and Previous Path should be clickable to go back to Objects and Fields 
+	
+	Now Filters page is fine 
+	
+	just the path should say just Filters...
+	 
+	 other than that breadcrumbs and tabs to stay same (no extra breadcrum added and this is the same tab other is Upload Config)
+	
+	Finalize Page is fine, path should be used to navigate...breadcrumbs and tabs to stay same
+	Remove Start Comparison Button just keep Download Comparison aligned in b/w not to left or right
+	Remove Comparison Options card or whatever that is COnfiguration SUmmary is fine
+	
+	SOQL Configuration Mode
+	
+	Stays on same tab
+	Bread Crumb is SOQL Config Generator instead of Manual config Generator
+	
+	Remove second header saying SOQL Configuration Mode
+	
+	Remove Path from this page 
+	
+	
+	
+	Looks fine but make use of toasts on validation success or failure..
+	https://www.lightningdesignsystem.com/2e1ef8501/p/216f79-toast
+	https://www.lightningdesignsystem.com/2e1ef8501/p/216f79-toast/b/09e06c
+	https://www.lightningdesignsystem.com/2e1ef8501/p/216f79-toast/b/143824
+	
+	Shared Query or Seperate Query use Radio Button Group 
+	
+	https://www.lightningdesignsystem.com/2e1ef8501/p/2052d7-radio-button-group
+	https://www.lightningdesignsystem.com/2e1ef8501/p/2052d7-radio-button-group/b/09e06c
+	https://www.lightningdesignsystem.com/2e1ef8501/p/2052d7-radio-button-group/b/90c681
+	
+	Searching combo box is a bit too big vertical and horizontally bith query mode and object selection and Foreing Key text input can be fit in same line or left Query Mode and Center Select Object and Right Input of FK
+	
+	Now use a clean nested card for the SOQL Input and Use headings when I ask 
+	
+	SELECT as heading of the card
+	
+	fields text area input inside Cards/Tiles
+	
+	A Tile here 
+	
+	FROM *Obect Name* Heading
+	
+	Again Card 
+	
+	WHERE Heading 
+
+	Text Input for Where 
+	
+	If seperate mode
+	
+	WHERE Heading
+	
+	Nested Card Org username heading
+	
+	Input
+	Nested Card 2 Or heading
+	Input and so on
+	
+	(AS the logic existed but now nested cards)
+	
+	Buttons 
+	
+	Button Same as Manual Mode : Download Config instead of Generate Config similar middle and bottom of page...
+	
+
+	Tab 2 (Upload Config)
+	
+	A full page with drag files over File Selector (Big FOnt and in b/w of the page abs center)
+	
+	https://www.lightningdesignsystem.com/2e1ef8501/p/77d584-file-selector/b/39205c
+	https://www.lightningdesignsystem.com/2e1ef8501/p/77d584-file-selector/b/09e06c
+	https://www.lightningdesignsystem.com/2e1ef8501/p/77d584-file-selector/b/516284
+	
+	Accepts JSON 
+	
+	Use Attachment Icon 
+	
+	Once done...
+	
+	http://localhost:3030/data-comparison/comparison-status?comparisonId=xxxxxxxxxxx
+	
+	Tabs are mantained continue in second tab page content
+	Header looks fine no changes
+	
+	Use https://www.lightningdesignsystem.com/2e1ef8501/p/64d280-progress-indicator progress indicatior instead of the path
+	https://www.lightningdesignsystem.com/2e1ef8501/p/64d280-progress-indicator
+	https://www.lightningdesignsystem.com/2e1ef8501/p/64d280-progress-indicator/b/772221
+	https://www.lightningdesignsystem.com/2e1ef8501/p/64d280-progress-indicator/b/697a6a
+	
+	Remove progress bar from the top
+	
+	Duplicate FK page
+	
+	Move this to  a yellow toast 
+	
+	Duplicate foreign keys detected in your data
+Multiple records share the same foreign key value. Please resolve these duplicates before proceeding with the comparison.
+
+And just keep 1 message remove Duplicate foreign keys detected in your data, just Multiple records share the same foreign key value. Please resolve these duplicates before proceeding with the comparison.
+
+Rest Duplicate resolver looks good excepot for the fact that the tabs are not there this should be second tab content
+
+Remove Configuration Summary, Just Have 1 card 
+
+Change Icon accordingly like Data Fetching have that and what it shows like Progress , current Object etc.
+and inside the card have a small progress bar that shares boundary or something based on the progress..then later when the state changes like Data Preparation use the same card same Progress bar etc then keep updating for all statuses like no sperate cards..
+
+https://www.lightningdesignsystem.com/2e1ef8501/p/70ad36-progress-bar
+https://www.lightningdesignsystem.com/2e1ef8501/p/70ad36-progress-bar/b/806b51
+https://www.lightningdesignsystem.com/2e1ef8501/p/70ad36-progress-bar/b/65ec72
+
+
+Once completed, 
+
+Button Group would be-  View Results, Download Results in CSV (instead of saying Down Load Excel and use Icon CSV),  
+Download Report (Generate Report uses a new page just download the report and remove that page I want to keep it simple) and New Comparison is fine
+	
+

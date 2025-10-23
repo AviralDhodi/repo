@@ -1,0 +1,225 @@
+<!-- Organization Selection Component with SLDS 2.0 Button Groups -->
+<div class="slds-p-around_large">
+    <!-- Page Header Card -->
+    <div class="slds-card slds-m-bottom_medium">
+        <div class="slds-card__header">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-account">
+                        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                            <use xlink:href="/shared/assets/slds/icons/standard-sprite/svg/symbols.svg#account"></use>
+                        </svg>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>Select Organizations</span>
+                    </h2>
+                    <p class="slds-text-body_small slds-text-color_weak">Choose the organizations you want to compare</p>
+                </div>
+            </header>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="slds-align_absolute-center slds-m-around_large" id="loadingSection">
+        <div class="slds-spinner_container">
+            <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+        <p class="slds-text-body_regular slds-m-top_medium">Loading authenticated organizations...</p>
+    </div>
+
+    <!-- Error State -->
+    <div class="slds-illustration slds-illustration_small slds-hide" id="errorSection">
+        <svg class="slds-illustration__svg" viewBox="0 0 468 194" aria-hidden="true">
+            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g transform="translate(-67.000000, -112.000000)">
+                    <g>
+                        <g transform="translate(67.000000, 112.000000)">
+                            <g class="slds-illustration__stroke-secondary" stroke-linecap="round" stroke-width="3">
+                                <path d="M30,165.5 L256,165.5"></path>
+                                <path d="M0,165.5 L20,165.5"></path>
+                                <path d="M266,165.5 L445,165.5"></path>
+                                <path d="M455,165.5 L468,165.5"></path>
+                            </g>
+                            <g>
+                                <g transform="translate(121.000000, 48.000000)" class="slds-illustration__fill-secondary">
+                                    <path d="M33,108.5 C33,110.709 31.209,112.5 29,112.5 L4,112.5 C1.791,112.5 0,110.709 0,108.5 L0,104.5 C0,102.291 1.791,100.5 4,100.5 L29,100.5 C31.209,100.5 33,102.291 33,104.5 L33,108.5 Z"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </svg>
+        <div class="slds-text-longform">
+            <h3 class="slds-text-heading_medium">Unable to Load Organizations</h3>
+            <p class="slds-text-body_regular" id="errorMessage">Failed to retrieve authenticated organizations.</p>
+            <button class="slds-button slds-button_brand slds-m-top_medium" id="retryBtn">Retry</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="slds-hide" id="contentSection">
+        <!-- Controls Card -->
+        <div class="slds-card slds-m-bottom_medium">
+            <div class="slds-card__body slds-card__body_inner">
+                <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-spread">
+                    <!-- Search Box -->
+                    <div class="slds-col slds-size_1-of-3">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label slds-assistive-text" for="orgSearch">Search Organizations</label>
+                            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                                <svg class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default">
+                                    <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#search"></use>
+                                </svg>
+                                <input type="text" id="orgSearch" class="slds-input" placeholder="Search organizations..." />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Filters -->
+                    <div class="slds-col">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <div class="slds-checkbox">
+                                    <input type="checkbox" id="showScratchOrgs" checked />
+                                    <label class="slds-checkbox__label" for="showScratchOrgs">
+                                        <span class="slds-checkbox_faux"></span>
+                                        <span class="slds-form-element__label">Include Scratch Orgs</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-col">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <div class="slds-checkbox">
+                                    <input type="checkbox" id="showProductionOrgs" checked />
+                                    <label class="slds-checkbox__label" for="showProductionOrgs">
+                                        <span class="slds-checkbox_faux"></span>
+                                        <span class="slds-form-element__label">Include Production Orgs</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Button Group for Select/Clear -->
+                    <div class="slds-col">
+                        <div class="slds-button-group" role="group">
+                            <button class="slds-button slds-button_neutral" id="selectAllBtn">Select All</button>
+                            <button class="slds-button slds-button_neutral" id="clearAllBtn">Clear All</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Selection Summary -->
+                <div class="slds-m-top_small">
+                    <span class="slds-badge slds-theme_success">
+                        <span class="slds-badge__label" id="selectedCount">0 of 0 organizations selected</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Organizations List -->
+        <div class="slds-card">
+            <div class="slds-card__body">
+                <div class="slds-grid slds-wrap slds-grid_pull-padded-small" id="orgList">
+                    <!-- Organization tiles will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons - Top and Bottom -->
+        <div class="slds-m-top_large">
+            <!-- Validation Messages -->
+            <div id="validationMessages"></div>
+            
+            <!-- Button Groups -->
+            <div class="slds-grid slds-grid_align-spread">
+                <!-- Left Button Group -->
+                <div class="slds-button-group" role="group">
+                    <button class="slds-button slds-button_neutral" id="selectAllBtn2">Select All</button>
+                    <button class="slds-button slds-button_neutral" id="clearAllBtn2">Clear All</button>
+                </div>
+                
+                <!-- Right Button Group -->
+                <div class="slds-button-group" role="group">
+                    <button class="slds-button slds-button_neutral" id="debugBtn">
+                        <svg class="slds-button__icon slds-button__icon_left">
+                            <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#bug"></use>
+                        </svg>
+                        Debug Selection
+                    </button>
+                    <button class="slds-button slds-button_brand" id="validateBtn">
+                        Validate & Continue
+                        <span class="slds-spinner slds-spinner_x-small slds-spinner_inline slds-hide" id="validateSpinner">
+                            <span class="slds-assistive-text">Loading</span>
+                            <span class="slds-spinner__dot-a"></span>
+                            <span class="slds-spinner__dot-b"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Duplicate buttons at bottom for convenience -->
+        <div class="slds-m-top_medium slds-border_top slds-p-top_medium">
+            <div class="slds-grid slds-grid_align-spread">
+                <!-- Left Button Group -->
+                <div class="slds-button-group" role="group">
+                    <button class="slds-button slds-button_neutral" id="selectAllBtn3">Select All</button>
+                    <button class="slds-button slds-button_neutral" id="clearAllBtn3">Clear All</button>
+                </div>
+                
+                <!-- Right Button Group -->
+                <div class="slds-button-group" role="group">
+                    <button class="slds-button slds-button_neutral" id="debugBtn2">
+                        <svg class="slds-button__icon slds-button__icon_left">
+                            <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#bug"></use>
+                        </svg>
+                        Debug Selection
+                    </button>
+                    <button class="slds-button slds-button_brand" id="validateBtn2">
+                        Validate & Continue
+                        <span class="slds-spinner slds-spinner_x-small slds-spinner_inline slds-hide" id="validateSpinner2">
+                            <span class="slds-assistive-text">Loading</span>
+                            <span class="slds-spinner__dot-a"></span>
+                            <span class="slds-spinner__dot-b"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Organization Details Modal -->
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading" class="slds-modal slds-fade-in-open slds-hide" id="orgDetailsModal">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" id="closeModalBtn">
+                    <svg class="slds-button__icon slds-button__icon_large">
+                        <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#close"></use>
+                    </svg>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 id="modal-heading" class="slds-modal__title slds-hyphenate">Organization Details</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modalBody">
+                <!-- Details will be populated here -->
+            </div>
+            <footer class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral" id="modalCloseBtn">Close</button>
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open slds-hide" id="modalBackdrop"></div>
+</div>

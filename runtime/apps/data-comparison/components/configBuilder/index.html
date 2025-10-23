@@ -1,0 +1,1309 @@
+<!-- Integrated Configuration Builder - Org Selection First -->
+<div class="slds-p-around_medium" style="height: 100%; display: flex; flex-direction: column;">
+    
+    <!-- Step 1: Organization Selection (Always Visible) -->
+    <div class="slds-box slds-theme_shade slds-m-bottom_medium">
+        <div class="slds-grid slds-grid_vertical-align-center">
+            <div class="slds-col slds-size_1-of-3">
+                <div class="slds-form-element">
+                    <label class="slds-form-element__label" for="org-select">
+                        <abbr class="slds-required" title="required">* </abbr>Organizations
+                    </label>
+                    <div class="slds-form-element__control">
+                        <div class="slds-combobox_container">
+                            <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click" id="org-combobox">
+                                <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right">
+                                    <input type="text" 
+                                           class="slds-input slds-combobox__input" 
+                                           id="org-input"
+                                           placeholder="Select organizations..."
+                                           readonly
+                                           aria-controls="org-listbox"
+                                           aria-expanded="false"
+                                           aria-haspopup="listbox">
+                                    <span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
+                                        <svg class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default">
+                                            <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#down"></use>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div id="org-listbox" class="slds-dropdown slds-dropdown_length-7 slds-dropdown_fluid" role="listbox" style="display: none; z-index: 9000;">
+                                    <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                        <!-- Orgs will be populated here -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form-element__help" id="org-help">Select at least 2 organizations to compare</div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_2-of-3 slds-p-left_medium">
+                <div id="org-selection-status" class="slds-badge-set">
+                    <!-- Selected org badges will appear here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 2: Mode Selection (Visible after org selection) -->
+    <div id="mode-selection-section" class="slds-hide">
+        <div class="slds-box slds-m-bottom_medium">
+            <div class="slds-grid slds-grid_align-center">
+                <div class="slds-button-group" role="group">
+                    <button class="slds-button slds-button_neutral slds-button_stateful slds-is-selected" id="mode-manual">
+                        <svg class="slds-button__icon slds-button__icon_left">
+                            <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#table"></use>
+                        </svg>
+                        Manual Configuration
+                    </button>
+                    <button class="slds-button slds-button_neutral slds-button_stateful" id="mode-soql">
+                        <svg class="slds-button__icon slds-button__icon_left">
+                            <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#database"></use>
+                        </svg>
+                        SOQL Configuration
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div id="configuration-area" class="slds-hide" style="flex: 1; overflow: hidden;">
+        <div class="slds-grid slds-gutters" style="height: 100%;">
+            
+            <!-- Left Panel: Configuration -->
+            <div class="slds-col slds-size_2-of-3">
+                <article class="slds-card" style="height: 100%; display: flex; flex-direction: column;">
+                    <div class="slds-card__header">
+                        <h2 class="slds-card__header-title">
+                            <span id="config-mode-title">Manual Configuration</span>
+                        </h2>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner" style="flex: 1; overflow-y: auto;">
+                        
+                        <!-- Manual Configuration Panel -->
+                        <div id="manual-panel">
+                            <!-- Objects and Fields Selection -->
+                            <div id="object-selection">
+                                <div class="slds-grid slds-gutters" style="position: relative; overflow: hidden;">
+                                    <!-- Objects List -->
+                                    <div class="slds-col slds-size_1-of-3 objects-container" id="objects-container" style="transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;">
+                                        <div class="slds-box slds-box_x-small">
+                                            <h3 class="slds-text-heading_small slds-m-bottom_small">Objects</h3>
+                                            <div class="slds-form-element">
+                                                <div class="slds-form-element__control">
+                                                    <input type="text" 
+                                                           id="object-search" 
+                                                           class="slds-input" 
+                                                           placeholder="Search objects...">
+                                                </div>
+                                            </div>
+                                            <div class="slds-m-top_small" style="max-height: 400px; overflow-y: auto;">
+                                                <ul id="objects-list" class="slds-has-dividers_bottom-space">
+                                                    <!-- Objects will be populated here -->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Fields List -->
+                                    <div class="slds-col slds-size_2-of-3 fields-container" id="fields-container" style="transition: all 0.3s ease-in-out;">
+                                        <div class="slds-box slds-box_x-small">
+                                            <div class="slds-grid slds-grid_vertical-align-center slds-m-bottom_small">
+                                                <button class="slds-button slds-button_icon slds-button_icon-border slds-m-right_small slds-hide" id="back-to-parent" title="Back to parent">
+                                                    <svg class="slds-button__icon">
+                                                        <use xlink:href="/shared/assets/slds/icons/action-sprite/svg/symbols.svg#back"></use>
+                                                    </svg>
+                                                </button>
+                                                <h3 class="slds-text-heading_small" style="flex: 1;">
+                                                    <span id="selected-object-name">Select an Object</span> Fields
+                                                </h3>
+                                            </div>
+                                            <div class="slds-grid slds-grid_align-spread slds-m-bottom_small">
+                                                <div class="slds-form-element">
+                                                    <div class="slds-form-element__control">
+                                                        <input type="text"
+                                                               id="field-search"
+                                                               class="slds-input"
+                                                               placeholder="Search fields...">
+                                                    </div>
+                                                </div>
+                                                <div class="slds-button-group">
+                                                    <button class="slds-button slds-button_neutral slds-button_small" id="select-all-fields">
+                                                        Select All
+                                                    </button>
+                                                    <button class="slds-button slds-button_neutral slds-button_small" id="clear-all-fields">
+                                                        Clear All
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div style="max-height: 400px; overflow-y: auto;">
+                                                <ul id="fields-list" class="slds-has-dividers_bottom-space">
+                                                    <li class="slds-item slds-text-color_weak slds-text-align_center slds-p-vertical_large">
+                                                        Select an object to view fields
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Loading State -->
+                            <div id="manual-loading" class="slds-align_absolute-center slds-p-vertical_xx-large slds-hide">
+                                <div class="slds-spinner_container">
+                                    <div role="status" class="slds-spinner slds-spinner_medium">
+                                        <span class="slds-assistive-text">Loading objects...</span>
+                                        <div class="slds-spinner__dot-a"></div>
+                                        <div class="slds-spinner__dot-b"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SOQL Configuration Panel -->
+                        <div id="soql-panel" class="slds-hide">
+                            <div class="slds-form-element slds-m-bottom_medium">
+                                <label class="slds-form-element__label" for="soql-object">
+                                    <abbr class="slds-required" title="required">* </abbr>Object
+                                </label>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-combobox_container">
+                                        <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click" id="soql-object-combobox">
+                                            <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right">
+                                                <input type="text" 
+                                                       class="slds-input slds-combobox__input" 
+                                                       id="soql-object-input"
+                                                       placeholder="Search and select an object..."
+                                                       aria-controls="soql-object-listbox">
+                                                <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                                                    <svg class="slds-icon slds-icon_x-small slds-icon-text-default">
+                                                        <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#search"></use>
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                            <div id="soql-object-listbox" class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox" style="display: none;">
+                                                <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                                    <!-- Objects will be populated here -->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form-element__help">Choose a common object across selected organizations</div>
+                            </div>
+
+                            <div class="slds-form-element slds-m-bottom_medium">
+                                <label class="slds-form-element__label" for="soql-query">
+                                    <abbr class="slds-required" title="required">* </abbr>SOQL Query
+                                </label>
+                                <div class="slds-form-element__control">
+                                    <textarea id="soql-query" 
+                                              class="slds-textarea" 
+                                              placeholder="SELECT Id, Name FROM Account WHERE CreatedDate > LAST_N_DAYS:30"
+                                              rows="10"></textarea>
+                                </div>
+                                <div class="slds-form-element__help">
+                                    Enter SOQL query that will be executed on all selected organizations
+                                </div>
+                            </div>
+
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="soql-foreign-key">
+                                    <abbr class="slds-required" title="required">* </abbr>Foreign Key Field
+                                </label>
+                                <div class="slds-form-element__control">
+                                    <input type="text" 
+                                           id="soql-foreign-key" 
+                                           class="slds-input" 
+                                           placeholder="e.g., Id, Name, ExternalId__c">
+                                </div>
+                                <div class="slds-form-element__help">
+                                    Field used to match records across organizations
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Right Panel: Generated Config -->
+            <div class="slds-col slds-size_1-of-3">
+                <article class="slds-card" style="height: 100%; display: flex; flex-direction: column;">
+                    <div class="slds-card__header">
+                        <h2 class="slds-card__header-title">Generated Configuration</h2>
+                        <button class="slds-button slds-button_icon slds-card__header-action" title="Download" id="download-config">
+                            <svg class="slds-button__icon">
+                                <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#download"></use>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="slds-card__body slds-card__body_inner" style="flex: 1; overflow: auto;">
+                        <pre id="config-preview" style="background: #f4f6f9; padding: 1rem; border-radius: 0.25rem; font-size: 0.75rem; white-space: pre-wrap; word-wrap: break-word;">
+{
+  "version": "2.0.0",
+  "orgs": [],
+  "objects": {},
+  "fetchMethod": "graphql",
+  "metadata": {}
+}
+                        </pre>
+                    </div>
+                    <div class="slds-card__footer">
+                        <button class="slds-button slds-button_brand slds-button_stretch" id="start-comparison" disabled>
+                            Start Comparison
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    // State
+    let selectedOrgs = [];
+    let availableOrgs = [];
+    let configMode = 'manual';
+    let commonObjects = [];
+    let selectedObject = null;
+    let selectedSoqlObject = null;
+    let objectFields = {};
+    let configuration = {
+        version: '2.0.0',
+        orgs: [],
+        objects: {},
+        fetchMethod: 'graphql',
+        metadata: {}
+    };
+
+    // Relationship navigation state
+    let relationshipStack = []; // Stack to track navigation history
+    let currentRelationshipPath = []; // Current dot-notation path (e.g., ['Owner', 'CreatedBy'])
+    let relationshipFields = {}; // Cache for relationship field data
+    let currentRelationshipFieldName = null; // Track which relationship field we're navigating from
+    let selectedRelationshipFK = null; // Track the selected FK in relationship mode
+
+    // DOM Elements
+    const orgInput = document.getElementById('org-input');
+    const orgListbox = document.getElementById('org-listbox');
+    const orgHelp = document.getElementById('org-help');
+    const orgSelectionStatus = document.getElementById('org-selection-status');
+    const modeSelectionSection = document.getElementById('mode-selection-section');
+    const configurationArea = document.getElementById('configuration-area');
+    const configPreview = document.getElementById('config-preview');
+    const startButton = document.getElementById('start-comparison');
+    const modeManual = document.getElementById('mode-manual');
+    const modeSoql = document.getElementById('mode-soql');
+    const manualPanel = document.getElementById('manual-panel');
+    const soqlPanel = document.getElementById('soql-panel');
+    const soqlQuery = document.getElementById('soql-query');
+    const soqlForeignKey = document.getElementById('soql-foreign-key');
+    const soqlObjectInput = document.getElementById('soql-object-input');
+    const soqlObjectListbox = document.getElementById('soql-object-listbox');
+    const downloadBtn = document.getElementById('download-config');
+    const objectsList = document.getElementById('objects-list');
+    const fieldsList = document.getElementById('fields-list');
+    const objectSearch = document.getElementById('object-search');
+    const fieldSearch = document.getElementById('field-search');
+    const selectedObjectName = document.getElementById('selected-object-name');
+    const selectAllFields = document.getElementById('select-all-fields');
+    const clearAllFields = document.getElementById('clear-all-fields');
+    const configModeTitle = document.getElementById('config-mode-title');
+    const backToParentBtn = document.getElementById('back-to-parent');
+    const objectsContainer = document.getElementById('objects-container');
+    const fieldsContainer = document.getElementById('fields-container');
+
+    // Initialize
+    async function init() {
+        await loadOrganizations();
+        bindEvents();
+        updateConfig();
+    }
+
+    // Load available organizations
+    async function loadOrganizations() {
+        try {
+            const response = await fetch('/data-comparison/api/orgs');
+            const data = await response.json();
+            
+            availableOrgs = data.orgs || [];
+            renderOrgList();
+        } catch (error) {
+            console.error('Failed to load organizations:', error);
+            showToast('error', 'Failed to load organizations');
+        }
+    }
+
+    // Load common objects for selected orgs
+    async function loadCommonObjects() {
+        if (selectedOrgs.length < 2) return;
+        
+        document.getElementById('manual-loading').classList.remove('slds-hide');
+        document.getElementById('object-selection').classList.add('slds-hide');
+        
+        try {
+            const response = await fetch('/data-comparison/api/objects/common', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ orgs: selectedOrgs })
+            });
+            
+            if (!response.ok) throw new Error('Failed to load objects');
+            
+            const data = await response.json();
+            commonObjects = data.commonObjects || [];
+            
+            document.getElementById('manual-loading').classList.add('slds-hide');
+            document.getElementById('object-selection').classList.remove('slds-hide');
+            
+            renderObjectsList();
+            renderSoqlObjectList();
+        } catch (error) {
+            console.error('Failed to load common objects:', error);
+            document.getElementById('manual-loading').classList.add('slds-hide');
+            showToast('error', 'Failed to load common objects');
+        }
+    }
+
+    // Load fields for selected object
+    async function loadObjectFields(objectName) {
+        try {
+            const response = await fetch(`/data-comparison/api/objects/${objectName}/fields`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ orgs: selectedOrgs })
+            });
+            
+            if (!response.ok) throw new Error('Failed to load fields');
+            
+            const data = await response.json();
+            objectFields[objectName] = data.commonFields || [];
+            
+            renderFieldsList(objectName);
+        } catch (error) {
+            console.error('Failed to load fields:', error);
+            showToast('error', 'Failed to load fields for ' + objectName);
+        }
+    }
+
+    // Render organization list
+    function renderOrgList() {
+        const listbox = orgListbox.querySelector('.slds-listbox');
+        listbox.innerHTML = availableOrgs.map(org => `
+            <li role="presentation" class="slds-listbox__item">
+                <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small" 
+                     role="option">
+                    <span class="slds-media__figure slds-listbox__option-icon">
+                        <span class="slds-checkbox">
+                            <input type="checkbox" 
+                                   id="org-${org.alias || org.username}" 
+                                   value="${org.alias || org.username}"
+                                   ${selectedOrgs.includes(org.alias || org.username) ? 'checked' : ''}>
+                            <label class="slds-checkbox__label" for="org-${org.alias || org.username}">
+                                <span class="slds-checkbox_faux"></span>
+                            </label>
+                        </span>
+                    </span>
+                    <span class="slds-media__body">
+                        <span class="slds-truncate" title="${org.username}">
+                            <strong>${org.alias || 'No alias'}</strong> - ${org.username}
+                        </span>
+                    </span>
+                </div>
+            </li>
+        `).join('');
+    }
+
+    // Render objects list
+    function renderObjectsList() {
+        const searchTerm = objectSearch.value.toLowerCase();
+        const filtered = commonObjects.filter(obj => 
+            obj.name.toLowerCase().includes(searchTerm) || 
+            obj.label.toLowerCase().includes(searchTerm)
+        );
+        
+        objectsList.innerHTML = filtered.map(obj => `
+            <li class="slds-item slds-p-horizontal_small slds-p-vertical_x-small">
+                <button class="slds-button slds-button_stretch object-item" 
+                        data-object="${obj.name}"
+                        style="text-align: left;">
+                    <span class="slds-truncate">
+                        <strong>${obj.label}</strong>
+                        <span class="slds-text-body_small slds-text-color_weak"> (${obj.name})</span>
+                    </span>
+                </button>
+            </li>
+        `).join('');
+        
+        if (filtered.length === 0) {
+            objectsList.innerHTML = '<li class="slds-item slds-text-color_weak slds-text-align_center slds-p-vertical_small">No objects found</li>';
+        }
+    }
+
+    // Render SOQL object list
+    function renderSoqlObjectList() {
+        const searchTerm = soqlObjectInput.value.toLowerCase();
+        const filtered = commonObjects.filter(obj => 
+            obj.name.toLowerCase().includes(searchTerm) || 
+            obj.label.toLowerCase().includes(searchTerm)
+        );
+        
+        const listbox = soqlObjectListbox.querySelector('.slds-listbox');
+        listbox.innerHTML = filtered.map(obj => `
+            <li role="presentation" class="slds-listbox__item">
+                <div class="slds-media slds-listbox__option slds-listbox__option_plain" 
+                     role="option"
+                     data-object="${obj.name}">
+                    <span class="slds-media__body">
+                        <span class="slds-truncate">
+                            <strong>${obj.label}</strong>
+                            <span class="slds-text-body_small slds-text-color_weak"> (${obj.name})</span>
+                        </span>
+                    </span>
+                </div>
+            </li>
+        `).join('');
+    }
+
+    // Render fields list
+    function renderFieldsList(objectName, relationshipPath = []) {
+        // Determine which object's fields to load
+        const fieldsKey = relationshipPath.length > 0 ? relationshipPath.join('.') : objectName;
+        const fields = objectFields[fieldsKey] || objectFields[objectName] || [];
+
+        const searchTerm = fieldSearch.value.toLowerCase();
+        const filtered = fields.filter(field =>
+            field.name.toLowerCase().includes(searchTerm) ||
+            field.label.toLowerCase().includes(searchTerm)
+        );
+
+        // Get root object for configuration lookup
+        const rootObject = relationshipStack.length > 0 ? relationshipStack[0].objectName : selectedObject;
+
+        // Determine if we're in relationship mode
+        const inRelationshipMode = relationshipPath.length > 0;
+
+        // Update header with relationship path
+        if (relationshipPath.length === 0) {
+            selectedObjectName.textContent = objectName;
+        } else {
+            selectedObjectName.textContent = `${relationshipPath.join('.')} (${objectName})`;
+        }
+
+        // Filter out reference fields when in relationship mode (can't nest references in legacy)
+        const displayFields = inRelationshipMode
+            ? filtered.filter(f => f.type !== 'reference')
+            : filtered;
+
+        fieldsList.innerHTML = displayFields.map(field => {
+            // Construct full field path
+            const fullFieldPath = relationshipPath.length > 0
+                ? `${relationshipPath.join('.')}.${field.name}`
+                : field.name;
+
+            const isSelected = configuration.objects[rootObject]?.fields?.includes(fullFieldPath);
+            const isForeignKey = configuration.objects[rootObject]?.foreignKey === fullFieldPath;
+            const isReference = field.type === 'reference';
+            const referenceTo = isReference && field.referenceTo ? field.referenceTo[0] : null;
+
+            // In relationship mode, show radio buttons instead of checkboxes/FK toggles
+            if (inRelationshipMode) {
+                const isChecked = selectedRelationshipFK === field.name;
+                return `
+                    <li class="slds-item slds-p-horizontal_small slds-p-vertical_x-small" style="display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid #dddbda; cursor: pointer;" data-field="${field.name}">
+                        <div class="slds-form-element" style="flex: 1; margin-bottom: 0;">
+                            <div class="slds-form-element__control">
+                                <span class="slds-radio">
+                                    <input type="radio"
+                                           id="field-${objectName}-${field.name.replace(/\./g, '-')}"
+                                           name="relationship-fk"
+                                           data-object="${objectName}"
+                                           data-field="${field.name}"
+                                           ${isChecked ? 'checked' : ''}
+                                           class="relationship-fk-radio">
+                                    <label class="slds-radio__label" for="field-${objectName}-${field.name.replace(/\./g, '-')}">
+                                        <span class="slds-radio_faux"></span>
+                                        <span class="slds-form-element__label">
+                                            <strong>${field.label}</strong>
+                                            <span class="slds-text-body_small slds-text-color_weak"> (${field.name})</span>
+                                            <span class="slds-badge slds-badge_lightest slds-m-left_x-small">${field.type}</span>
+                                        </span>
+                                    </label>
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                `;
+            } else {
+                // Root object mode: checkboxes + FK toggles + relationship buttons
+                // Check if this reference field has any selected related fields
+                const hasRelatedField = isReference && configuration.objects[rootObject]?.fields?.some(f => f.startsWith(field.name + '.'));
+
+                return `
+                    <li class="slds-item slds-p-horizontal_small slds-p-vertical_x-small" style="display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid #dddbda;">
+                        <div class="slds-form-element" style="flex: 1; margin-bottom: 0;">
+                            <div class="slds-form-element__control">
+                                <span class="slds-checkbox">
+                                    <input type="checkbox"
+                                           id="field-${objectName}-${field.name.replace(/\./g, '-')}"
+                                           data-object="${objectName}"
+                                           data-field="${field.name}"
+                                           ${isSelected || isForeignKey || hasRelatedField ? 'checked' : ''}
+                                           ${isForeignKey || isReference ? 'disabled' : ''}
+                                           class="field-checkbox ${isReference ? 'reference-checkbox' : ''}">
+                                    <label class="slds-checkbox__label" for="field-${objectName}-${field.name.replace(/\./g, '-')}">
+                                        <span class="slds-checkbox_faux"></span>
+                                        <span class="slds-form-element__label">
+                                            <strong>${field.label}</strong>
+                                            <span class="slds-text-body_small slds-text-color_weak"> (${field.name})</span>
+                                            <span class="slds-badge slds-badge_lightest slds-m-left_x-small">${field.type}</span>
+                                            ${isReference && referenceTo ? `<span class="slds-text-body_small slds-text-color_weak"> → ${referenceTo}</span>` : ''}
+                                        </span>
+                                    </label>
+                                </span>
+                            </div>
+                        </div>
+                        ${!isReference ? `
+                        <div class="fk-toggle-container" style="display: flex; align-items: center; gap: 0.5rem;">
+                            <label class="fk-toggle-label" style="font-size: 0.875rem; font-weight: 600; color: #706e6b;">FK</label>
+                            <label class="fk-toggle-switch">
+                                <input type="checkbox"
+                                       class="fk-toggle-input"
+                                       data-object="${objectName}"
+                                       data-field="${field.name}"
+                                       ${isForeignKey ? 'checked' : ''}
+                                       aria-label="Set ${field.name} as Foreign Key">
+                                <span class="fk-toggle-slider"></span>
+                            </label>
+                        </div>
+                        ` : `
+                        <button class="slds-button slds-button_icon slds-button_icon-border-filled relationship-btn"
+                                data-field="${field.name}"
+                                data-relationship="${field.relationshipName || field.name}"
+                                data-reference-to="${referenceTo}"
+                                title="Select related field from ${referenceTo}">
+                            <svg class="slds-button__icon">
+                                <use xlink:href="/shared/assets/slds/icons/action-sprite/svg/symbols.svg#add_relationship"></use>
+                            </svg>
+                        </button>
+                        `}
+                    </li>
+                `;
+            }
+        }).join('');
+
+        if (displayFields.length === 0) {
+            fieldsList.innerHTML = '<li class="slds-item slds-text-color_weak slds-text-align_center slds-p-vertical_small">No fields found</li>';
+        }
+    }
+
+    // Bind events
+    function bindEvents() {
+        // Org dropdown toggle
+        orgInput.addEventListener('click', () => {
+            const isOpen = orgListbox.style.display !== 'none';
+            orgListbox.style.display = isOpen ? 'none' : 'block';
+            orgInput.setAttribute('aria-expanded', !isOpen);
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#org-combobox')) {
+                orgListbox.style.display = 'none';
+                orgInput.setAttribute('aria-expanded', 'false');
+            }
+            if (!e.target.closest('#soql-object-combobox')) {
+                soqlObjectListbox.style.display = 'none';
+            }
+        });
+
+        // Org selection change
+        orgListbox.addEventListener('change', async (e) => {
+            if (e.target.type === 'checkbox') {
+                const orgAlias = e.target.value;
+                if (e.target.checked) {
+                    selectedOrgs.push(orgAlias);
+                } else {
+                    selectedOrgs = selectedOrgs.filter(o => o !== orgAlias);
+                }
+                updateOrgDisplay();
+                updateConfig();
+                
+                // Show/hide next sections based on org selection
+                if (selectedOrgs.length >= 2) {
+                    modeSelectionSection.classList.remove('slds-hide');
+                    configurationArea.classList.remove('slds-hide');
+                    await loadCommonObjects();
+                } else {
+                    modeSelectionSection.classList.add('slds-hide');
+                    configurationArea.classList.add('slds-hide');
+                }
+            }
+        });
+
+        // Mode selection
+        modeManual.addEventListener('click', async () => {
+            configMode = 'manual';
+            modeManual.classList.add('slds-is-selected');
+            modeSoql.classList.remove('slds-is-selected');
+            manualPanel.classList.remove('slds-hide');
+            soqlPanel.classList.add('slds-hide');
+            configModeTitle.textContent = 'Manual Configuration';
+            updateConfig();
+        });
+
+        modeSoql.addEventListener('click', () => {
+            configMode = 'soql';
+            modeSoql.classList.add('slds-is-selected');
+            modeManual.classList.remove('slds-is-selected');
+            soqlPanel.classList.remove('slds-hide');
+            manualPanel.classList.add('slds-hide');
+            configModeTitle.textContent = 'SOQL Configuration';
+            updateConfig();
+        });
+
+        // Object search
+        objectSearch.addEventListener('input', () => {
+            renderObjectsList();
+        });
+
+        // Field search
+        fieldSearch.addEventListener('input', () => {
+            if (selectedObject) {
+                renderFieldsList(selectedObject);
+            }
+        });
+
+        // SOQL object search
+        soqlObjectInput.addEventListener('input', () => {
+            soqlObjectListbox.style.display = 'block';
+            renderSoqlObjectList();
+        });
+
+        soqlObjectInput.addEventListener('focus', () => {
+            if (commonObjects.length > 0) {
+                soqlObjectListbox.style.display = 'block';
+                renderSoqlObjectList();
+            }
+        });
+
+        // SOQL object selection
+        soqlObjectListbox.addEventListener('click', (e) => {
+            const option = e.target.closest('[data-object]');
+            if (option) {
+                selectedSoqlObject = option.dataset.object;
+                const obj = commonObjects.find(o => o.name === selectedSoqlObject);
+                soqlObjectInput.value = `${obj.label} (${obj.name})`;
+                soqlObjectListbox.style.display = 'none';
+                updateConfig();
+            }
+        });
+
+        // Object selection
+        objectsList.addEventListener('click', async (e) => {
+            const button = e.target.closest('.object-item');
+            if (button) {
+                selectedObject = button.dataset.object;
+
+                // Reset relationship navigation
+                relationshipStack = [];
+                currentRelationshipPath = [];
+                if (backToParentBtn) {
+                    backToParentBtn.classList.add('slds-hide');
+                }
+
+                // Restore UI to show objects container
+                if (objectsContainer) {
+                    objectsContainer.style.transform = 'translateX(0)';
+                    objectsContainer.style.opacity = '1';
+                    objectsContainer.style.position = 'relative';
+                }
+                if (fieldsContainer) {
+                    fieldsContainer.classList.remove('slds-size_1-of-1');
+                    fieldsContainer.classList.add('slds-size_2-of-3');
+                }
+
+                // Highlight selected
+                document.querySelectorAll('.object-item').forEach(btn => {
+                    btn.classList.remove('slds-is-selected');
+                });
+                button.classList.add('slds-is-selected');
+
+                // Load fields if not already loaded
+                if (!objectFields[selectedObject]) {
+                    await loadObjectFields(selectedObject);
+                } else {
+                    renderFieldsList(selectedObject);
+                }
+            }
+        });
+
+        // Field selection (root object only - relationship fields use radio buttons)
+        fieldsList.addEventListener('change', (e) => {
+            if (e.target.type === 'checkbox' && e.target.classList.contains('field-checkbox')) {
+                const objectName = e.target.dataset.object;
+                const fieldName = e.target.dataset.field;
+
+                // Create object config if it doesn't exist
+                if (!configuration.objects[objectName]) {
+                    configuration.objects[objectName] = {
+                        fields: [],
+                        foreignKey: null,
+                        orgFilters: {}
+                    };
+                }
+
+                // Add or remove field
+                if (e.target.checked) {
+                    if (!configuration.objects[objectName].fields.includes(fieldName)) {
+                        configuration.objects[objectName].fields.push(fieldName);
+                    }
+                } else {
+                    configuration.objects[objectName].fields =
+                        configuration.objects[objectName].fields.filter(f => f !== fieldName);
+
+                    // Remove object if no fields selected and no FK
+                    if (configuration.objects[objectName].fields.length === 0 && !configuration.objects[objectName].foreignKey) {
+                        delete configuration.objects[objectName];
+                    }
+                }
+
+                updateConfig();
+            }
+        });
+
+        // FK toggle changes (only for root object fields)
+        document.addEventListener('change', (e) => {
+            if (e.target.classList.contains('fk-toggle-input')) {
+                const objectName = e.target.dataset.object;
+                const fieldName = e.target.dataset.field;
+                const isChecked = e.target.checked;
+
+                console.log('FK toggle changed:', objectName, fieldName, isChecked);
+
+                if (isChecked) {
+                    // Set new FK for root object
+                    if (!configuration.objects[objectName]) {
+                        configuration.objects[objectName] = {
+                            fields: [],
+                            foreignKey: fieldName,
+                            orgFilters: {}
+                        };
+                    } else {
+                        configuration.objects[objectName].foreignKey = fieldName;
+                    }
+
+                    // Auto-select the FK field
+                    if (!configuration.objects[objectName].fields.includes(fieldName)) {
+                        configuration.objects[objectName].fields.push(fieldName);
+                    }
+
+                    // Re-render fields to uncheck previous FK and check new one
+                    renderFieldsList(objectName);
+
+                    showToast(`Foreign Key set to ${fieldName}`, 'success');
+                } else {
+                    // Allow unchecking - remove FK and object from config if no fields selected
+                    if (configuration.objects[objectName]) {
+                        delete configuration.objects[objectName].foreignKey;
+
+                        // Remove FK field from selected fields
+                        configuration.objects[objectName].fields =
+                            configuration.objects[objectName].fields.filter(f => f !== fieldName);
+
+                        // Remove object from config if no fields left
+                        if (configuration.objects[objectName].fields.length === 0) {
+                            delete configuration.objects[objectName];
+                            showToast(`Object ${objectName} removed from configuration`, 'info');
+                        } else {
+                            showToast('Foreign Key removed - select a new one to proceed', 'warning');
+                        }
+                    }
+
+                    // Re-render to update UI
+                    renderFieldsList(objectName);
+                }
+
+                updateConfig();
+            }
+        });
+
+        // Relationship button clicks
+        fieldsList.addEventListener('click', async (e) => {
+            const relationshipBtn = e.target.closest('.relationship-btn');
+            if (relationshipBtn) {
+                e.preventDefault();
+                e.stopPropagation();
+                const fieldName = relationshipBtn.dataset.field;
+                const relationshipName = relationshipBtn.dataset.relationship;
+                const referenceTo = relationshipBtn.dataset.referenceTo;
+
+                if (currentRelationshipPath.length >= 50) {
+                    showToast('Maximum relationship depth (50) reached', 'warning');
+                    return;
+                }
+
+                await navigateToRelationship(fieldName, relationshipName, referenceTo);
+            }
+        });
+
+        // Relationship FK radio button selection
+        fieldsList.addEventListener('change', (e) => {
+            if (e.target.classList.contains('relationship-fk-radio')) {
+                const fieldName = e.target.dataset.field;
+                selectedRelationshipFK = fieldName;
+                console.log('Selected relationship FK:', fieldName);
+            }
+        });
+
+        // Back button
+        if (backToParentBtn) {
+            backToParentBtn.addEventListener('click', navigateBack);
+        }
+
+        // Select all fields (excluding reference fields)
+        selectAllFields.addEventListener('click', () => {
+            const checkboxes = fieldsList.querySelectorAll('input[type="checkbox"]:not([disabled]):not(.reference-checkbox)');
+            checkboxes.forEach(cb => {
+                cb.checked = true;
+                cb.dispatchEvent(new Event('change', { bubbles: true }));
+            });
+        });
+
+        // Clear all fields (excluding reference fields and FK)
+        clearAllFields.addEventListener('click', () => {
+            const checkboxes = fieldsList.querySelectorAll('input[type="checkbox"]:not([disabled]):not(.reference-checkbox)');
+            checkboxes.forEach(cb => {
+                cb.checked = false;
+                cb.dispatchEvent(new Event('change', { bubbles: true }));
+            });
+        });
+
+        // SOQL query and foreign key change
+        soqlQuery.addEventListener('input', updateConfig);
+        soqlForeignKey.addEventListener('input', updateConfig);
+
+        // Download config
+        downloadBtn.addEventListener('click', downloadConfig);
+
+        // Start comparison
+        startButton.addEventListener('click', startComparison);
+    }
+
+    // Update org display
+    function updateOrgDisplay() {
+        if (selectedOrgs.length === 0) {
+            orgInput.value = '';
+            orgInput.placeholder = 'Select organizations...';
+            orgHelp.textContent = 'Select at least 2 organizations to compare';
+            orgHelp.classList.remove('slds-text-color_success');
+            orgSelectionStatus.innerHTML = '';
+        } else {
+            orgInput.value = `${selectedOrgs.length} organization(s) selected`;
+            orgHelp.textContent = selectedOrgs.length >= 2 
+                ? `Ready to configure comparison` 
+                : `Select at least ${2 - selectedOrgs.length} more organization(s)`;
+            orgHelp.classList.toggle('slds-text-color_success', selectedOrgs.length >= 2);
+            
+            // Show selected org badges
+            orgSelectionStatus.innerHTML = selectedOrgs.map(org => `
+                <span class="slds-badge slds-badge_lightest slds-m-right_x-small">
+                    <span class="slds-badge__icon slds-badge__icon_left">
+                        <span class="slds-icon_container slds-icon-utility-salesforce1">
+                            <svg class="slds-icon slds-icon_xx-small slds-icon-text-default">
+                                <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#salesforce1"></use>
+                            </svg>
+                        </span>
+                    </span>
+                    ${org}
+                </span>
+            `).join('');
+        }
+    }
+
+    // Update configuration
+    function updateConfig() {
+        configuration.version = '2.0.0';
+        configuration.createdAt = new Date().toISOString();
+        configuration.orgs = selectedOrgs;
+        configuration.fetchMethod = 'graphql';
+        
+        // Calculate metadata
+        const totalFields = Object.values(configuration.objects || {})
+            .reduce((sum, obj) => sum + (obj.fields ? obj.fields.length : 0), 0);
+        
+        configuration.metadata = {
+            totalOrgs: selectedOrgs.length,
+            totalObjects: Object.keys(configuration.objects || {}).length,
+            totalFields: totalFields,
+            configGenerator: 'enhanced',
+            uiVersion: 'v3-slds-2.0',
+            fetchMethod: 'graphql',
+            mode: configMode
+        };
+
+        if (configMode === 'soql') {
+            // SOQL mode configuration
+            if (selectedSoqlObject && soqlQuery.value) {
+                const fields = extractFieldsFromQuery(soqlQuery.value);
+                configuration.objects = {};
+                configuration.objects[selectedSoqlObject] = {
+                    fields: fields,
+                    foreignKey: soqlForeignKey.value || 'Id',
+                    orgFilters: {},
+                    query: soqlQuery.value
+                };
+            }
+        } else {
+            // Manual mode - ensure objects have proper structure
+            Object.keys(configuration.objects || {}).forEach(objName => {
+                if (!configuration.objects[objName].orgFilters) {
+                    configuration.objects[objName].orgFilters = {};
+                }
+            });
+        }
+
+        // Update preview
+        configPreview.textContent = JSON.stringify(configuration, null, 2);
+
+        // Enable/disable start button
+        const isValid = selectedOrgs.length >= 2 && Object.keys(configuration.objects || {}).length > 0;
+        startButton.disabled = !isValid;
+    }
+    
+    // Extract fields from SOQL query
+    function extractFieldsFromQuery(query) {
+        const match = query.match(/SELECT\s+(.*?)\s+FROM/i);
+        if (match) {
+            return match[1].split(',').map(field => field.trim());
+        }
+        return [];
+    }
+
+    // Validate configuration before proceeding
+    function validateConfiguration() {
+        // Check if any objects are configured
+        const configuredObjects = Object.keys(configuration.objects || {});
+        if (configuredObjects.length === 0) {
+            showToast('Please configure at least one object with fields and FK', 'error');
+            return false;
+        }
+
+        // Check if each object has a foreign key (manual mode only)
+        const currentMode = document.getElementById('mode-manual').classList.contains('slds-is-selected') ? 'manual' : 'soql';
+
+        if (currentMode === 'manual') {
+            const missingFK = configuredObjects.filter(obj =>
+                !configuration.objects[obj].foreignKey || configuration.objects[obj].foreignKey === null
+            );
+
+            if (missingFK.length > 0) {
+                showToast(`Missing Foreign Key for: ${missingFK.join(', ')}`, 'error');
+
+                // Shake animation on FK toggles
+                document.querySelectorAll('.fk-toggle-container').forEach(container => {
+                    container.style.animation = 'shake 0.5s';
+                    setTimeout(() => {
+                        container.style.animation = '';
+                    }, 500);
+                });
+
+                return false;
+            }
+
+            // Check if each object has at least one field selected
+            const missingFields = configuredObjects.filter(obj =>
+                !configuration.objects[obj].fields || configuration.objects[obj].fields.length === 0
+            );
+
+            if (missingFields.length > 0) {
+                showToast(`No fields selected for: ${missingFields.join(', ')}`, 'error');
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // Navigate to related object fields
+    async function navigateToRelationship(fieldName, relationshipName, referenceTo) {
+        try {
+            // Show loading
+            showToast(`Loading ${referenceTo} fields...`, 'info');
+
+            // Store the relationship field name we're navigating from
+            currentRelationshipFieldName = relationshipName || fieldName;
+            selectedRelationshipFK = null; // Reset selection
+
+            // Save current state to stack
+            relationshipStack.push({
+                objectName: selectedObject,
+                fields: objectFields[selectedObject],
+                path: [...currentRelationshipPath],
+                relationshipField: currentRelationshipFieldName
+            });
+
+            // Update path
+            currentRelationshipPath.push(relationshipName || fieldName);
+
+            // Load fields for related object
+            const response = await fetch(`/data-comparison/api/objects/${referenceTo}/fields`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ orgs: selectedOrgs })
+            });
+
+            if (!response.ok) throw new Error('Failed to load fields');
+
+            const data = await response.json();
+            const relatedFields = data.commonFields || [];
+
+            // Store in objectFields using relationship path as key
+            const relationshipKey = currentRelationshipPath.join('.');
+            objectFields[relationshipKey] = relatedFields;
+
+            // Slide UI: Hide objects container, expand fields container
+            if (objectsContainer) {
+                objectsContainer.style.transform = 'translateX(-100%)';
+                objectsContainer.style.opacity = '0';
+                objectsContainer.style.position = 'absolute';
+            }
+            if (fieldsContainer) {
+                fieldsContainer.classList.remove('slds-size_2-of-3');
+                fieldsContainer.classList.add('slds-size_1-of-1');
+            }
+
+            // Render fields for the related object
+            renderFieldsList(referenceTo, currentRelationshipPath);
+
+            // Show back button
+            if (backToParentBtn) {
+                backToParentBtn.classList.remove('slds-hide');
+            }
+
+            showToast(`Loaded ${relatedFields.length} fields from ${referenceTo}`, 'success');
+        } catch (error) {
+            console.error('Failed to load relationship fields:', error);
+            showToast(`Failed to load fields for ${referenceTo}`, 'error');
+
+            // Restore previous state on error
+            if (relationshipStack.length > 0) {
+                currentRelationshipPath.pop();
+                relationshipStack.pop();
+            }
+        }
+    }
+
+    // Navigate back to parent
+    function navigateBack() {
+        if (relationshipStack.length === 0) return;
+
+        // Save the selected relationship FK if one was chosen
+        if (selectedRelationshipFK && currentRelationshipPath.length > 0) {
+            const fullFieldPath = `${currentRelationshipPath.join('.')}.${selectedRelationshipFK}`;
+            const rootObject = relationshipStack[0].objectName;
+
+            // Ensure object config exists
+            if (!configuration.objects[rootObject]) {
+                // Don't create object yet if no FK selected for root object
+                showToast('Please select a Foreign Key for the root object first', 'warning');
+            } else {
+                // Add relationship field to config
+                if (!configuration.objects[rootObject].fields.includes(fullFieldPath)) {
+                    configuration.objects[rootObject].fields.push(fullFieldPath);
+                    showToast(`Added ${fullFieldPath} to configuration`, 'success');
+                }
+            }
+        }
+
+        // Pop previous state
+        const previousState = relationshipStack.pop();
+        currentRelationshipPath = previousState.path;
+
+        // Reset selection state
+        selectedRelationshipFK = null;
+        currentRelationshipFieldName = null;
+
+        // Restore rendering
+        if (relationshipStack.length === 0) {
+            // Back to root object - restore objects container
+            if (objectsContainer) {
+                objectsContainer.style.transform = 'translateX(0)';
+                objectsContainer.style.opacity = '1';
+                objectsContainer.style.position = 'relative';
+            }
+            if (fieldsContainer) {
+                fieldsContainer.classList.remove('slds-size_1-of-1');
+                fieldsContainer.classList.add('slds-size_2-of-3');
+            }
+
+            renderFieldsList(selectedObject);
+            if (backToParentBtn) {
+                backToParentBtn.classList.add('slds-hide');
+            }
+        } else {
+            // Back to parent relationship (still in relationship mode)
+            const parentState = relationshipStack[relationshipStack.length - 1];
+            renderFieldsList(parentState.objectName, currentRelationshipPath);
+        }
+
+        // Update config display
+        updateConfig();
+    }
+
+    // Download configuration
+    function downloadConfig() {
+        // Validate before download
+        if (!validateConfiguration()) {
+            return;
+        }
+
+        const dataStr = JSON.stringify(configuration, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+
+        const exportFileDefaultName = `comparison-config-${Date.now()}.json`;
+
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+
+        showToast('Configuration downloaded successfully', 'success');
+    }
+
+    // Start comparison
+    async function startComparison() {
+        // Validate before starting
+        if (!validateConfiguration()) {
+            return;
+        }
+
+        try {
+            startButton.disabled = true;
+            startButton.textContent = 'Starting...';
+
+            // Start comparison via API
+            const response = await fetch('/data-comparison/api/comparison/start', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ config: configuration })
+            });
+
+            const result = await response.json();
+
+            if (result.success && result.comparisonId) {
+                showToast('Comparison started successfully!', 'success');
+
+                // Redirect to comparison status with comparisonId
+                setTimeout(() => {
+                    window.location.href = `/data-comparison/comparison-status?comparisonId=${result.comparisonId}`;
+                }, 1000);
+            } else {
+                throw new Error(result.error || 'Failed to start comparison');
+            }
+        } catch (error) {
+            console.error('Failed to start comparison:', error);
+            showToast(`Failed to start comparison: ${error.message}`, 'error');
+            startButton.disabled = false;
+            startButton.textContent = 'Start Comparison';
+        }
+    }
+
+    // Show toast notification
+    function showToast(message, type = 'info') {
+        const toastContainer = document.createElement('div');
+        toastContainer.className = 'slds-notify-container slds-is-relative';
+        toastContainer.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 10000;';
+
+        const iconName = type === 'success' ? 'success' : type === 'error' ? 'error' : type === 'warning' ? 'warning' : 'info';
+
+        toastContainer.innerHTML = `
+            <div class="slds-notify slds-notify_toast slds-theme_${type}" role="status">
+                <span class="slds-assistive-text">${type}</span>
+                <span class="slds-icon_container slds-icon-utility-${iconName} slds-m-right_small slds-no-flex slds-align-top">
+                    <svg class="slds-icon slds-icon_small">
+                        <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#${iconName}"></use>
+                    </svg>
+                </span>
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small">${message}</h2>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(toastContainer);
+        setTimeout(() => toastContainer.remove(), 3000);
+    }
+
+    // Initialize on load
+    init();
+})();
+</script>
+
+<!-- iOS-Style Toggle Switch CSS -->
+<style>
+/* FK Toggle Switch */
+.fk-toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.fk-toggle-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.fk-toggle-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #c9c7c5;
+    border-radius: 24px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.fk-toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.fk-toggle-input:checked + .fk-toggle-slider {
+    background-color: #34a853;
+    box-shadow: 0 0 0 2px rgba(52, 168, 83, 0.2);
+}
+
+.fk-toggle-input:focus + .fk-toggle-slider {
+    box-shadow: 0 0 0 3px rgba(52, 168, 83, 0.3);
+}
+
+.fk-toggle-input:checked + .fk-toggle-slider:before {
+    transform: translateX(20px);
+}
+
+.fk-toggle-switch:hover .fk-toggle-slider {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+</style>

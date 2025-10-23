@@ -1,0 +1,272 @@
+<!-- Data Comparison Welcome Page - Integrated Config Builder -->
+
+<!-- Generate Configuration Tab Content -->
+<div class="slds-tabs_default__content" id="tab-generate" role="tabpanel" style="flex: 1; display: flex; flex-direction: column;">
+    <!-- Include config builder directly -->
+    <div id="config-builder-container" style="flex: 1; display: flex; flex-direction: column;">
+        <!-- Content will be loaded here -->
+    </div>
+</div>
+
+<!-- Upload Configuration Tab Content -->
+<div class="slds-tabs_default__content slds-hide" id="tab-upload" role="tabpanel" style="flex: 1; display: flex; flex-direction: column;">
+    <div class="slds-p-around_large" style="flex: 1; display: flex; flex-direction: column;">
+        <!-- File Upload Area -->
+        <div class="slds-text-align_center" style="flex: 1; display: flex;">
+            <div id="file-drop-zone" style="
+                flex: 1;
+                width: 100%;
+                min-height: 500px; 
+                border: 3px dashed #dddbda; 
+                border-radius: .25rem; 
+                display: flex; 
+                flex-direction: column; 
+                align-items: center; 
+                justify-content: center; 
+                background: white; 
+                transition: all 0.3s;
+                cursor: pointer;
+            ">
+                <span class="slds-icon_container slds-icon-standard-file slds-m-bottom_medium">
+                    <svg class="slds-icon slds-icon_large">
+                        <use xlink:href="/shared/assets/slds/icons/standard-sprite/svg/symbols.svg#file"></use>
+                    </svg>
+                </span>
+                <h3 class="slds-text-heading_large slds-m-bottom_x-small">Drag files here</h3>
+                <p class="slds-text-body_regular slds-text-color_weak slds-m-bottom_medium">or</p>
+                <button class="slds-button slds-button_brand" id="browse-files-btn">
+                    <svg class="slds-button__icon slds-button__icon_left">
+                        <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#upload"></use>
+                    </svg>
+                    Browse Files
+                </button>
+                <p class="slds-text-body_small slds-text-color_weak slds-m-top_medium">
+                    Accepts JSON
+                </p>
+                <input type="file" id="config-file-input" accept=".json" style="display: none;">
+            </div>
+        </div>
+        
+        <!-- File Selected Display (Hidden by default) -->
+        <div id="file-selected-display" class="slds-hide slds-m-top_large">
+            <div class="slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-utility-success">
+                        <svg class="slds-icon slds-icon-text-success">
+                            <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#success"></use>
+                        </svg>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <p>
+                        <span class="slds-text-heading_small" id="selected-file-name">No file selected</span>
+                    </p>
+                </div>
+                <div class="slds-media__figure slds-media__figure_reverse">
+                    <button class="slds-button slds-button_destructive" id="remove-file-btn">Remove</button>
+                    <button class="slds-button slds-button_brand slds-m-left_x-small" id="process-file-btn">Process Configuration</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    #file-drop-zone:hover {
+        border-color: #0070d2 !important;
+        background-color: #f4f6f9 !important;
+    }
+    #file-drop-zone.slds-has-drag-over {
+        border-color: #0070d2 !important;
+        background-color: #eef4ff !important;
+        transform: scale(1.01);
+    }
+</style>
+
+<script>
+// Load config builder content
+(function() {
+    // Load config builder HTML into the container
+    fetch('/data-comparison/components/configBuilder/index.html')
+        .then(response => response.text())
+        .then(html => {
+            const container = document.getElementById('config-builder-container');
+            if (container) {
+                container.innerHTML = html;
+                
+                // Execute any scripts in the loaded HTML
+                const scripts = container.getElementsByTagName('script');
+                for (let script of scripts) {
+                    eval(script.innerHTML);
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Failed to load config builder:', error);
+        });
+
+    // File upload functionality
+    const fileInput = document.getElementById('config-file-input');
+    const dropZone = document.getElementById('file-drop-zone');
+    const browseBtn = document.getElementById('browse-files-btn');
+    const fileSelectedDisplay = document.getElementById('file-selected-display');
+    const selectedFileName = document.getElementById('selected-file-name');
+    const removeFileBtn = document.getElementById('remove-file-btn');
+    const processFileBtn = document.getElementById('process-file-btn');
+    
+    let selectedFile = null;
+    
+    // Browse button click
+    if (browseBtn) {
+        browseBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            fileInput.click();
+        });
+    }
+    
+    // Drop zone click
+    if (dropZone) {
+        dropZone.addEventListener('click', () => {
+            fileInput.click();
+        });
+    }
+    
+    // File input change
+    if (fileInput) {
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file && file.type === 'application/json') {
+                selectFile(file);
+            } else if (file) {
+                showToast('error', 'Please select a JSON configuration file');
+            }
+        });
+    }
+    
+    // Drag and Drop
+    if (dropZone) {
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('slds-has-drag-over');
+        });
+        
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('slds-has-drag-over');
+        });
+        
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropZone.classList.remove('slds-has-drag-over');
+            
+            const file = e.dataTransfer.files[0];
+            if (file && file.type === 'application/json') {
+                selectFile(file);
+            } else if (file) {
+                showToast('error', 'Please select a JSON configuration file');
+            }
+        });
+    }
+    
+    // Remove file
+    if (removeFileBtn) {
+        removeFileBtn.addEventListener('click', () => {
+            selectedFile = null;
+            fileInput.value = '';
+            dropZone.classList.remove('slds-hide');
+            fileSelectedDisplay.classList.add('slds-hide');
+        });
+    }
+    
+    // Process file
+    if (processFileBtn) {
+        processFileBtn.addEventListener('click', () => {
+            if (selectedFile) {
+                uploadConfig(selectedFile);
+            }
+        });
+    }
+    
+    function selectFile(file) {
+        selectedFile = file;
+        selectedFileName.textContent = file.name;
+        dropZone.classList.add('slds-hide');
+        fileSelectedDisplay.classList.remove('slds-hide');
+    }
+    
+    function uploadConfig(file) {
+        const formData = new FormData();
+        formData.append('configFile', file);
+        
+        processFileBtn.disabled = true;
+        processFileBtn.textContent = 'Uploading...';
+        
+        fetch('/data-comparison/api/config/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showToast('success', 'Configuration uploaded successfully');
+                // Redirect to comparison status
+                setTimeout(() => {
+                    window.location.href = `/data-comparison/comparison-status?configId=${data.configId}`;
+                }, 1500);
+            } else {
+                showToast('error', 'Error: ' + data.error);
+                processFileBtn.disabled = false;
+                processFileBtn.textContent = 'Process Configuration';
+            }
+        })
+        .catch(error => {
+            console.error('Upload error:', error);
+            showToast('error', 'Failed to upload configuration');
+            processFileBtn.disabled = false;
+            processFileBtn.textContent = 'Process Configuration';
+        });
+    }
+    
+    function showToast(type, message) {
+        // Create toast notification
+        const toastContainer = document.createElement('div');
+        toastContainer.className = 'slds-notify_container slds-is-fixed';
+        toastContainer.style.position = 'fixed';
+        toastContainer.style.top = '1rem';
+        toastContainer.style.right = '1rem';
+        toastContainer.style.zIndex = '10000';
+        
+        const toast = document.createElement('div');
+        toast.className = `slds-notify slds-notify_toast slds-theme_${type}`;
+        toast.setAttribute('role', 'status');
+        
+        toast.innerHTML = `
+            <span class="slds-assistive-text">${type}</span>
+            <span class="slds-icon_container slds-icon-utility-${type} slds-m-right_small slds-no-flex slds-align-top">
+                <svg class="slds-icon slds-icon_small">
+                    <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#${type}"></use>
+                </svg>
+            </span>
+            <div class="slds-notify__content">
+                <h2 class="slds-text-heading_small">${message}</h2>
+            </div>
+            <div class="slds-notify__close">
+                <button class="slds-button slds-button_icon slds-button_icon-inverse" onclick="this.parentElement.parentElement.parentElement.remove()">
+                    <svg class="slds-button__icon slds-button__icon_large">
+                        <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#close"></use>
+                    </svg>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+            </div>
+        `;
+        
+        toastContainer.appendChild(toast);
+        document.body.appendChild(toastContainer);
+        
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            toastContainer.remove();
+        }, 5000);
+    }
+})();
+</script>

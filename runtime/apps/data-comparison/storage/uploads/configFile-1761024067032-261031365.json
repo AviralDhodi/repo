@@ -1,0 +1,40 @@
+{
+  "version": "2.0.0",
+  "orgs": [
+    "1",
+    "2"
+  ],
+  "objects": {
+    "SBQQ__PriceCondition__c": {
+      "fields": [
+        "SBQQ__TestedFormula__c",
+        "SR_ExternalID__c",
+        "SBQQ__Field__c",
+        "SBQQ__FilterFormula__c",
+        "SBQQ__FilterType__c",
+        "SBQQ__Value__c",
+        "SBQQ__FilterVariable__r.SR_ExternalID__c",
+        "SBQQ__Object__c",
+        "SBQQ__Operator__c",
+        "SBQQ__Rule__r.SR_ExternalID__c",
+        "SBQQ__Index__c",
+        "SBQQ__ParentRuleIsActive__c",
+        "SBQQ__TestedVariable__c",
+        "SBQQ__RuleTargetsCalculator__c"
+      ],
+      "foreignKey": "SR_ExternalID__c",
+      "orgFilters": {}
+    }
+  },
+  "fetchMethod": "graphql",
+  "metadata": {
+    "totalOrgs": 2,
+    "totalObjects": 1,
+    "totalFields": 14,
+    "configGenerator": "enhanced",
+    "uiVersion": "v3-slds-2.0",
+    "fetchMethod": "graphql",
+    "mode": "manual"
+  },
+  "createdAt": "2025-10-21T04:28:23.920Z"
+}

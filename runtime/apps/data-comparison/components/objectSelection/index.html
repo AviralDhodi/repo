@@ -1,0 +1,495 @@
+<!-- Object & Field Selection with Clickable SLDS Tiles -->
+<div class="slds-p-around_medium">
+    <div class="slds-grid slds-gutters">
+        
+        <!-- Panel 1: Objects (Clickable Tiles) -->
+        <div class="slds-col slds-size_1-of-3">
+            <article class="slds-card" style="height: 600px; display: flex; flex-direction: column;">
+                <div class="slds-card__header">
+                    <h2 class="slds-card__header-title">
+                        <span class="slds-text-heading_small">Objects</span>
+                    </h2>
+                </div>
+                
+                <!-- Search -->
+                <div class="slds-p-horizontal_medium slds-p-vertical_x-small">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                            <svg class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default">
+                                <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#search"></use>
+                            </svg>
+                            <input type="text" id="object-search" class="slds-input" placeholder="Search objects..." />
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Objects List (Clickable Tiles) -->
+                <div class="slds-card__body slds-card__body_inner" style="overflow-y: auto; flex: 1;">
+                    <div id="objects-loading" class="slds-align_absolute-center slds-p-around_large">
+                        <div class="slds-spinner_container">
+                            <div role="status" class="slds-spinner slds-spinner_small">
+                                <span class="slds-assistive-text">Loading</span>
+                                <div class="slds-spinner__dot-a"></div>
+                                <div class="slds-spinner__dot-b"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="objects-list" class="slds-hide">
+                        <!-- Objects will be rendered as clickable tiles -->
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <!-- Panel 2: Fields with Foreign Key Selection -->
+        <div class="slds-col slds-size_1-of-3">
+            <article class="slds-card" style="height: 600px; display: flex; flex-direction: column;">
+                <div class="slds-card__header">
+                    <h2 class="slds-card__header-title">
+                        <span class="slds-text-heading_small">Fields & Foreign Key</span>
+                    </h2>
+                </div>
+                
+                <!-- Foreign Key Selection Section -->
+                <div class="slds-p-horizontal_medium slds-p-vertical_x-small slds-border_bottom">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="foreign-key-select">
+                            <abbr class="slds-required" title="required">*</abbr>Foreign Key Field
+                        </label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-select_container">
+                                <select class="slds-select" id="foreign-key-select" disabled>
+                                    <option value="">Select an object first</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="slds-form-element__help">Select the field to use as the unique identifier</div>
+                    </div>
+                </div>
+                
+                <!-- Search -->
+                <div class="slds-p-horizontal_medium slds-p-vertical_x-small">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                            <svg class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default">
+                                <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#search"></use>
+                            </svg>
+                            <input type="text" id="field-search" class="slds-input" placeholder="Search fields..." disabled />
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Field Selection Controls -->
+                <div class="slds-p-horizontal_medium slds-p-vertical_xx-small">
+                    <div class="slds-button-group" role="group">
+                        <button class="slds-button slds-button_neutral slds-button_small" id="select-all-fields" disabled>
+                            Select All
+                        </button>
+                        <button class="slds-button slds-button_neutral slds-button_small" id="clear-fields" disabled>
+                            Clear All
+                        </button>
+                        <span class="slds-badge slds-m-left_small" id="field-count">0 selected</span>
+                    </div>
+                </div>
+                
+                <!-- Fields List (Clickable Items) -->
+                <div class="slds-card__body slds-card__body_inner" style="overflow-y: auto; flex: 1;">
+                    <!-- Empty State -->
+                    <div id="fields-empty" class="slds-align_absolute-center slds-p-around_large">
+                        <div class="slds-text-align_center">
+                            <span class="slds-icon_container slds-icon-standard-custom-notification">
+                                <svg class="slds-icon slds-icon_large">
+                                    <use xlink:href="/shared/assets/slds/icons/standard-sprite/svg/symbols.svg#custom_notification"></use>
+                                </svg>
+                            </span>
+                            <h3 class="slds-text-heading_small slds-m-top_small">Select an Object</h3>
+                            <p class="slds-text-body_regular">Choose an object to view its fields</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Loading State -->
+                    <div id="fields-loading" class="slds-align_absolute-center slds-p-around_large slds-hide">
+                        <div class="slds-spinner_container">
+                            <div role="status" class="slds-spinner slds-spinner_small">
+                                <span class="slds-assistive-text">Loading</span>
+                                <div class="slds-spinner__dot-a"></div>
+                                <div class="slds-spinner__dot-b"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Fields List -->
+                    <div id="fields-list" class="slds-hide">
+                        <!-- Fields will be rendered as clickable items -->
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <!-- Panel 3: Lookups (Clickable) -->
+        <div class="slds-col slds-size_1-of-3">
+            <article class="slds-card" style="height: 600px; display: flex; flex-direction: column;">
+                <div class="slds-card__header">
+                    <h2 class="slds-card__header-title">
+                        <span class="slds-text-heading_small">Lookup Relationships</span>
+                    </h2>
+                </div>
+                
+                <div class="slds-card__body slds-card__body_inner" style="overflow-y: auto; flex: 1;">
+                    <!-- Empty State -->
+                    <div id="lookups-empty" class="slds-align_absolute-center slds-p-around_large">
+                        <div class="slds-text-align_center">
+                            <span class="slds-icon_container slds-icon-standard-relationship">
+                                <svg class="slds-icon slds-icon_large">
+                                    <use xlink:href="/shared/assets/slds/icons/standard-sprite/svg/symbols.svg#relationship"></use>
+                                </svg>
+                            </span>
+                            <h3 class="slds-text-heading_small slds-m-top_small">No Lookups</h3>
+                            <p class="slds-text-body_regular">Select an object with lookup fields</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Lookups List -->
+                    <div id="lookups-list" class="slds-hide">
+                        <!-- Lookups will be rendered as clickable items -->
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+    
+    <!-- Action Buttons -->
+    <div class="slds-m-top_large">
+        <div class="slds-grid slds-grid_align-spread">
+            <button class="slds-button slds-button_neutral" onclick="history.back()">
+                <svg class="slds-button__icon slds-button__icon_left">
+                    <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#back"></use>
+                </svg>
+                Previous
+            </button>
+            <button class="slds-button slds-button_brand" id="continue-btn" disabled>
+                Continue to Filters
+                <svg class="slds-button__icon slds-button__icon_right">
+                    <use xlink:href="/shared/assets/slds/icons/utility-sprite/svg/symbols.svg#forward"></use>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Object & Field Selection with Clickable SLDS Components
+(function() {
+    let selectedObject = null;
+    let objectsData = [];
+    let fieldsData = [];
+    let lookupsData = [];
+    let selectedFields = new Set();
+    let selectedLookups = new Set();
+    let foreignKey = null;
+    
+    // Load common objects
+    loadCommonObjects();
+    
+    function loadCommonObjects() {
+        const selectedOrgs = JSON.parse(sessionStorage.getItem('selectedOrganizations') || '[]');
+        
+        // Mock data for demonstration
+        objectsData = [
+            { name: 'Account', label: 'Account', apiName: 'Account' },
+            { name: 'Contact', label: 'Contact', apiName: 'Contact' },
+            { name: 'Opportunity', label: 'Opportunity', apiName: 'Opportunity' },
+            { name: 'SBQQ__Quote__c', label: 'Quote', apiName: 'SBQQ__Quote__c' },
+            { name: 'SBQQ__QuoteLine__c', label: 'Quote Line', apiName: 'SBQQ__QuoteLine__c' },
+            { name: 'SBQQ__Product__c', label: 'Product', apiName: 'SBQQ__Product__c' }
+        ].sort((a, b) => a.label.localeCompare(b.label));
+        
+        renderObjects();
+        document.getElementById('objects-loading').classList.add('slds-hide');
+        document.getElementById('objects-list').classList.remove('slds-hide');
+    }
+    
+    function renderObjects() {
+        const container = document.getElementById('objects-list');
+        container.innerHTML = '';
+        
+        objectsData.forEach(obj => {
+            // Create clickable tile for each object
+            const tile = document.createElement('article');
+            tile.className = 'slds-tile slds-media slds-m-bottom_x-small slds-p-around_x-small slds-box slds-box_x-small slds-theme_shade slds-tile_board';
+            tile.style.cursor = 'pointer';
+            tile.innerHTML = `
+                <div class="slds-media__figure">
+                    <span class="slds-checkbox">
+                        <input type="checkbox" id="object-check-${obj.name}" value="${obj.name}" />
+                        <label class="slds-checkbox__label" for="object-check-${obj.name}">
+                            <span class="slds-checkbox_faux"></span>
+                            <span class="slds-form-element__label slds-assistive-text">Select ${obj.label}</span>
+                        </label>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h3 class="slds-tile__title slds-truncate">
+                        <a href="javascript:void(0);" title="${obj.label}">${obj.label}</a>
+                    </h3>
+                    <div class="slds-tile__detail">
+                        <span class="slds-text-body_small slds-text-color_weak">${obj.apiName}</span>
+                    </div>
+                </div>
+            `;
+            
+            // Make entire tile clickable
+            tile.addEventListener('click', (e) => {
+                // Don't trigger if checkbox was clicked
+                if (e.target.type !== 'checkbox') {
+                    const checkbox = tile.querySelector('input[type="checkbox"]');
+                    checkbox.checked = !checkbox.checked;
+                }
+                selectObject(obj);
+            });
+            
+            container.appendChild(tile);
+        });
+    }
+    
+    function selectObject(obj) {
+        selectedObject = obj;
+        
+        // Update UI - highlight selected
+        document.querySelectorAll('.slds-tile').forEach(tile => {
+            tile.classList.remove('slds-is-selected');
+        });
+        event.currentTarget.classList.add('slds-is-selected');
+        
+        // Load fields for the object
+        loadFields(obj.name);
+    }
+    
+    function loadFields(objectName) {
+        document.getElementById('fields-empty').classList.add('slds-hide');
+        document.getElementById('fields-loading').classList.remove('slds-hide');
+        document.getElementById('fields-list').classList.add('slds-hide');
+        
+        // Mock fields data
+        fieldsData = [
+            { name: 'Id', label: 'Record ID', type: 'id', required: true },
+            { name: 'Name', label: 'Name', type: 'string', required: true },
+            { name: 'CreatedDate', label: 'Created Date', type: 'datetime' },
+            { name: 'LastModifiedDate', label: 'Last Modified Date', type: 'datetime' },
+            { name: 'OwnerId', label: 'Owner', type: 'reference', referenceTo: 'User' }
+        ].sort((a, b) => a.label.localeCompare(b.label));
+        
+        // Lookups
+        lookupsData = fieldsData.filter(f => f.type === 'reference');
+        
+        // Enable controls
+        document.getElementById('foreign-key-select').disabled = false;
+        document.getElementById('field-search').disabled = false;
+        document.getElementById('select-all-fields').disabled = false;
+        document.getElementById('clear-fields').disabled = false;
+        
+        // Populate foreign key dropdown
+        populateForeignKeyDropdown();
+        
+        // Render fields
+        renderFields();
+        renderLookups();
+        
+        document.getElementById('fields-loading').classList.add('slds-hide');
+        document.getElementById('fields-list').classList.remove('slds-hide');
+        
+        if (lookupsData.length > 0) {
+            document.getElementById('lookups-empty').classList.add('slds-hide');
+            document.getElementById('lookups-list').classList.remove('slds-hide');
+        }
+    }
+    
+    function populateForeignKeyDropdown() {
+        const select = document.getElementById('foreign-key-select');
+        select.innerHTML = '<option value="">-- Select Foreign Key Field --</option>';
+        
+        // Add Id first (most common)
+        if (fieldsData.find(f => f.name === 'Id')) {
+            select.innerHTML += '<option value="Id" selected>Id (Recommended)</option>';
+            foreignKey = 'Id';
+        }
+        
+        // Add other potential foreign key fields
+        fieldsData.forEach(field => {
+            if (field.name !== 'Id' && (field.name === 'Name' || field.name.includes('External') || field.name.endsWith('__c'))) {
+                select.innerHTML += `<option value="${field.name}">${field.label} (${field.name})</option>`;
+            }
+        });
+        
+        select.addEventListener('change', (e) => {
+            foreignKey = e.target.value;
+            validateSelection();
+        });
+    }
+    
+    function renderFields() {
+        const container = document.getElementById('fields-list');
+        container.innerHTML = '';
+        
+        fieldsData.forEach(field => {
+            // Create clickable field item
+            const item = document.createElement('div');
+            item.className = 'slds-item slds-p-around_x-small slds-border_bottom';
+            item.style.cursor = 'pointer';
+            item.innerHTML = `
+                <div class="slds-grid slds-grid_vertical-align-center">
+                    <div class="slds-col slds-size_1-of-12">
+                        <span class="slds-checkbox">
+                            <input type="checkbox" id="field-${field.name}" value="${field.name}" />
+                            <label class="slds-checkbox__label" for="field-${field.name}">
+                                <span class="slds-checkbox_faux"></span>
+                            </label>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_11-of-12 slds-p-left_x-small">
+                        <div class="slds-text-body_regular">${field.label}</div>
+                        <div class="slds-text-body_small slds-text-color_weak">
+                            ${field.name} • ${field.type}
+                            ${field.required ? ' • <span class="slds-text-color_error">Required</span>' : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Make entire item clickable
+            item.addEventListener('click', (e) => {
+                if (e.target.type !== 'checkbox') {
+                    const checkbox = item.querySelector('input[type="checkbox"]');
+                    checkbox.checked = !checkbox.checked;
+                    checkbox.dispatchEvent(new Event('change'));
+                }
+            });
+            
+            // Handle checkbox change
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            checkbox.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    selectedFields.add(field.name);
+                } else {
+                    selectedFields.delete(field.name);
+                }
+                updateFieldCount();
+                validateSelection();
+            });
+            
+            container.appendChild(item);
+        });
+    }
+    
+    function renderLookups() {
+        const container = document.getElementById('lookups-list');
+        container.innerHTML = '';
+        
+        lookupsData.forEach(lookup => {
+            const item = document.createElement('div');
+            item.className = 'slds-item slds-p-around_small slds-border_bottom';
+            item.style.cursor = 'pointer';
+            item.innerHTML = `
+                <div class="slds-grid slds-grid_vertical-align-center">
+                    <div class="slds-col slds-size_1-of-12">
+                        <span class="slds-checkbox">
+                            <input type="checkbox" id="lookup-${lookup.name}" value="${lookup.name}" />
+                            <label class="slds-checkbox__label" for="lookup-${lookup.name}">
+                                <span class="slds-checkbox_faux"></span>
+                            </label>
+                        </span>
+                    </div>
+                    <div class="slds-col slds-size_11-of-12 slds-p-left_x-small">
+                        <div class="slds-text-body_regular slds-text-link">
+                            ${lookup.label}
+                        </div>
+                        <div class="slds-text-body_small slds-text-color_weak">
+                            ${lookup.name} → ${lookup.referenceTo}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Make clickable
+            item.addEventListener('click', (e) => {
+                if (e.target.type !== 'checkbox') {
+                    const checkbox = item.querySelector('input[type="checkbox"]');
+                    checkbox.checked = !checkbox.checked;
+                    checkbox.dispatchEvent(new Event('change'));
+                }
+            });
+            
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            checkbox.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    selectedLookups.add(lookup.name);
+                } else {
+                    selectedLookups.delete(lookup.name);
+                }
+            });
+            
+            container.appendChild(item);
+        });
+    }
+    
+    function updateFieldCount() {
+        document.getElementById('field-count').textContent = `${selectedFields.size} selected`;
+    }
+    
+    function validateSelection() {
+        const isValid = selectedFields.size > 0 && foreignKey;
+        document.getElementById('continue-btn').disabled = !isValid;
+    }
+    
+    // Select/Clear All
+    document.getElementById('select-all-fields').addEventListener('click', () => {
+        document.querySelectorAll('#fields-list input[type="checkbox"]').forEach(cb => {
+            cb.checked = true;
+            selectedFields.add(cb.value);
+        });
+        updateFieldCount();
+        validateSelection();
+    });
+    
+    document.getElementById('clear-fields').addEventListener('click', () => {
+        document.querySelectorAll('#fields-list input[type="checkbox"]').forEach(cb => {
+            cb.checked = false;
+        });
+        selectedFields.clear();
+        updateFieldCount();
+        validateSelection();
+    });
+    
+    // Search functionality
+    document.getElementById('object-search').addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const tiles = document.querySelectorAll('#objects-list .slds-tile');
+        tiles.forEach(tile => {
+            const text = tile.textContent.toLowerCase();
+            tile.style.display = text.includes(searchTerm) ? '' : 'none';
+        });
+    });
+    
+    document.getElementById('field-search').addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const items = document.querySelectorAll('#fields-list .slds-item');
+        items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            item.style.display = text.includes(searchTerm) ? '' : 'none';
+        });
+    });
+    
+    // Continue button
+    document.getElementById('continue-btn').addEventListener('click', () => {
+        // Save selection to session
+        sessionStorage.setItem('selectedObject', JSON.stringify(selectedObject));
+        sessionStorage.setItem('selectedFields', JSON.stringify(Array.from(selectedFields)));
+        sessionStorage.setItem('selectedLookups', JSON.stringify(Array.from(selectedLookups)));
+        sessionStorage.setItem('foreignKey', foreignKey);
+        
+        // Navigate to filters
+        window.location.href = '/data-comparison/filter-configuration';
+    });
+})();
+</script>
