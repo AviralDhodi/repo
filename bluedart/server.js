@@ -252,12 +252,11 @@ app.post("/trackingId/new", createTracker);
 // /whateverrender/new/provider=bluemoron&trackingid=1234
 // and the conventional query form:
 // /whateverrender/new?provider=bluemoron&trackingid=1234
-app.get("/whateverrender/new/:providerAndTracking", (req, res, next) => {
-  const raw = String(req.params.providerAndTracking || "");
-  const match = raw.match(/^provider=([^&]+)&trackingid=(.+)$/i);
+app.get("/whateverrender/new/:providerSpec", (req, res, next) => {
+  const raw = String(req.params.providerSpec || "");
+  const match = raw.match(/^provider=(.+)$/i);
   if (!match) return next();
   req.query.provider = decodeURIComponent(match[1]);
-  req.query.trackingid = decodeURIComponent(match[2]);
   return createTracker(req, res);
 });
 
