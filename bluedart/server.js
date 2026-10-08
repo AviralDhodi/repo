@@ -90,13 +90,34 @@ const aliases = {
 };
 
 function extractCourierList(data) {
-  const candidates =
-    data?.data?.couriers ||
-    data?.couriers ||
-    data?.data ||
-    [];
+  // Ship24's courier catalogue may be wrapped differently between API versions.
+  // Walk the JSON response and select the first array containing courier-like records.
+  const queue = [data];
+  const seen = new Set();
 
-  return Array.isArray(candidates) ? candidates : [];
+  while (queue.length) {
+    const value = queue.shift();
+    if (!value || typeof value !== "object" || seen.has(value)) continue;
+    seen.add(value);
+
+    if (Array.isArray(value)) {
+      if (value.some(item =>
+        item &&
+        typeof item === "object" &&
+        (item.courierCode || item.code || item.slug || item.name || item.courierName || item.title)
+      )) {
+        return value;
+      }
+      for (const item of value) queue.push(item);
+      continue;
+    }
+
+    for (const child of Object.values(value)) {
+      if (child && typeof child === "object") queue.push(child);
+    }
+  }
+
+  return [];
 }
 
 async function getCouriers() {
