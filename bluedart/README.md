@@ -1,6 +1,8 @@
-# Ship24 Waybill Proxy
+# Shipment Tracking Proxy
 
-This Render service wraps the Ship24 Tracking API.
+A carrier-agnostic Render proxy for Ship24.
+
+Ship24 identifies the carrier from the tracking number and returns the available shipment tracking data.
 
 ## Create a new tracker
 
@@ -12,9 +14,7 @@ Example:
 
 `/trackingId/new/90691129233`
 
-The response includes the Ship24 `trackerId`. Save that ID.
-
-Ship24's `POST /trackers/track` endpoint is used so the first call can return tracking results immediately.
+The response includes the Ship24 `trackerId`.
 
 ## Get an existing tracker
 
@@ -22,11 +22,13 @@ GET:
 
 `/trackingId/<trackerId>`
 
-This calls Ship24's `GET /trackers/:trackerId/results` endpoint.
+This retrieves the latest results for an existing Ship24 tracker.
 
-## Compatibility endpoint
+## Generic compatibility endpoint
 
-`/whateverrender/<tracking-number>` is also supported and behaves like creating a new tracker.
+`/whateverrender/<tracking-number>`
+
+This also creates a new Ship24 tracker.
 
 ## Render environment variables
 
@@ -34,5 +36,3 @@ This calls Ship24's `GET /trackers/:trackerId/results` endpoint.
 - `SHIP24_URL` — optional, defaults to `https://api.ship24.com`
 
 The API key is never returned to callers.
-
-Ship24 requires an active plan; its documentation currently states that a free plan is available for integration/testing. 
