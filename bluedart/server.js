@@ -291,3 +291,5 @@ app.get("/whateverrender/:trackingNumber", createTracker);
 app.listen(PORT, "0.0.0.0", () => {
   console.log("Shipment tracking proxy listening on port " + PORT);
 });
+
+// Ship24 API base path fixed for /public/v1 endpoints.
