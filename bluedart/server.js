@@ -2,82 +2,119 @@ import express from "express";
 
 const app = express();
 const PORT = process.env.PORT || 10000;
-
-const BLUEDART_URL =
-  process.env.BLUEDART_TRACKING_URL ||
-  "https://apigateway.bluedart.com/in/transportation/tracking/v1";
+const SHIP24_URL = process.env.SHIP24_URL || "https://api.ship24.com";
 
 function requiredEnv(name) {
   const value = process.env[name];
-  if (!value) throw new Error(`Missing Render environment variable: ${name}`);
+  if (!value) throw new Error("Missing Render environment variable: " + name);
   return value;
 }
 
-function safeParse(text, contentType) {
-  if ((contentType || "").includes("json")) {
-    try { return JSON.parse(text); } catch {}
-  }
-  return text;
+async function ship24(path, options = {}) {
+  const apiKey = requiredEnv("SHIP24_API_KEY");
+  const headers = Object.assign({
+    Authorization: "Bearer " + apiKey,
+    "Content-Type": "application/json",
+    Accept: "application/json"
+  }, options.headers || {});
+
+  const response = await fetch(SHIP24_URL + path, Object.assign({}, options, {
+    headers,
+    signal: AbortSignal.timeout(90000)
+  }));
+
+  const text = await response.text();
+  let data;
+  try { data = text ? JSON.parse(text) : null; }
+  catch { data = text; }
+  return { response, data };
+}
+
+function sendResult(res, result) {
+  const { response, data } = result;
+  res.status(response.ok ? 200 : response.status).json({
+    ok: response.ok,
+    ship24StatusCode: response.status,
+    data
+  });
+}
+
+function validTrackingNumber(value) {
+  return /^[A-Za-z0-9._/-]{5,50}$/.test(value);
 }
 
 app.get("/health", (_req, res) => {
-  res.json({ ok: true, service: "bluedart-waybill-proxy" });
+  res.json({ ok: true, service: "ship24-waybill-proxy" });
 });
 
-app.get("/whateverrender/:waybill", async (req, res) => {
-  const waybill = String(req.params.waybill || "").trim();
+async function createTracker(req, res) {
+  const trackingNumber = String(
+    req.params.trackingNumber || req.query.trackingNumber || ""
+  ).trim();
 
-  if (!/^\\d{8,11}$/.test(waybill)) {
+  if (!validTrackingNumber(trackingNumber)) {
     return res.status(400).json({
       ok: false,
-      error: "Waybill must contain 8-11 digits"
+      error: "trackingNumber must be 5-50 characters using letters, digits, -, _, / or ."
     });
   }
 
   try {
-    const loginId = requiredEnv("BLUEDART_API_ID");
-    const licenseKey = requiredEnv("BLUEDART_API_KEY");
-    const jwtToken = requiredEnv("BLUEDART_JWT_TOKEN");
-
-    const url = new URL(BLUEDART_URL);
-    url.searchParams.set("handler", "tnt");
-    url.searchParams.set("action", "custawbquery");
-    url.searchParams.set("loginid", loginId);
-    url.searchParams.set("awb", "awb");
-    url.searchParams.set("numbers", waybill);
-    url.searchParams.set("format", process.env.BLUEDART_FORMAT || "xml");
-    url.searchParams.set("lickey", licenseKey);
-    url.searchParams.set("verno", "1");
-    url.searchParams.set("scan", "1");
-
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "JWTToken": jwtToken,
-        "Accept": process.env.BLUEDART_FORMAT === "json" ? "application/json" : "application/xml,text/xml,text/plain,*/*"
-      },
-      signal: AbortSignal.timeout(30000)
+    const result = await ship24("/trackers/track", {
+      method: "POST",
+      body: JSON.stringify({ trackingNumber })
     });
 
-    const body = await response.text();
-    const contentType = response.headers.get("content-type") || "";
+    const { response, data } = result;
+    if (!response.ok) return sendResult(res, result);
 
-    res.status(response.ok ? 200 : response.status).json({
-      ok: response.ok,
-      waybill,
-      bluedartStatusCode: response.status,
-      data: safeParse(body, contentType)
-    });
+    const trackerId =
+      data?.data?.tracker?.trackerId ||
+      data?.tracker?.trackerId ||
+      data?.trackerId ||
+      null;
+
+    res.json({ ok: true, trackingNumber, trackerId, data });
   } catch (error) {
-    console.error("Blue Dart tracking error:", error);
+    console.error("Ship24 create tracker error:", error);
     res.status(502).json({
       ok: false,
-      waybill,
+      trackingNumber,
+      error: error instanceof Error ? error.message : String(error)
+    });
+  }
+}
+
+app.get("/trackingId/new/:trackingNumber", createTracker);
+app.post("/trackingId/new/:trackingNumber", createTracker);
+app.get("/trackingId/new", createTracker);
+app.post("/trackingId/new", createTracker);
+
+app.get("/trackingId/:trackerId", async (req, res) => {
+  const trackerId = String(req.params.trackerId || "").trim();
+
+  if (!trackerId || trackerId === "new" || trackerId.length > 200) {
+    return res.status(400).json({ ok: false, error: "A valid Ship24 trackerId is required" });
+  }
+
+  try {
+    const result = await ship24(
+      "/trackers/" + encodeURIComponent(trackerId) + "/results",
+      { method: "GET" }
+    );
+    sendResult(res, result);
+  } catch (error) {
+    console.error("Ship24 existing tracker error:", error);
+    res.status(502).json({
+      ok: false,
+      trackerId,
       error: error instanceof Error ? error.message : String(error)
     });
   }
 });
 
+app.get("/whateverrender/:trackingNumber", createTracker);
+
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Blue Dart proxy listening on port ${PORT}`);
+  console.log("Ship24 proxy listening on port " + PORT);
 });
