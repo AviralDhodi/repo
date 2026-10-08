@@ -2,7 +2,7 @@ import express from "express";
 
 const app = express();
 const PORT = process.env.PORT || 10000;
-const SHIP24_URL = process.env.SHIP24_URL || "https://api.ship24.com";
+const SHIP24_URL = process.env.SHIP24_URL || "https://api.ship24.com/public/v1";
 const COURIER_CACHE_TTL = 24 * 60 * 60 * 1000;
 
 let courierCache = { loadedAt: 0, couriers: [] };
@@ -56,11 +56,7 @@ function levenshtein(a, b) {
   for (let i = 1; i <= a.length; i++) {
     const cur = [i];
     for (let j = 1; j <= b.length; j++) {
-      cur[j] = Math.min(
-        cur[j - 1] + 1,
-        prev[j] + 1,
-        prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)
-      );
+      cur[j] = Math.min(cur[j - 1] + 1, prev[j] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
     }
     for (let j = 0; j <= b.length; j++) prev[j] = cur[j];
   }
@@ -73,12 +69,9 @@ function similarity(a, b) {
   if (a.includes(b) || b.includes(a)) {
     return Math.min(a.length, b.length) / Math.max(a.length, b.length) * 0.95;
   }
-  const distance = levenshtein(a, b);
-  return 1 - distance / Math.max(a.length, b.length);
+  return 1 - levenshtein(a, b) / Math.max(a.length, b.length);
 }
 
-// Common informal names/typos can be handled before fuzzy matching.
-// Ship24's actual courierCode remains the value sent to Ship24.
 const aliases = {
   bluemoron: "bluedart",
   bluedartindia: "bluedart",
@@ -90,8 +83,9 @@ const aliases = {
 };
 
 function extractCourierList(data) {
-  // Ship24's courier catalogue may be wrapped differently between API versions.
-  // Walk the JSON response and select the first array containing courier-like records.
+  if (Array.isArray(data?.couriers)) return data.couriers;
+  if (Array.isArray(data?.data?.couriers)) return data.data.couriers;
+
   const queue = [data];
   const seen = new Set();
 
@@ -101,11 +95,7 @@ function extractCourierList(data) {
     seen.add(value);
 
     if (Array.isArray(value)) {
-      if (value.some(item =>
-        item &&
-        typeof item === "object" &&
-        (item.courierCode || item.code || item.slug || item.name || item.courierName || item.title)
-      )) {
+      if (value.some(item => item && typeof item === "object" && (item.courierCode || item.code || item.slug))) {
         return value;
       }
       for (const item of value) queue.push(item);
@@ -126,16 +116,21 @@ async function getCouriers() {
   }
 
   const result = await ship24("/couriers", { method: "GET" });
+
   if (!result.response.ok) {
-    throw new Error("Ship24 courier list failed with HTTP " + result.response.status);
+    const detail = result.data?.errors?.map?.(e => e.message || e.code).filter(Boolean).join("; ") || "";
+    throw new Error("Ship24 courier list failed with HTTP " + result.response.status + (detail ? ": " + detail : ""));
   }
 
-  const couriers = extractCourierList(result.data)
-    .filter(c => c && !c.isDeprecated && c.is_deprecated !== true && c.is_deprecated !== 1);
+  const couriers = extractCourierList(result.data).filter(c =>
+    c &&
+    c.is_deprecated !== true &&
+    c.is_deprecated !== 1 &&
+    c.isDeprecated !== true &&
+    c.isDeprecated !== 1
+  );
 
-  if (!couriers.length) {
-    throw new Error("Ship24 returned an empty courier list");
-  }
+  if (!couriers.length) throw new Error("Ship24 returned an empty courier list");
 
   courierCache = { loadedAt: Date.now(), couriers };
   return couriers;
@@ -158,19 +153,13 @@ function resolveCourier(input, couriers) {
 
   const scored = couriers.map(courier => {
     const fields = courierFields(courier);
-    const values = [fields.code, fields.name, ...fields.otherNames]
-      .filter(Boolean)
-      .map(normalizeText);
-
-    const score = Math.max(...values.map(value => similarity(target, value)));
+    const values = [fields.code, fields.name, ...fields.otherNames].filter(Boolean).map(normalizeText);
+    const score = values.length ? Math.max(...values.map(value => similarity(target, value))) : 0;
     return { courier, score, fields };
   }).sort((a, b) => b.score - a.score);
 
   const best = scored[0];
-  if (!best) return null;
-
-  // Exact code/name always wins. Otherwise require a reasonably strong fuzzy match.
-  if (best.score < 0.60) return null;
+  if (!best || !best.fields.code || best.score < 0.60) return null;
 
   return {
     input: original,
@@ -261,18 +250,11 @@ app.get("/health", (_req, res) => {
   res.json({ ok: true, service: "shipment-tracking-proxy" });
 });
 
-// Preferred:
-// /trackingId/new/90691129233
-// /trackingId/new/90691129233?provider=bluedart
 app.get("/trackingId/new/:trackingNumber", createTracker);
 app.post("/trackingId/new/:trackingNumber", createTracker);
 app.get("/trackingId/new", createTracker);
 app.post("/trackingId/new", createTracker);
 
-// Also accepts the user's compact form:
-// /whateverrender/new/provider=bluemoron&trackingid=1234
-// and the conventional query form:
-// /whateverrender/new?provider=bluemoron&trackingid=1234
 app.get("/whateverrender/new/:providerSpec", (req, res, next) => {
   const raw = String(req.params.providerSpec || "");
   const match = raw.match(/^provider=(.+)$/i);
@@ -284,7 +266,6 @@ app.get("/whateverrender/new/:providerSpec", (req, res, next) => {
 app.get("/whateverrender/new", createTracker);
 app.post("/whateverrender/new", createTracker);
 
-// Existing Ship24 tracker.
 app.get("/trackingId/:trackerId", async (req, res) => {
   const trackerId = String(req.params.trackerId || "").trim();
 
@@ -293,10 +274,7 @@ app.get("/trackingId/:trackerId", async (req, res) => {
   }
 
   try {
-    const result = await ship24(
-      "/trackers/" + encodeURIComponent(trackerId) + "/results",
-      { method: "GET" }
-    );
+    const result = await ship24("/trackers/" + encodeURIComponent(trackerId) + "/results", { method: "GET" });
     sendResult(res, result);
   } catch (error) {
     console.error("Ship24 existing tracker error:", error);
@@ -308,7 +286,6 @@ app.get("/trackingId/:trackerId", async (req, res) => {
   }
 });
 
-// Backward-compatible generic endpoint: auto-detect provider.
 app.get("/whateverrender/:trackingNumber", createTracker);
 
 app.listen(PORT, "0.0.0.0", () => {
