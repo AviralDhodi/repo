@@ -1,15 +1,38 @@
-# Blue Dart Waybill Proxy
+# Ship24 Waybill Proxy
 
-GET /whateverrender/:waybill
+This Render service wraps the Ship24 Tracking API.
+
+## Create a new tracker
+
+GET or POST:
+
+`/trackingId/new/<tracking-number>`
 
 Example:
-GET /whateverrender/90691129233
 
-Render environment variables:
-- BLUEDART_API_ID
-- BLUEDART_API_KEY
-- BLUEDART_JWT_TOKEN
-- BLUEDART_FORMAT (optional; defaults to xml)
-- BLUEDART_TRACKING_URL (optional; defaults to the official production tracking endpoint)
+`/trackingId/new/90691129233`
 
-The proxy never exposes the Blue Dart credentials to the caller.
+The response includes the Ship24 `trackerId`. Save that ID.
+
+Ship24's `POST /trackers/track` endpoint is used so the first call can return tracking results immediately.
+
+## Get an existing tracker
+
+GET:
+
+`/trackingId/<trackerId>`
+
+This calls Ship24's `GET /trackers/:trackerId/results` endpoint.
+
+## Compatibility endpoint
+
+`/whateverrender/<tracking-number>` is also supported and behaves like creating a new tracker.
+
+## Render environment variables
+
+- `SHIP24_API_KEY` — Ship24 API key
+- `SHIP24_URL` — optional, defaults to `https://api.ship24.com`
+
+The API key is never returned to callers.
+
+Ship24 requires an active plan; its documentation currently states that a free plan is available for integration/testing. 
