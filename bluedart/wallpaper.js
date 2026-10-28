@@ -35,7 +35,7 @@ function requireWallpaperAuth(req, res, next) {
 
 function requireAdminAuth(req, res, next) {
   const expected = process.env.WALLPAPER_ADMIN_TOKEN;
-  const supplied = String(req.headers["x-admin-token"] || "");
+  const supplied = String(req.headers["x-admin-token"] || req.body?.adminToken || "");
   if (!expected) return res.status(503).json({ ok: false, error: "Credential setter is not configured on Render" });
   if (!safeEqual(supplied, expected)) return res.status(401).json({ ok: false, error: "Unauthorized" });
   next();
@@ -253,6 +253,7 @@ function imageResponse(res, bytes, contentType, filename, requestId) {
 
 export function registerWallpaperRoutes(app, express) {
   app.use(express.json({ limit: "36mb" }));
+  app.use(express.urlencoded({ extended: false, limit: "36mb" }));
 
   const auth = [requireWallpaperAuth];
   const adminAuth = [requireAdminAuth];
@@ -269,6 +270,47 @@ export function registerWallpaperRoutes(app, express) {
   });
 
   app.post("/:owner/set-api-key", ...adminAuth, setApiKey);
+
+  app.get("/setup-pushcut", (_req, res) => {
+    res.set("Cache-Control", "no-store");
+    res.set("X-Content-Type-Options", "nosniff");
+    res.type("html").send(`<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wallpaper Pushcut Setup</title>
+<style>
+body{font:16px system-ui,sans-serif;max-width:560px;margin:32px auto;padding:0 16px;color:#222}
+label{display:block;margin:16px 0 6px;font-weight:600}
+input,select,button{box-sizing:border-box;width:100%;padding:12px;font:inherit}
+button{margin-top:20px;cursor:pointer}
+small{color:#555}
+</style>
+</head>
+<body>
+<h1>Register Pushcut credentials</h1>
+<p>This form submits credentials to the wallpaper backend over HTTPS. Do not share this page with anyone who should not configure the service.</p>
+<form method="post" action="/setup-pushcut" autocomplete="off">
+<label for="owner">Owner</label>
+<select id="owner" name="owner" required>
+<option value="aviral">Aviral</option>
+<option value="ananya">Ananya</option>
+</select>
+<label for="adminToken">Wallpaper admin token</label>
+<input id="adminToken" name="adminToken" type="password" required autocomplete="new-password">
+<label for="apiKey">Pushcut API key</label>
+<input id="apiKey" name="apiKey" type="password" required autocomplete="new-password">
+<label for="secret">Pushcut secret</label>
+<input id="secret" name="secret" type="password" required autocomplete="new-password">
+<button type="submit">Save credentials</button>
+</form>
+<p><small>Values are sent in the POST body, not in the URL. This page is not cached.</small></p>
+</body>
+</html>`);
+  });
+
+  app.post("/setup-pushcut", ...adminAuth, setApiKey);
 
   const wake = asyncRoute(async (req, res) => {
     const owner = ownerFromRequest(req);
