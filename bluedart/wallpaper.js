@@ -417,7 +417,7 @@ export function registerWallpaperRoutes(app, express) {
       editor: "eq." + opposite(owner),
       status: "in.(ready_for_edit,waiting_for_upload)",
       expires_at: "gt." + new Date().toISOString()
-    }, "request_id,owner,editor,status,edited_object_path", 1);
+    }, "request_id,owner,editor,status,edited_object_path,base_object_path", 1);
     const request = requests?.[0];
     if (!request) return res.status(409).json({ ok: false, error: "Request is missing, expired, already completed, or belongs to another editor" });
 
@@ -435,7 +435,8 @@ export function registerWallpaperRoutes(app, express) {
       updated_at: new Date().toISOString()
     });
     await patchRows("wallpaper_requests", { request_id: "eq." + requestId }, {
-      edited_object_path: editedPath,
+      edited_object_path: null,
+      base_object_path: null,
       status: "completed",
       updated_at: new Date().toISOString()
     });
@@ -443,6 +444,8 @@ export function registerWallpaperRoutes(app, express) {
     if (profile.current_object_path && profile.current_object_path !== profile.original_object_path && profile.current_object_path !== currentPath) {
       await deleteObject(profile.current_object_path);
     }
+    await deleteObject(request.base_object_path);
+    await deleteObject(editedPath);
 
     let notificationSent = false;
     let notificationWarning;
