@@ -354,7 +354,7 @@ export function registerWallpaperRoutes(app, express) {
       editor: "eq." + editor,
       status: "in.(ready_for_edit,waiting_for_upload)",
       expires_at: "gt." + now
-    }, "request_id,owner,editor,status,created_at,expires_at", 1);
+    }, "request_id,owner,editor,status,created_at,expires_at,base_object_path", 1);
     if (!rows?.length) return res.status(404).json({ ok: false, error: "No wallpaper is ready for this editor" });
     const request = rows[0];
     return res.json({
@@ -363,7 +363,7 @@ export function registerWallpaperRoutes(app, express) {
       owner: request.owner,
       editor: request.editor,
       status: request.status,
-      filename: "heart-wallpaper-" + request.request_id + ".jpg",
+      filename: "heart-wallpaper-" + request.request_id + "." + String(request.base_object_path || "base.jpg").split(".").pop(),
       downloadPath: "/" + request.owner + "/get-wallpaper?requestId=" + encodeURIComponent(request.request_id)
     });
   });
