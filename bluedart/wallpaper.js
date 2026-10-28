@@ -423,7 +423,7 @@ export function registerWallpaperRoutes(app, express) {
 
     const image = parseImage(req.body);
     const editedPath = owner + "/requests/" + requestId + "/edited." + image.extension;
-    const currentPath = owner + "/current." + image.extension;
+    const currentPath = owner + "/current-wallpaper-" + requestId + "." + image.extension;
     await uploadObject(editedPath, image.bytes, image.contentType);
     const profiles = await selectRows("wallpaper_profiles", { owner: "eq." + owner }, "owner,current_object_path,original_object_path,version", 1);
     const profile = profiles?.[0];
@@ -465,6 +465,8 @@ export function registerWallpaperRoutes(app, express) {
     const profiles = await selectRows("wallpaper_profiles", { owner: "eq." + owner }, "owner,current_object_path,original_object_path,version", 1);
     const profile = profiles?.[0];
     if (!profile) throw new Error("Wallpaper profile missing for " + owner);
+    const now = new Date().toISOString();
+    await patchRows("wallpaper_requests", { owner: "eq." + owner, status: "in.(waiting_for_base,ready_for_edit,waiting_for_upload)" }, { status: "expired", updated_at: now });
     await uploadObject(path, image.bytes, image.contentType);
     await patchRows("wallpaper_profiles", { owner: "eq." + owner }, {
       original_object_path: path,
@@ -482,15 +484,18 @@ export function registerWallpaperRoutes(app, express) {
   const clearWallpaper = asyncRoute(async (req, res) => {
     const owner = ownerFromRequest(req);
     if (!owner) return res.status(400).json({ ok: false, error: "Owner must be aviral or ananya" });
-    const profiles = await selectRows("wallpaper_profiles", { owner: "eq." + owner }, "owner,original_object_path,version", 1);
+    const profiles = await selectRows("wallpaper_profiles", { owner: "eq." + owner }, "owner,original_object_path,current_object_path,version", 1);
     const profile = profiles?.[0];
     if (!profile?.original_object_path) return res.status(409).json({ ok: false, error: "Original wallpaper has not been registered for " + owner });
     const version = Number(profile.version || 0) + 1;
+    const now = new Date().toISOString();
+    await patchRows("wallpaper_requests", { owner: "eq." + owner, status: "in.(waiting_for_base,ready_for_edit,waiting_for_upload)" }, { status: "expired", updated_at: now });
     await patchRows("wallpaper_profiles", { owner: "eq." + owner }, {
       current_object_path: profile.original_object_path,
       version,
-      updated_at: new Date().toISOString()
+      updated_at: now
     });
+    if (profile.current_object_path && profile.current_object_path !== profile.original_object_path) await deleteObject(profile.current_object_path);
     return res.json({ ok: true, owner, restored: true, version, downloadPath: "/" + owner + "/get-wallpaper" });
   });
 
