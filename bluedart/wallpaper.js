@@ -4,9 +4,9 @@ const OWNERS = new Set(["aviral", "ananya"]);
 const BUCKET = process.env.SUPABASE_STORAGE_BUCKET || "heart-wallpapers";
 const MAX_IMAGE_BYTES = 25 * 1024 * 1024;
 const NOTIFICATIONS = {
-  wake: "WaterEject",
-  baseReady: "BaseWallpaperReady",
-  wallpaperReady: "WallpaperReady"
+  wake: "WallpaperWake",
+  baseReady: "WallpaperBaseReady",
+  wallpaperReady: "WallpaperUpdateReady"
 };
 
 function opposite(owner) {
