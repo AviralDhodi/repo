@@ -1,4 +1,5 @@
 import express from "express";
+import { registerWallpaperRoutes } from "./wallpaper.js";
 
 const app = express();
 const PORT = process.env.PORT || 10000;
@@ -371,6 +372,8 @@ app.get("/trackingId/:trackerId", async (req, res) => {
 });
 
 app.get("/whateverrender/:trackingNumber", createTracker);
+
+registerWallpaperRoutes(app, express);
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log("Shipment tracking proxy listening on port " + PORT);
