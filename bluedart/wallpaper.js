@@ -326,12 +326,28 @@ small{color:#555}
       expires_at: "lte." + now
     }, { status: "expired", updated_at: now });
 
-    const active = await selectRows("wallpaper_requests", {
+    const activeRows = await selectRows("wallpaper_requests", {
       owner: "eq." + owner,
       status: "in.(waiting_for_base,ready_for_edit,waiting_for_upload)",
       expires_at: "gt." + now
-    }, "request_id,status,expires_at", 1);
-    if (active?.length) return res.status(409).json({ ok: false, error: "An edit is already in progress for " + owner, requestId: active[0].request_id });
+    }, "request_id,status,expires_at,created_at,updated_at", 20);
+
+    // Treat an edit as stale after 15 minutes without activity, so an abandoned
+    // request cannot block the owner from starting another one.
+    const cutoffMs = Date.now() - 15 * 60 * 1000;
+    const staleRows = (activeRows || []).filter(row => {
+      const lastActivity = Date.parse(row.updated_at || row.created_at || "");
+      return Number.isFinite(lastActivity) && lastActivity < cutoffMs;
+    });
+    for (const stale of staleRows) {
+      await patchRows("wallpaper_requests", { request_id: "eq." + stale.request_id }, {
+        status: "expired",
+        updated_at: now
+      });
+    }
+    const staleIds = new Set(staleRows.map(row => row.request_id));
+    const active = (activeRows || []).filter(row => !staleIds.has(row.request_id));
+    if (active.length) return res.status(409).json({ ok: false, error: "An edit is already in progress for " + owner, requestId: active[0].request_id });
 
     const created = await insertRow("wallpaper_requests", {
       owner, editor, status: "waiting_for_base", expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
