@@ -385,12 +385,36 @@ small{color:#555}
     if (!request) return res.status(404).json({ ok: false, error: "No pending wallpaper request for " + owner });
     const image = parseImage(req.body);
     const path = owner + "/requests/" + request.request_id + "/base." + image.extension;
+    const profiles = await selectRows("wallpaper_profiles", { owner: "eq." + owner }, "owner,current_object_path,original_object_path,version", 1);
+    const profile = profiles?.[0];
+    if (!profile) throw new Error("Wallpaper profile missing for " + owner);
+
+    // Automatically establish a permanent backup on the first wallpaper upload.
+    // Never overwrite that backup during later requests; only update the current copy.
+    let backupPath = profile.original_object_path;
+    if (!backupPath) {
+      backupPath = owner + "/backup." + image.extension;
+      await uploadObject(backupPath, image.bytes, image.contentType);
+    }
+
+    const currentPath = owner + "/current-" + request.request_id + "." + image.extension;
     await uploadObject(path, image.bytes, image.contentType);
+    await uploadObject(currentPath, image.bytes, image.contentType);
+    await patchRows("wallpaper_profiles", { owner: "eq." + owner }, {
+      original_object_path: backupPath,
+      current_object_path: currentPath,
+      version: Number(profile.version || 0) + 1,
+      updated_at: new Date().toISOString()
+    });
     await patchRows("wallpaper_requests", { request_id: "eq." + request.request_id, status: "eq.waiting_for_base" }, {
       base_object_path: path,
       status: "ready_for_edit",
       updated_at: new Date().toISOString()
     });
+
+    if (profile.current_object_path && profile.current_object_path !== profile.original_object_path && profile.current_object_path !== currentPath) {
+      await deleteObject(profile.current_object_path);
+    }
 
     let notificationSent = false;
     let notificationWarning;
