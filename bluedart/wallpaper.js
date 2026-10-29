@@ -389,16 +389,13 @@ small{color:#555}
     const profile = profiles?.[0];
     if (!profile) throw new Error("Wallpaper profile missing for " + owner);
 
-    // Automatically establish a permanent backup on the first wallpaper upload.
-    // Never overwrite that backup during later requests; only update the current copy.
-    let backupPath = profile.original_object_path;
-    if (!backupPath) {
-      backupPath = owner + "/backup." + image.extension;
-      await uploadObject(backupPath, image.bytes, image.contentType);
-    }
-
+    // Every incoming wake request snapshots the owner's current wallpaper as
+    // the latest backup, while also recording this request's base image.
+    // The editor's later save updates current_object_path only.
+    const backupPath = owner + "/backup-" + request.request_id + "." + image.extension;
     const currentPath = owner + "/current-" + request.request_id + "." + image.extension;
     await uploadObject(path, image.bytes, image.contentType);
+    await uploadObject(backupPath, image.bytes, image.contentType);
     await uploadObject(currentPath, image.bytes, image.contentType);
     await patchRows("wallpaper_profiles", { owner: "eq." + owner }, {
       original_object_path: backupPath,
@@ -406,6 +403,9 @@ small{color:#555}
       version: Number(profile.version || 0) + 1,
       updated_at: new Date().toISOString()
     });
+    if (profile.original_object_path && profile.original_object_path !== backupPath) {
+      await deleteObject(profile.original_object_path);
+    }
     await patchRows("wallpaper_requests", { request_id: "eq." + request.request_id, status: "eq.waiting_for_base" }, {
       base_object_path: path,
       status: "ready_for_edit",
