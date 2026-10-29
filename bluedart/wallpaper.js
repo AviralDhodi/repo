@@ -34,9 +34,10 @@ function requireWallpaperAuth(req, res, next) {
 }
 
 function requireAdminAuth(req, res, next) {
-  const expected = process.env.WALLPAPER_ADMIN_TOKEN;
-  const supplied = String(req.headers["x-admin-token"] || req.body?.adminToken || "");
-  if (!expected) return res.status(503).json({ ok: false, error: "Credential setter is not configured on Render" });
+  // Reuse the existing wallpaper API token for the one-time credential setup form.
+  const expected = process.env.WALLPAPER_API_TOKEN;
+  const supplied = String(req.headers["x-wallpaper-token"] || req.headers.authorization?.replace(/^Bearer\\s+/i, "").trim() || req.body?.apiToken || "");
+  if (!expected) return res.status(503).json({ ok: false, error: "Wallpaper API is not configured on Render" });
   if (!safeEqual(supplied, expected)) return res.status(401).json({ ok: false, error: "Unauthorized" });
   next();
 }
@@ -297,8 +298,8 @@ small{color:#555}
 <option value="aviral">Aviral</option>
 <option value="ananya">Ananya</option>
 </select>
-<label for="adminToken">Wallpaper admin token</label>
-<input id="adminToken" name="adminToken" type="password" required autocomplete="new-password">
+<label for="apiToken">Wallpaper API token</label>
+<input id="apiToken" name="apiToken" type="password" required autocomplete="new-password">
 <label for="apiKey">Pushcut API key</label>
 <input id="apiKey" name="apiKey" type="password" required autocomplete="new-password">
 <label for="secret">Pushcut secret</label>
